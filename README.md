@@ -4,12 +4,14 @@ Make sure you read **all** of this document carefully, and follow the guidelines
 
 ## Background
 
-The DevOps work at Wiredcraft is involving a lot of 
+The DevOps work at Wiredcraft is involving a lot of:
+
 1. automation (scripts, ansible, etc.)
 2. discovery (need for clarification)
 3. new technologies (need to evaluate a technology)
 
 The purpose of this test is to:
+
 - evaluate your technical knowledge
 - evaluate your communication with the team
 - evaluate your ability to learn
@@ -25,6 +27,7 @@ The dev and devops teams are working together during the building phases for eit
 ## Tasks
 
 We need to figure a few things: 
+
 - how complex is the setup of Kong,
 - how accurate is the available documentation,
 - how many servers would be required for optimal use and scalability,
@@ -33,6 +36,7 @@ We need to figure a few things:
 - evaluate manageability: add / remove plugins - log management - etc.
 
 The dev needs are:
+
 - oAuth2 login
 - log to syslog
 - rate limit
