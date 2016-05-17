@@ -1,4 +1,13 @@
-# Test DevOps
+# Wiredcraft DevOps test
+
+Make sure you read **all** of this document carefully, and follow the guidelines in it.
+
+## Background
+
+The DevOps work at Wiredcraft is involving a lot of 
+1. automation (scripts, ansible, etc.)
+2. discovery (need for clarification)
+3. new technologies (need to evaluate a technology)
 
 The purpose of this test is to:
 - evaluate your technical knowledge
@@ -29,8 +38,32 @@ The dev needs are:
 - rate limit
 - ACL / CORS / SSL
 
-A senior devops team member would be expected to perform the above and come back to the rest of the devops team with an educated suggestion as to use or not the proposed solution - a demo would be welcome.
+A devops team member would be expected to perform the above and come back to the rest of the devops team with an educated suggestion as to use or not the proposed solution - a demo would be welcome.
 
-## Extra
+# Getting Started
+
+There's nothing here, we leave it to you to choose the build tool, code structure, framework, testing approach...
+
+# Requirements
+
+- With clear documentation on how to run the code
+- Use git to manage code
+
+# What We Care About
+
+Feel free to schedule your work, ask questions.
+
+We're interested in your method and how you approach the problem just as much as we're interested in the end result.
+
+Here's what you should aim for:
+
+- Comments in your scripts
+- Comments in your playbooks
+- Clean README file that explains how things work
+- Extensible work / code (use variables, limit hardcoded values, etc.) 
+
+# Extra
 
 If there is a need for servers, let us know, we can provision boxes for the tests.
+
+
