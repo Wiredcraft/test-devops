@@ -69,9 +69,11 @@ Here's what you should aim for:
 # Q&A
 
 - Where should I send back the result when I'm done?
+
 Fork this repo and send us a pull request when you think you are done. We don't have deadline for the task.
 
 - What if I have question?
+
 Create a new issue in the repo and we will get back to you very quickly. You can also jump on Slack and talk with us.
 
 # Extra
