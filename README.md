@@ -66,6 +66,14 @@ Here's what you should aim for:
 - Clean README file that explains how things work
 - Extensible work / code (use variables, limit hardcoded values, etc.) 
 
+# Q&A
+
+- Where should I send back the result when I'm done?
+Fork this repo and send us a pull request when you think you are done. We don't have deadline for the task.
+
+- What if I have question?
+Create a new issue in the repo and we will get back to you very quickly. You can also jump on Slack and talk with us.
+
 # Extra
 
 If there is a need for servers, let us know, we can provision boxes for the tests.
