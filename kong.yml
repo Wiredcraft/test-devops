@@ -1,0 +1,10 @@
+---
+
+- hosts: web
+  roles:
+    - kong
+
+
+- hosts: db
+  roles:
+    - postgresql

@@ -1,0 +1,4 @@
+[web]
+172.28.128.3 hostname=kong-web-128-3-prd ansible_ssh_user=vagrant
+[db]
+172.28.128.4 hostname=kong-db-128-4-prd ansible_ssh_user=vagrant
