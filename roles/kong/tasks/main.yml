@@ -10,3 +10,6 @@
 
 - name: install kong rpm
   yum: name=/usr/local/{{ kong_rpm }} disable_gpg_check=yes state=present
+
+- name: Config using postgres
+  lineinfile: 'dest=/etc/kong/kong.yml regexp="^#\sdatabase.+cassandra" line="database: postgres"'
