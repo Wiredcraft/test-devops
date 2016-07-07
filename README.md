@@ -28,8 +28,8 @@ Here is a list of a few technologies that will be used in this test:
 - Vagrant; for dev environment
 - Git; for code versioning
 - Python; as dev language (alternatives are welcome)
-- Django; as web framework
-- PostgreSQL; as database
+- Django; as web framework (alternatives are welcome)
+- PostgreSQL; as database (alternatives are welcome)
 
 ## Tasks
 
@@ -42,7 +42,7 @@ A suggested approach and deliverables:
 - create your ansible playbooks and build your Docker images (DB/apps) using [ansible-container](https://github.com/ansible/ansible-container)
 - Use compose to orchestrate your containers
 - A complete documentation on how to run / build / deploy the previous tasks
-1
+
 # Getting Started
 
 There's nothing here, we leave it to you to choose the build tool, code structure, framework, testing approach...
