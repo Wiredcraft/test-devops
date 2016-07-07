@@ -23,15 +23,15 @@ This is the reason the target of this task is quite broad and may involve techno
 
 Here is a list of a few technologies that will be used in this test:
 
-- Ansible; for automation
-- Docker's ecosystem; for containers, network, etc.
-- Vagrant; for dev environment
-- Git; for code versioning
-- Python; as dev language (alternatives are welcome)
-- Django; as web framework (alternatives are welcome)
-- PostgreSQL; as database (alternatives are welcome)
+- **Ansible**; for automation
+- **Docker's ecosystem**; for containers, network, etc.
+- **Vagrant**; for dev environment
+- **Git**; for code versioning
+- **Python**; as dev language (alternatives are welcome)
+- **Django**; as web framework (alternatives are welcome)
+- **PostgreSQL**; as database (alternatives are welcome)
 
-## Tasks
+## Task
 
 We want to run a bunch of apps on a swarm cluster spread across 3 hosts, relying on a backend database. We want to be able to increase the amount of workers (apps) easily via CLI.
 
