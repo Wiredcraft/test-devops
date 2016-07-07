@@ -4,12 +4,6 @@ Make sure you read **all** of this document carefully, and follow the guidelines
 
 ## Background
 
-The DevOps work at Wiredcraft is involving a lot of:
-
-1. automation (scripts, ansible, etc.)
-2. discovery (need for clarification)
-3. new technologies (need to evaluate a technology)
-
 The purpose of this test is to:
 
 - evaluate your technical knowledge
@@ -18,32 +12,37 @@ The purpose of this test is to:
  
 ## Preamble
  
-The DevOps needs extend from basic deploy / monitoring / operation / testing to more broad areas like R&D. 
+DevOps at wiredcraft involves a lot of different technologies and DevOps engineers are expected to be able to navigate through them efficiently. 
 
-The dev and devops teams are working together during the building phases for either services or products, and often come up with existing solutions that need to be evaluated and vetted for when it comes to long term management / performance, scalability.
+The mindset and ability to think out of the box is a critical asset for DevOps 
+Engineers rarely efficiently master every field (it'd be nice though !), but we need them to have the mindset to dig into issues and use their skills to overcome difficulties and come with solutions.
 
-[Kong](https://getkong.org) is a solution based on top of Nginx/Lua and Cassandra to improve security and management of backend APIs. It offers a wide range of [plugins](https://getkong.org/plugins/) from auth to logging that made its use attractive. It would have to be managed / setup by the devops team and would have to collaborate closely with the dev team when it comes to the feature set and feasibility. 
+This is the reason the target of this task is quite broad and may involve technologies you may not (yet) be familiar with.
+
+## Technical stack
+
+Here is a list of a few technologies that will be used in this test:
+
+- Ansible; for automation
+- Docker's ecosystem; for containers, network, etc.
+- Vagrant; for dev environment
+- Git; for code versioning
+- Python; as dev language (alternatives are welcome)
+- Django; as web framework
+- PostgreSQL; as database
 
 ## Tasks
 
-We need to figure a few things: 
+We want to run a bunch of apps on a swarm cluster spread across 3 hosts, relying on a backend database. We want to be able to increase the amount of workers (apps) easily via CLI.
 
-- how complex is the setup of Kong,
-- how accurate is the available documentation,
-- how many servers would be required for optimal use and scalability,
-- create a CentOS based role / setup (an existing one for [Ubuntu](https://galaxy.ansible.com/jessem/kong/) already exist and could be adapted)
-- prepare a test platform to evaluate the solution
-- evaluate manageability: add / remove plugins - log management - etc.
+A suggested approach and deliverables:
 
-The dev needs are:
-
-- oAuth2 login
-- log to syslog
-- rate limit
-- ACL / CORS / SSL
-
-A devops team member would be expected to perform the above and come back to the rest of the devops team with an educated suggestion as to use or not the proposed solution - a demo would be welcome.
-
+- A Vagrantfile that contains the definition of the 3 hosts; choose either existing docker box from vagrantcloud, or a base box + provision script. Make it flexible so you can update the CPU / RAM, etc.
+- Rely on Docker engine for swarm / service discovery
+- create your ansible playbooks and build your Docker images (DB/apps) using [ansible-container](https://github.com/ansible/ansible-container)
+- Use compose to orchestrate your containers
+- A complete documentation on how to run / build / deploy the previous tasks
+1
 # Getting Started
 
 There's nothing here, we leave it to you to choose the build tool, code structure, framework, testing approach...
@@ -79,5 +78,4 @@ Create a new issue in the repo and we will get back to you very quickly. You can
 # Extra
 
 If there is a need for servers, let us know, we can provision boxes for the tests.
-
 
