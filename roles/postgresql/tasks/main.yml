@@ -1,0 +1,35 @@
+# Instructions from https://wiki.postgresql.org/wiki/YUM_Installation
+
+- lineinfile: dest=/etc/yum.repos.d/CentOS-Base.repo insertafter="name.+Base" line="exclude=postgresql*" state=present
+- lineinfile: dest=/etc/yum.repos.d/CentOS-Base.repo insertafter="name.+Updates" line="exclude= postgresql*" state=present
+
+- name: Install pgdg rpm file
+  yum: name=http://yum.postgresql.org/9.4/redhat/rhel-{{ ansible_distribution_major_version }}-x86_64/pgdg-centos94-9.4-1.noarch.rpm state=present
+
+- name: Install PostgreSQL
+  yum: name={{ item }} state=present
+  with_items:
+    - postgresql94-server
+    - python-psycopg2
+
+- name: Initialize
+  shell: /usr/pgsql-9.4/bin/postgresql94-setup initdb
+
+- name: Change auth method in pg_hba.conf
+  lineinfile: dest=/var/lib/pgsql/9.4/data/pg_hba.conf regexp="^local.+all.+all.+peer" line="local all all trust" state=present
+
+- name: Change auth method in pg_hba.conf
+  lineinfile: dest=/var/lib/pgsql/9.4/data/pg_hba.conf regexp="^host.+all.+all.+127.0.0.1\/32.+ident" line="host all all 127.0.0.1/32 trust" state=present
+
+- name: Startup
+  service: name=postgresql-9.4 state=started enabled=yes
+
+- name: Set db kong
+  postgresql_db: name=kong encoding="UTF-8" lc_collate="en_US.UTF-8" lc_ctype="en_US.UTF-8" template="template0"
+  become: yes
+  become_user: "postgres"
+
+- name: Set user kong
+  postgresql_user: db=kong name=kong password=kong priv=ALL
+  become: yes
+  become_user: "postgres"

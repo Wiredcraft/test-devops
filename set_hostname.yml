@@ -1,0 +1,8 @@
+---
+
+- hosts: all
+  tasks:
+    - name: change hostname
+      hostname: name={{ hostname }}
+    - name: ensure self host exists
+      lineinfile: dest=/etc/hosts line="{{ inventory_hostname }} {{ hostname }}" state=present
