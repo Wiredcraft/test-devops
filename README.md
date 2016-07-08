@@ -14,8 +14,7 @@ The purpose of this test is to:
  
 DevOps at wiredcraft involves a lot of different technologies and DevOps engineers are expected to be able to navigate through them efficiently. 
 
-The mindset and ability to think out of the box is a critical asset for DevOps 
-Engineers rarely efficiently master every field (it'd be nice though !), but we need them to have the mindset to dig into issues and use their skills to overcome difficulties and come with solutions.
+The mindset and ability to think out of the box is a critical asset for DevOps. We don't expect everyone to know everything about everything, but we need them to have the mindset and critical thinking to dig into issues. We expect the DevOps engineers to use their skills to overcome difficulties and come with solutions or approaches to solutions.
 
 This is the reason the target of this task is quite broad and may involve technologies you may not (yet) be familiar with.
 
@@ -39,7 +38,7 @@ A suggested approach and deliverables:
 
 - A Vagrantfile that contains the definition of the 3 hosts; choose either existing docker box from vagrantcloud, or a base box + provision script. Make it flexible so you can update the CPU / RAM, etc.
 - Rely on Docker engine for swarm / service discovery
-- create your ansible playbooks and build your Docker images (DB/apps) using [ansible-container](https://github.com/ansible/ansible-container)
+- Create your ansible playbooks and build your Docker images (DB/apps) using [ansible-container](https://github.com/ansible/ansible-container)
 - Use compose to orchestrate your containers
 - A complete documentation on how to run / build / deploy the previous tasks
 
