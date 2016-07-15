@@ -1,0 +1,26 @@
+# Docker Based WebAPP Runtime
+
+## Installing
+
+### Requirements:
+
+- Vagrant
+
+### Config:
+
+Edit `Vagrantfile`, change mapped host port and number of web server instances.
+
+### Startup:
+
+Execute `vagrant up` in the root dir of this project.
+
+After everything is ready, you will be able to access the webapp from `http://127.0.0.1:8080`
+
+## Deployment
+
+Use script 'deploy.sh' to build and commit new version of code
+
+## Scaling
+
+Use script 'scale.sh <number of instance>' to change number of instances of app.
+
