@@ -27,7 +27,7 @@ Execute `vagrant ssh -c '/vagrant/bin/deploy.sh'` to build and commit new versio
 
 ## Scaling
 
-Execure `vagrant ssh -c '/vagrant/bin/scale.sh <number of instance>'` to change number of instances of application.
+Execute `vagrant ssh -c '/vagrant/bin/scale.sh <number of instance>'` to change number of instances of application.
 
 ## Notes
 
