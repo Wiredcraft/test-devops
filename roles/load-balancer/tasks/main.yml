@@ -1,0 +1,38 @@
+---
+# Setup nginx with interlock to track docker instances
+- name: Copy nginx config files
+  copy:
+    src: nginx
+    dest: /opt
+
+- name: Setup nginx load balancer
+  docker_service:
+    project_name: lb
+    definition:
+      version: '2'
+      services:
+        interlock:
+          image: ehazlett/interlock:master
+          command: -D run -c /etc/nginx/interlock.toml
+          network_mode: "host"
+          volumes:
+            - /var/run:/var/run
+            - /opt/nginx:/etc/nginx
+
+        nginx:
+          image: nginx:latest
+          entrypoint: nginx
+          command: -g "daemon off;" -c /etc/nginx/nginx.conf
+          network_mode: "host"
+          labels:
+            - "interlock.ext.name=nginx"
+          volumes:
+            - /opt/nginx:/etc/nginx
+
+  register: output
+
+- assert:
+    that:
+      - "interlock.lb_interlock_1.state.running"
+      - "nginx.lb_nginx_1.state.running"
+

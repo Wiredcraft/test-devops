@@ -1,0 +1,7 @@
+{% for k,v in proxy_env.items() %}
+export {{k}}="{{v}}"
+{% endfor %}
+DOCKER_OPTS="$DOCKER_OPTS --host=unix:///var/run/docker.sock --host=tcp://0.0.0.0:2376 --api-cors-header='*'"
+DOCKER_OPTS="$DOCKER_OPTS --insecure-registry master.local:5000"
+DOCKER_OPTS="$DOCKER_OPTS --cluster-store {{consul_url}} --cluster-advertise eth1:2378"
+

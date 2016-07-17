@@ -1,0 +1,30 @@
+---
+# Tasks to install docker
+- name: Install Kernel extras
+  apt: name=linux-image-extra-virtual
+
+- name: Add docker apt keys
+  apt_key: keyserver=keyserver.ubuntu.com id=58118E89F3A912897C070ADBF76221572C52609D
+
+- name: Update apt
+  apt_repository: repo='deb https://apt.dockerproject.org/repo ubuntu-trusty main' state=present
+
+- name: Install Docker
+  apt: name=docker-engine update_cache=yes
+
+- name: Update Docker options
+  template: src=docker-defaults.j2 dest=/etc/default/docker
+  register: docker_config
+
+- name: Restart Docker service
+  service: name=docker state=restarted
+  when: docker_config.changed
+
+- name: Permit docker access to vagrant user
+  user: name=vagrant groups=docker append=yes
+
+- name: Install python pip
+  apt: name=python-pip
+
+- name: Install docker API bindings for python
+  pip: name=docker-py

@@ -1,0 +1,22 @@
+- hosts: all
+  environment: "{{proxy_env}}"
+  roles:
+    - common
+
+- hosts: master
+  environment: "{{proxy_env}}"
+  roles:
+    # Both consul and etcd was used,
+    # consul is used for docker overlay networks and etcd is for swarm clustering
+    - consul-agent
+    - etcd-server
+    - docker-registry
+    - docker-compose
+    - load-balancer
+    - swarm-manager
+
+- hosts: all
+  environment: "{{proxy_env}}"
+  roles:
+    - swarm-agent
+

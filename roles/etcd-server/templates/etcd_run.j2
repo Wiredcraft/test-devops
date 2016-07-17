@@ -1,0 +1,12 @@
+#!/bin/bash
+
+exec >> /var/log/etcd.log 2>&1
+
+cd /opt/etcd-v3.0.3-linux-amd64
+
+mkdir -p /data/etcd
+exec ./etcd --data-dir "/data/etcd" \
+            --listen-peer-urls "http://0.0.0.0:2380" \
+            --listen-client-urls "http://0.0.0.0:2379" \
+            --advertise-client-urls "http://{{hostvars[inventory_hostname]['ansible_eth1']['ipv4']['address']}}:2379"
+

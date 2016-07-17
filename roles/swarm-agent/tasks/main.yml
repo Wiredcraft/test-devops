@@ -1,0 +1,8 @@
+---
+# Run swarm agent in docker
+- name: Create swarm agent container
+  docker_container:
+    name: swarm-agent
+    image: swarm
+    command: ["join", "--addr", "{{hostvars[inventory_hostname]['ansible_eth1']['ipv4']['address']}}:2376", "{{swarm_discovery_url}}"]
+    recreate: yes

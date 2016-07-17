@@ -1,0 +1,38 @@
+---
+# Install etcd service with daemontools
+
+- stat: path=/opt/etcd-v3.0.3-linux-amd64
+  register: etcd_dir
+
+- name: Download etcd binary
+  when: etcd_dir.stat.exists == False
+  unarchive:
+    src: https://github.com/coreos/etcd/releases/download/v3.0.3/etcd-v3.0.3-linux-amd64.tar.gz
+    dest: /opt/
+    copy: no
+
+- file: path=/etc/service/etcd state=directory
+
+- name: Install etcd service
+  template: src=etcd_run.j2 dest=/etc/service/etcd/run mode=0755
+
+- name: Ensure etcd service started
+  svc: name=etcd state=started
+
+#- name: Create etcd server container
+#  docker_container:
+#    name: etcd
+#    image: quay.io/coreos/etcd:v3.0.2
+#    command: [
+#        "--data-dir", "/data/swarm.etcd",
+#        "--listen-peer-urls", "http://0.0.0.0:2380",
+#        "--listen-client-urls", "http://0.0.0.0:2379",
+#        "--advertise-client-urls", "http://{{hostvars[inventory_hostname]['ansible_eth1']['ipv4']['address']}}:2379"
+#    ]
+#    network_mode: host
+#    recreate: no
+#    ports:
+#      - "2379:2379"
+#      - "2380:2380"
+#    volumes:
+#      - "/data/docker/etcd:/data"
