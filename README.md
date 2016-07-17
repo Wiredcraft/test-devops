@@ -1,4 +1,4 @@
-# Docker Based WebAPP Runtime
+# Docker Based Web Application Runtime
 
 ## Installing
 
@@ -6,8 +6,8 @@
 
 You should have these softeware installed on you host:
 
-- [Vagrant https://www.vagrantup.com/downloads.html]
-- [Ansible https://docs.ansible.com/ansible/intro_installation.html]
+- Vagrant (https://www.vagrantup.com/downloads.html)
+- Ansible (https://docs.ansible.com/ansible/intro_installation.html)
 
 ### Config:
 
@@ -32,4 +32,18 @@ Execute `vagrant ssh -c '/vagrant/bin/scale.sh <number of instance>'` to change 
 ## Notes
 
 - This is for demostration perpose only and did not have any security related setups, DO NOT use it in production environment directly.
+- The example application is written in CoffeeScript and uses Mongodb as database
+
+# How things works
+
+The basic idea is simple: spawn docker instances with docker-compose and then generate nginx config and reload it. But in such case, a little downtime would be expected when scaling down the application, since configure generation is not realtime.
+
+Docker daemon was set to form a cluster for overlay networks, this will allow swarm to link instances among multiple hosts, not the downside would be the performance of VXLAN networks, but since this is only a demo evnvironment, this is OK
+
+Swarm is used to manage instances, swarm agent will register them self into etcd server and swarm manager can be notified for changes.
+
+Both etcd and consul is used for service discovery, but in fact, they do the same work. However I encountered some trouble to connect swarm with consul and docker daemon to etcd, so i used both of them.
+
+During I writing this, I found a interesting tool called interlock (https://github.com/ehazlett/interlock) which can be used for managing the load balancers. so I switch to this and found it worked very well. 
+
 
