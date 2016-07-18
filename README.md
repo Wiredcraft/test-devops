@@ -38,7 +38,7 @@ Execute `vagrant ssh -c '/vagrant/bin/scale.sh <number of instance>'` to change 
 
 The basic idea is simple: spawn docker instances with docker-compose and then generate nginx config and reload it. But in such case, a little downtime would be expected when scaling down the application, since configure generation is not realtime.
 
-Docker daemon was set to form a cluster for overlay networks, this will allow swarm to link instances among multiple hosts, not the downside would be the performance of VXLAN networks, but since this is only a demo evnvironment, this is OK
+Docker daemon was set to form a cluster for overlay networks, this will allow swarm to link instances among multiple hosts, however the downside would be the performance of VXLAN networks, but since this is only a demo evnvironment, this is OK
 
 Swarm is used to manage instances, swarm agent will register them self into etcd server and swarm manager can be notified for changes.
 
