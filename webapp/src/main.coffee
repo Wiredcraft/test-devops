@@ -36,12 +36,14 @@ app.use views.middleware
 
 router = new Router
 router.get '/', ->
-  list = yield Question.find()
-  @render 'index',{list}
+  list = yield Question.find().sort {_id:-1}
+  list = [] if list is undefined
+  hostname = os.hostname()
+  @render 'index',{list,hostname}
   yield return
 
 router.post '/add', ->
-  console.info @request.body
+  #console.info @request.body
   q = new Question
     text: @request.body.q
     client: @request.ip

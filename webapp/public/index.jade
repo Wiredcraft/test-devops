@@ -1,10 +1,26 @@
-h1 Don't Panic.
-h2 What question could be answered with 42?
-form(method="POST" action="/add")
-  input(type="text" name="q")
-  span = 42
-  input(type="submit")
-hr
-ul
-  each val in list
-    li= val.text
+doctype html
+link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous")
+link(link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous")
+script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous")
+link(href="/public/footer.css" rel="stylesheet")
+
+.container
+  h1 Don't Panic.
+  h2 What question could be answered with 42?
+  .row
+    form(method="POST" action="/add")
+      label.col-md-1 Q:
+      input.col-md-7(type="text" name="q")
+      label.col-md-2 ? A: 42
+      input.col-md-2(type="submit")
+
+  img(src="/public/42.jpg")
+  .row
+    p Collected questions:
+    ul
+      each val in list
+        li= val.text
+
+.footer
+  .container
+    p.text-muted Current server is #{hostname}
