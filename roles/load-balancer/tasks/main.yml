@@ -24,6 +24,8 @@
           entrypoint: nginx
           command: -g "daemon off;" -c /etc/nginx/nginx.conf
           network_mode: "host"
+          ports:
+            - "80:80"
           labels:
             - "interlock.ext.name=nginx"
           volumes:
