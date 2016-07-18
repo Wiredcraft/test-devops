@@ -1,0 +1,10 @@
+h1 Don't Panic.
+h2 What question could be answered with 42?
+form(method="POST" action="/add")
+  input(type="text" name="q")
+  span = 42
+  input(type="submit")
+hr
+ul
+  each val in list
+    li= val.text

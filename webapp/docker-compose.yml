@@ -1,0 +1,19 @@
+version: '2'
+services:
+    db:
+        image: mongo
+        #network_mode: "bridge"
+        ports:
+            - "27017:27017"
+
+    app:
+        image: master.local:5000/webapp-demo:latest
+        build: .
+        #network_mode: "bridge"
+        ports:
+            - "8080"
+        labels:
+            - "interlock.hostname=webapp-demo"
+            - "interlock.domain=local"
+        #links:
+        #    - db
