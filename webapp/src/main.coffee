@@ -48,7 +48,7 @@ router.post '/add', ->
     text: @request.body.q
     client: @request.ip
     server: os.hostname()
-  yield q.save()
+  yield q.save() if q.text
   @redirect '/'
   yield return
 

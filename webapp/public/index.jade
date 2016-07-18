@@ -19,7 +19,7 @@ link(href="/public/footer.css" rel="stylesheet")
     p Collected questions:
     ul
       each val in list
-        li= val.text
+        li #{val.text} by #{val.client}@#{val.server}
 
 .footer
   .container
