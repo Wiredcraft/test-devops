@@ -44,6 +44,6 @@ Swarm is used to manage instances, swarm agent will register them self into etcd
 
 Both etcd and consul is used for service discovery, but in fact, they do the same work. However I encountered some trouble to connect swarm with consul and docker daemon to etcd, so i used both of them.
 
-During I writing this, I found a interesting tool called interlock (https://github.com/ehazlett/interlock) which can be used for managing the load balancers. so I switch to this and found it worked very well. 
+During I writing this, I found a interesting tool called [interlock] (https://github.com/ehazlett/interlock) which can be used for managing the load balancers. so I switch to this and found it worked very well. 
 
 
