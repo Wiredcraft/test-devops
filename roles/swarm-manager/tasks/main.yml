@@ -1,0 +1,20 @@
+---
+# Run swarm manager in docker
+- name: Create swarm manager container
+  docker_container:
+    name: swarm-manager
+    image: swarm
+    command: ["manage", "-H", "0.0.0.0:2375", "-H", "unix:///var/run/swarm.sock", "{{swarm_discovery_url}}"]
+    network_mode: host
+    recreate: no
+    ports:
+      - "2375:2375"
+    volumes:
+      - /var/run:/var/run
+
+- name: Update swarm socket permission
+  file:
+    name: /var/run/swarm.sock
+    mode: 0660
+    owner: root
+    group: docker

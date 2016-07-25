@@ -1,0 +1,4 @@
+---
+# Install docker-compose via pip
+- name: Install docker-compose
+  pip: name=docker-compose

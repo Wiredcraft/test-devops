@@ -1,0 +1,21 @@
+---
+# Install consul service with daemontools
+
+- stat: path=/usr/local/bin/consul
+  register: c
+
+- name: Download consul binary
+  when: c.stat.exists == False
+  unarchive:
+    src: https://releases.hashicorp.com/consul/0.6.4/consul_0.6.4_linux_amd64.zip
+    dest: /usr/local/bin/
+    copy: no
+
+- file: path=/etc/service/consul state=directory
+
+- name: Install consul service
+  template: src=consul_run.j2 dest=/etc/service/consul/run mode=0755
+
+- name: Ensure consul service started
+  svc: name=consul state=started
+

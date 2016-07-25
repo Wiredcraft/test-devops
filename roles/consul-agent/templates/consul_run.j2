@@ -1,0 +1,8 @@
+#!/bin/bash
+
+exec >> /var/log/consul.log 2>&1
+
+mkdir -p /data/consul
+
+LOCAL_IP="{{hostvars[inventory_hostname]['ansible_eth1']['ipv4']['address']}}"
+exec consul agent -server -data-dir /data/consul -client $LOCAL_IP -bind $LOCAL_IP -ui -dev

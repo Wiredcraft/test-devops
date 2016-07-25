@@ -1,0 +1,4 @@
+---
+# Install Ansible
+- apt_repository: repo='ppa:ansible/ansible'
+- apt: name=ansible

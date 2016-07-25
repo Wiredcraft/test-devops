@@ -1,0 +1,10 @@
+---
+# Install docker-compose via pip
+- name: Start docker registry
+  docker_container:
+    name: registry
+    image: registry:2
+    restart_policy: always
+    network_mode: host
+    volumes:
+      - "/data/docker/registry:/var/lib/registry"

@@ -1,0 +1,19 @@
+---
+# Common packages and files
+- name: Generate hosts file
+  lineinfile: dest=/etc/hosts regexp='.*{{ item }}.local$' line="{{ hostvars[item]['ansible_eth1']['ipv4']['address'] }} {{item}} {{item}}.local" state=present
+  when: hostvars[item].ansible_eth1.ipv4.address is defined
+  with_items: "{{groups['all']}}"
+
+- name: Update apt source list
+  copy: src=sources.list dest=/etc/apt/sources.list
+
+- name: Install common packages
+  apt: name=htop,dstat,sysstat,daemontools-run,unzip update_cache=yes
+
+- name: Install ppa source
+  apt: name=software-properties-common
+
+- name: Ensure svscanboot is running
+  service: name=svscan state=started
+

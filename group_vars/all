@@ -1,0 +1,13 @@
+# Discovery url used by swarm
+swarm_discovery_url: etcd://{{hostvars['master']['ansible_eth1']['ipv4']['address']}}:2379
+
+# Discovery url used by docker-cluster, use hostname because docker can not handle ip subnets in no_proxy well.
+docker_discovery_url: consul://master.local:8500
+
+# HTTP Proxy settings, comment out http_proxy and https_proxy if you dont need them
+proxy_env:
+    #http_proxy: http://172.20.0.254:3128
+    #https_proxy: http://172.20.0.254:3128
+    #http_proxy: http://192.168.100.107:3129
+    #https_proxy: http://192.168.100.107:3129
+    no_proxy: localhost,127.0.0.0/8,172.16.0.0/12,192.168.0.0/16,.local,cn.archive.ubuntu.com

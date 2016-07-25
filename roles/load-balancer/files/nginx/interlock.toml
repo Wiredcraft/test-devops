@@ -1,0 +1,11 @@
+ListenAddr = ":8080"
+DockerURL = "unix:///var/run/swarm.sock"
+
+[[Extensions]]
+Name = "nginx"
+ConfigPath = "/etc/nginx/nginx.conf"
+PidPath = "/var/run/nginx.pid"
+TemplatePath = "/etc/nginx/nginx.conf.template"
+MaxConn = 1024
+Port = 80
+NginxPlusEnabled = false

@@ -1,80 +1,49 @@
-# Wiredcraft DevOps test
+# Docker Based Web Application Runtime
 
-Make sure you read **all** of this document carefully, and follow the guidelines in it.
+## Installing
 
-## Background
+### Requirements:
 
-The purpose of this test is to:
+You should have these softeware installed on you host:
 
-- evaluate your technical knowledge
-- evaluate your communication with the team
-- evaluate your ability to learn
- 
-## Preamble
- 
-DevOps at wiredcraft involves a lot of different technologies and DevOps engineers are expected to be able to navigate through them efficiently. 
+- [Vagrant] (https://www.vagrantup.com/downloads.html)
+- [Ansible] (https://docs.ansible.com/ansible/intro_installation.html)
 
-The mindset and ability to think out of the box is a critical asset for DevOps. We don't expect everyone to know everything about everything, but we need them to have the mindset and critical thinking to dig into issues. We expect the DevOps engineers to use their skills to overcome difficulties and come with solutions or approaches to solutions.
+### Config:
 
-This is the reason the target of this task is quite broad and may involve technologies you may not (yet) be familiar with.
+- Edit `Vagrantfile`, change mapped host port and number of web server instances.
+- Edit `group_vars/all`, change proxy settings if you need it for better internet access, or comment out if you dont need it.
+- Edit `roles/common/files/sources.list`, for a faster apt-get source server.
 
-## Technical stack
+### Startup:
 
-Here is a list of a few technologies that will be used in this test:
+Execute `vagrant up` in the root dir of this project.
 
-- **Ansible**; for automation
-- **Docker's ecosystem**; for containers, network, etc.
-- **Vagrant**; for dev environment
-- **Git**; for code versioning
-- **Python**; as dev language (alternatives are welcome)
-- **Django**; as web framework (alternatives are welcome)
-- **PostgreSQL**; as database (alternatives are welcome)
+This will spawn number of VMs on your host to form a docker cluster, you can later deploy code or scale number of web instances.
 
-## Task
+## Code Deployment
 
-We want to run a bunch of apps on a swarm cluster spread across 3 hosts, relying on a backend database. We want to be able to increase the amount of workers (apps) easily via CLI.
+Execute `vagrant ssh -c '/vagrant/bin/deploy.sh'` to build and commit new version of code in `webapp` dir, after the process, you will be able to access it from http://127.0.0.1:8080 (or any other port defined in Vagrantfile)
 
-A suggested approach and deliverables:
+## Scaling
 
-- A Vagrantfile that contains the definition of the 3 hosts; choose either existing docker box from vagrantcloud, or a base box + provision script. Make it flexible so you can update the CPU / RAM, etc.
-- Rely on Docker engine for swarm / service discovery
-- Create your ansible playbooks and build your Docker images (DB/apps) using [ansible-container](https://github.com/ansible/ansible-container)
-- Use compose to orchestrate your containers
-- A complete documentation on how to run / build / deploy the previous tasks
+Execute `vagrant ssh -c '/vagrant/bin/scale.sh <number of instance>'` to change number of instances of application.
 
-# Getting Started
+## Notes
 
-There's nothing here, we leave it to you to choose the build tool, code structure, framework, testing approach...
+- This is for demostration perpose only and did not have any security related setups, DO NOT use it in production environment directly.
+- The example application is written in CoffeeScript and uses Mongodb as database
 
-# Requirements
+# How things works
 
-- With clear documentation on how to run the code
-- Use git to manage code
+The basic idea is simple: spawn docker instances with docker-compose and then generate nginx config and reload it. But in such case, a little downtime would be expected when scaling down the application, since configure generation is not realtime.
 
-# What We Care About
+Docker daemon was set to form a cluster for overlay networks, this will allow swarm to link instances among multiple hosts, however the downside would be the performance of VXLAN networks, but since this is only a demo evnvironment, this is OK
 
-Feel free to schedule your work, ask questions.
+Swarm is used to manage instances, swarm agent will register them self into etcd server and swarm manager can be notified for changes.
 
-We're interested in your method and how you approach the problem just as much as we're interested in the end result.
+Both etcd and consul is used for service discovery, but in fact, they do the same work. However I encountered some trouble to connect swarm with consul and docker daemon to etcd, so i used both of them.
 
-Here's what you should aim for:
+During I writing this, I found a interesting tool called [interlock] (https://github.com/ehazlett/interlock) which can be used for managing the load balancers. so I switch to this and found it worked very well. 
 
-- Comments in your scripts
-- Comments in your playbooks
-- Clean README file that explains how things work
-- Extensible work / code (use variables, limit hardcoded values, etc.) 
-
-# Q&A
-
-- Where should I send back the result when I'm done?
-
-Fork this repo and send us a pull request when you think you are done. We don't have deadline for the task.
-
-- What if I have question?
-
-Create a new issue in the repo and we will get back to you very quickly. You can also jump on Slack and talk with us.
-
-# Extra
-
-If there is a need for servers, let us know, we can provision boxes for the tests.
 
