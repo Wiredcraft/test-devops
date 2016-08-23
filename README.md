@@ -18,7 +18,7 @@ The mindset and ability to think out of the box is a critical asset for DevOps. 
 
 This is the reason the target of this task is quite broad and may involve technologies you may not (yet) be familiar with.
 
-## Thchnical stack
+## Technical stack
 
 Here is the list of the technologies that we can use in the test:
 
@@ -32,6 +32,8 @@ Here is the list of the technologies that we can use in the test:
 The test is composed of 2 components:
 - a **dev** related task; where you'll be expected to prepare a simple site using a static site generator,
 - an **ops** related task; where you'll be expected to spawn a server to run and operate the site you've created.
+
+**Make sure you create appropriate documentation on how to run your code and playbook. Create a `README.md` file for that purpose, or store the documentation in a `docs/` folder.**
 
 ### Development task
 
