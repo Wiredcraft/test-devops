@@ -50,7 +50,7 @@ A few suggestions / recommendations:
 - Prepare a script (choose whichever language) that will take one parameter:
     - either `dev`, in which case, it will:
         - create a new post using markdown with yaml frontmatter format,
-        - use the output of `fortune` command as content,
+        - use the output of [`fortune`](http://manpages.ubuntu.com/manpages/xenial/man6/fortune.6.html) command as content,
         - and increment the version of the site by `0.0.1`,
         - compile the site, 
         - commit and push the sources (markdown files) and build site (html) back to github
