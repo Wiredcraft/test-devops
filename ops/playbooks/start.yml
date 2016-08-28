@@ -6,11 +6,9 @@
       - name: "name"
         prompt: "Please provide the target server name!"
         private: no
-        confirm: yes
       - name: "web_path"
         prompt: "Please provide base web path where to store dev/staging files!"
         private: no
-        confirm: yes
     tasks:
       - name: add target server name into staging inventory
         template: src=staging.j2 dest=staging mode=0755
