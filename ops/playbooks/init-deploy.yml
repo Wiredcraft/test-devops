@@ -1,8 +1,6 @@
 ---
-- hosts: {{ name }}
-  remote_user: root
-  vars:
-  vars_prompt:
-  roles:
-     - nginx
-     - jekyll
+  - hosts: {{ name }}
+    remote_user: root
+    roles:
+      - nginx
+      - jekyll
