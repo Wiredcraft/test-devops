@@ -1,5 +1,5 @@
 ---
-- hosts: { name }
+- hosts: {{ name }}
   remote_user: root
   vars:
   vars_prompt:

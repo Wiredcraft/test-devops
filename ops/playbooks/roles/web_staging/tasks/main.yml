@@ -1,6 +1,6 @@
 - name: prepare source dir for staging
-  file: path={ source_staging_path } state=directory mode=0755
+  file: path={{ source_staging_path }} state=directory mode=0755
 - name: prepare jekyll config file for for staging
-  template: src=templates/_config_staging.j2 dest={ config_staging_path } mode=0755
+  template: src=templates/_config_staging.j2 dest={{ config_staging_path }} mode=0755
 - name: start jekyll server for staging
-  command: jekyll serve --config { config_staging_path }
+  command: jekyll serve --config {{ config_staging_path }}
