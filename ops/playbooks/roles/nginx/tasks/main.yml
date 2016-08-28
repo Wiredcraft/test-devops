@@ -1,6 +1,4 @@
 - name: install nginx
   apt: name=nginx state=latest
-- name: configure nginx server for dev environment
-  template: src=templates/nginx_dev.j2 dest=/etc/nginx/conf.d/dev.conf mode=0755
-- name: configure nginx server for staging environment
-  template: src=templates/nginx_staging.j2 dest=/etc/nginx/conf.d/staging.conf mode=0755
+- name: start nginx
+  service: name=nginx state=started

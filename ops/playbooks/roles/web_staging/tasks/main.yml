@@ -11,3 +11,7 @@
     chdir: "{{ src_staging_path }}"
 - name: start jekyll server for staging
   command: "nohup jekyll serve --config {{ config_staging_path }} &"
+- name: configure nginx server for staging environment
+  template: src=templates/nginx_staging.j2 dest=/etc/nginx/conf.d/staging.conf mode=0755
+  notify:
+    - reload nginx conf file
