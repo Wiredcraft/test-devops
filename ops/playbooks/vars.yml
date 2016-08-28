@@ -1,0 +1,18 @@
+---
+web_path: /opt/web
+
+# vars for dev
+web_dev_path: {{ web_path }}/dev
+src_dev_path: {{ web_dev_path }}/source
+target_dev_path: {{ web_dev_path }}/_site_dev
+config_dev_path: {{ web__dev_path }}/_config_dev.conf
+# vars for staging
+web_staging_path: {{ web_path }}/staging
+src_staging_path: {{ web_staging_path }}/source
+target_staging_path: {{ web_staging_path }}/_site_staging
+config_staging_path: {{ web__staging_path }}/_config_staging.conf
+
+# github repo for the project
+
+project_name: test-blog
+repo_path: https://github.com/devfans/{{ project_name }}.git

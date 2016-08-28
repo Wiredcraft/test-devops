@@ -1,4 +1,1 @@
-web_staging_path: {{ web_path }}/staging
-src_staging_path: {{ web_staging_path }}/source
-target_staging_path: {{ web_staging_path }}/_site_staging
-config_staging_path: {{ web__staging_path }}/_config_staging.conf
+---
