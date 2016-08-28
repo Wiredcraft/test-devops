@@ -8,6 +8,6 @@
 - name: run bundle install
   command: bundle install
   args:
-    chdir: {{ src_dev_path }}
+    chdir: "{{ src_dev_path }}"
 - name: start jekyll server for dev
   command: jekyll serve --config {{ config_dev_path }}
