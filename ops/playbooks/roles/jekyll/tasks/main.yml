@@ -8,6 +8,8 @@
   apt: name=ruby-dev state=latest
 - name: install nodejs
   apt: name=nodejs state=latest
+- name: install gcc for ubuntu server
+  apt: name=gcc state=present
 - name: gem install jekyll
   gem: name=jekyll state=latest
 - name: gem install bundle

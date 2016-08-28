@@ -5,12 +5,12 @@ web_path: /opt/web
 web_dev_path: "{{ web_path }}/dev"
 src_dev_path: "{{ web_dev_path }}/source"
 target_dev_path: "{{ web_dev_path }}/_site_dev"
-config_dev_path: "{{ web_dev_path }}/_config_dev.conf"
+config_dev_path: "{{ web_dev_path }}/_config_dev.yml"
 # vars for staging
 web_staging_path: "{{ web_path }}/staging"
 src_staging_path: "{{ web_staging_path }}/source"
 target_staging_path: "{{ web_staging_path }}/_site_staging"
-config_staging_path: "{{ web_staging_path }}/_config_staging.conf"
+config_staging_path: "{{ web_staging_path }}/_config_staging.yml"
 
 # github repo for the project
 

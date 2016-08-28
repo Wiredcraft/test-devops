@@ -1,5 +1,5 @@
 ---
-  - hosts: localhost
+  - hosts: test-devops-stefan
     vars_files:
       - ./vars.yml
     remote_user: root
