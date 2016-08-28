@@ -10,4 +10,4 @@
   args:
     chdir: "{{ src_staging_path }}"
 - name: start jekyll server for staging
-  command: jekyll serve --config {{ config_staging_path }}
+  command: "nohup jekyll serve --config {{ config_staging_path }} &"
