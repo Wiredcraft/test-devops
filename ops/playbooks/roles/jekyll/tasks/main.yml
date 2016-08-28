@@ -14,3 +14,6 @@
   gem: name=jekyll state=latest
 - name: gem install bundle
   gem: name=bundle state=latest
+- name: kill all running jekyll for init
+  command: pkill -f jekyll
+  ignore_errors: yes
