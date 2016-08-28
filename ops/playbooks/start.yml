@@ -13,4 +13,4 @@
       - name: add target server name into staging inventory
         template: src=./staging.j2 dest=./staging mode=0755
       - name: invoke main.yml
-        command: ansible-playbook -i staging main.yml -k
+        command: ansible-playbook -i staging init-deploy.yml -k
