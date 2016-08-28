@@ -1,0 +1,4 @@
+- name: prepare deving work directory
+  file: path={{ work_dir }} state=directory mode=0755
+- name: start nginx
+  service: name=nginx state=started

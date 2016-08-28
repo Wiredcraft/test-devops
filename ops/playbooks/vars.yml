@@ -16,3 +16,6 @@ config_staging_path: "{{ web_staging_path }}/_config_staging.yml"
 
 project_name: "test-blog"
 repo_path: "https://github.com/devfans/{{ project_name }}.git"
+
+# vars for deving: generating new posts
+work_dir: "~/_work4deving"
