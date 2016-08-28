@@ -1,0 +1,3 @@
+---
+  - name: reload nginx conf file
+    command: "nginx -s reload"
