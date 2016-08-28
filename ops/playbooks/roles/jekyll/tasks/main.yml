@@ -1,0 +1,12 @@
+- name: install git
+  apt: name=git state=latest
+- name: install gem
+  apt: name=gem state=latest
+- name: install ruby
+  apt: name=ruby state=latest
+- name: install nodejs
+  apt: name=nodejs state=latest
+- name: gem install jekyll
+  gem: name=jekyll state=latest
+- name: gem install bundle
+  gem: name=bundle state=latest
