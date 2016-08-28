@@ -4,13 +4,17 @@
       - ansible
     vars_prompt:
       - name: "name"
-        prompt: "Please provide the target server name!"
+        prompt: "Please provide the target server name:"
         private: no
       - name: "web_path"
-        prompt: "Please provide base web path where to store dev/staging files!"
+        prompt: "Please provide base web path like /opt/web :"
         private: no
+	default: "/opt/web"
     tasks:
       - name: add target server name into staging inventory
         template: src=./staging.j2 dest=./staging mode=0755
-      - name: invoke init-deploy.yml
-        command: ansible-playbook -e 'host_key_checking=False' -i staging init-deploy.yml -k
+#     - name: invoke init-deploy.yml
+#        command: ansible-playbook -e 'host_key_checking=False' -i staging init-deploy.yml -k
+
+  - include: init-deploy.yml name="{{ name }}"
+  
