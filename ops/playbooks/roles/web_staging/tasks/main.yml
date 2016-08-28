@@ -5,5 +5,9 @@
   template: src=templates/_config_staging.j2 dest={{ config_staging_path }} mode=0755
 - name: pull project source files from github
   git: repo={{ repo_path }} dest={{ src_dev_path }}
+- name: run bundle install
+  command: bundle install
+  args:
+    chdir: {{ src_staging_path }}
 - name: start jekyll server for staging
   command: jekyll serve --config {{ config_staging_path }}
