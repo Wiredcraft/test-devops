@@ -1,9 +1,9 @@
 ---
 - name: prepare source dir for dev
-  file: path={{ source_dev_path }} state=directory mode=0755
+  file: path={{ src_dev_path }} state=directory mode=0755
 - name: prepare jekyll config file for for dev
   template: src=templates/_config_dev.j2 dest={{ config_dev_path }} mode=0755
 - name: pull project source files from github
-  git: repo={{ repo_path }} dest={{ source_dev_path }}
+  git: repo={{ repo_path }} dest={{ src_dev_path }}
 - name: start jekyll server for dev
   command: jekyll serve --config {{ config_dev_path }}

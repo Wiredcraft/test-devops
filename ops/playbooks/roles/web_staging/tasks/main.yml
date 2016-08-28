@@ -1,9 +1,9 @@
 ---
 - name: prepare source dir for staging
-  file: path={{ source_staging_path }} state=directory mode=0755
+  file: path={{ src_staging_path }} state=directory mode=0755
 - name: prepare jekyll config file for for staging
   template: src=templates/_config_staging.j2 dest={{ config_staging_path }} mode=0755
 - name: pull project source files from github
-  git: repo=https://github.com/devfans/test-blog.git dest={{ source_dev_path }}
+  git: repo={{ repo_path }} dest={{ src_dev_path }}
 - name: start jekyll server for staging
   command: jekyll serve --config {{ config_staging_path }}

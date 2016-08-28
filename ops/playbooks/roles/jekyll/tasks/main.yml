@@ -4,6 +4,8 @@
   apt: name=gem state=latest
 - name: install ruby
   apt: name=ruby state=latest
+- name: install ruby-dev
+  apt: name=ruby-dev state=latest
 - name: install nodejs
   apt: name=nodejs state=latest
 - name: gem install jekyll
