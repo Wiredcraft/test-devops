@@ -1,19 +1,31 @@
 #!/usr/bin/python
-import argparse, json, sys, os
+import argparse, json, sys, os, time
 import subprocess, datetime, re
 
-
-class Deving(object):
+# Define Iteration class for making new post and publish
+class Iteration(object):
     def __init__(self):
+        # Specify the project-source repository meta
         self.srcRepoName = "test-blog"
         self.srcBranch = "master"
+        self.sourceRepo = "https://github.com/devfans/test-blog.git"
+        # Specify the project-compiled repository meta
         self.cpdRepoName = "test-blog-compiled"
         self.cpdBranch = "master"
-        self.sourceRepo = "https://github.com/devfans/test-blog.git"
         self.compiledRepo = "https://github.com/devfans/test-blog-compiled.git"
+        # Specify Github token for auto-publish
+        self.otoken = "c96e4139e2905b21ce23a31b27bd9df7380fcdeb"
+        # Store the version of the site
+        self.version = None
+        # Specify the time interval (in minutes) for new post generation
+        self.devInterval = 10
+        # Specify after how many new posts created, it needs to make staging release
+        self.devsToStage = 6
+        # Specify the temp work directory to store repos
         self.workDir = os.environ['HOME']
         self.srcPath = os.path.join(self.workDir, self.srcRepoName)
         self.cpdPath = os.path.join(self.srcPath, "_site")
+        # Specify the new post template
         self.template = """---
 layout: post
 title:  {blogTitle}
@@ -21,9 +33,12 @@ date:   {blogDate}
 categories: update
 ---
 {blogContent}"""
+        # Prepare local environment for work
         self.syncSrc()
         self.initFortune()
+        self.initJekyll()
         return None
+    # Define method to fetch repos from Github
     def syncSrc(self):
         print("Sync from source")
         try:
@@ -39,10 +54,22 @@ categories: update
             os.chdir(self.workDir)
             os.system("git clone " + self.sourceRepo)
             return None
+    # Prepare fortune
     def initFortune(self):
-        os.system("sudo yum install fortune-mod -y")
+        os.system("sudo apt-get install fortune-mod -y")
         return None
-    def dev(self):
+    # Prepare jekyll tools
+    def initJekyll(self):
+        try:
+            os.system("sudo apt-get install -y git gem ruby ruby-dev gcc nodejs")
+            os.system("sudo gem install jekyll")
+            os.system("sudo gem install bundle")
+        except BaseException as e:
+            print("Error occurred when prepare for jekyll!")
+            print(e)
+        return None
+    # Define new post generation process
+    def genPost(self):
         print("Will make a new post")
         postPath = os.path.join(self.srcPath, "_posts")
         os.chdir(postPath)
@@ -56,56 +83,93 @@ categories: update
         filePath = os.path.join(postPath, filename)
         with open(filePath, 'w+b') as f:
             f.write(blog)
+        return None
+    # Increase site version by 0.0.1 for new post
+    def devIncreVer(self):
         print("increase the version number")
+        # To fetch site version from jekyll data file and update it
         verPath = os.path.join(self.srcPath, '_data','meta.yml')
         version = subprocess.check_output("cat " + verPath, shell=True)
         ver = re.findall(r'(version: \d.\d.)(\d)', version)
         newVersion = ver[0][0] + str(int(ver[0][1]) + 1)
+        self.version = re.findall(r'version: (\d.\d.\d)', newVersion)[0]
         with open(verPath, 'w+b') as f:
             f.write(newVersion)
-	os.chdir(self.srcPath)
-	os.system("jekyll build --config _config.yml")
-	os.chdir(self.cpdPath)
-	os.system("git init . && git remote add origin " + self.compiledRepo)
-	os.system("git pull origin " + self.cpdBranch + " -f")
-	os.system("git add * && git commit -m 'newpost'")
-	os.system("git push origin master")
         return None
-    def staging(self):
-        print("increase the version number")
+    # Increase site version by 0.1.0 for new staging release
+    def stagingIncreVer(self):
+        print("increase the version number for release")
         verPath = os.path.join(self.srcPath, '_data','meta.yml')
         version = subprocess.check_output("cat " + verPath, shell=True)
         ver = re.findall(r'(version: \d.)(\d)(.\d)', version)
         newVersion = ver[0][0] + str(int(ver[0][1]) + 1) + ".0"
+        self.version = re.findall(r'version: (\d.\d.\d)', newVersion)[0]
         with open(verPath, 'w+b') as f:
             f.write(newVersion)
         return None
+    # Commit changes and push back to Github with new tags
+    def CommitGH(self):
+        os.chdir(self.srcPath)
+        os.system("jekyll build --config _config.yml")
+        os.chdir(self.cpdPath)
+        os.system("git init . && git remote add origin " + self.compiledRepo)
+        os.system("git pull origin " + self.cpdBranch + " -f")
+        os.system("git add * && git commit -m 'Add new post'")
+        os.system("git tag -a " + self.version + " -m 'Release new version '" )
+        os.system("git push origin master")
+        os.system("git push origin --tags")
+        return None
+    # Dev entry to make a new post
+    def dev(self):
+        self.genPost()
+        self.devIncreVer()
+        self.CommitGH()
+        return None
+    # Staging entry to make a staging release
+    def staging(self):
+        self.stagingIncreVer()
+        self.CommitGH()
+        return None
+    # iteration entry to start iterations
+    def iterate(self):
+        elapse = 0
+        while True:
+            self.dev()
+            time.sleep(self.interval*60)
+            elapse += 1
+            if elapse >= self.devsToStage:
+                self.staging()
+                elapse = 0
+        return True
 
 
 
-
-
-
-
-
-
+# main entry
 def main():
     parser = argparse.ArgumentParser(description="Generating posts for test-blog-site")
     parser.add_argument("action", help="use dev to generate new post using fortune and push compiled site back to github with version added by 0.0.1. use staging to push compiled site back to github with version added by 0.1.0.")
     choice = parser.parse_args()
     if choice.action == 'dev':
         try:
-            deving = Deving()
-            deving.dev()
+            interator = Interation()
+            interator.dev()
             print("A dev action was made!")
         except BaseException as e:
             print(e)
         return None
     elif choice.action == 'staging':
         try:
-            deving = Deving()
-            deving.staging()
+            interator = Interation()
+            interator.staging()
             print("A release action was made!")
+        except BaseException as e:
+            print(e)
+        return None
+    elif choice.action == 'iteration':
+        try:
+            print("Iteration started!")
+            interator = Interation()
+            interator.iterate()
         except BaseException as e:
             print(e)
         return None
