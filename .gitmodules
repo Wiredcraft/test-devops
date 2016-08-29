@@ -1,0 +1,6 @@
+[submodule "test-blog"]
+	path = test-blog
+	url = https://github.com/devfans/test-blog.git
+[submodule "test-blog-compiled"]
+	path = test-blog-compiled
+	url = https://github.com/devfans/test-blog-compiled.git
