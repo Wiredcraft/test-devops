@@ -18,14 +18,14 @@ class Deving(object):
 layout: post
 title:  {blogTitle}
 date:   {blogDate}
-categories: jekyll update
+categories: update
 ---
 {blogContent}"""
-        self.cloneSrc()
+        self.syncSrc()
         self.initFortune()
         return None
-    def cloneSrc(self):
-        print("Cloning")
+    def syncSrc(self):
+        print("Sync from source")
         try:
             if os.chdir(self.srcPath) == 0 and os.system("git status") == 0:
                 os.system("git pull origin " + self.srcBranch)
@@ -47,11 +47,12 @@ categories: jekyll update
         postPath = os.path.join(self.srcPath, "_posts")
         os.chdir(postPath)
         content = subprocess.check_output("fortune", shell=True)
-        dateNow = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S %Z")
+        dateNow = str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) + "+0800"
         stamp = datetime.datetime.now().date().isoformat()
         title = content[0:18]
         blog = self.template.format(blogContent = content, blogTitle = title, blogDate = dateNow)
         filename = stamp + "-" + title.replace(" ","-").replace(".","").replace("'","").replace("\"","").replace("?","").replace(":","").replace(",","") + "-newpost.markdown"
+	print(filename)
         filePath = os.path.join(postPath, filename)
         with open(filePath, 'w+b') as f:
             f.write(blog)
@@ -62,6 +63,13 @@ categories: jekyll update
         newVersion = ver[0][0] + str(int(ver[0][1]) + 1)
         with open(verPath, 'w+b') as f:
             f.write(newVersion)
+	os.chdir(self.srcPath)
+	os.system("jekyll build --config _config.yml")
+	os.chdir(self.cpdPath)
+	os.system("git init . && git remote add origin " + self.compiledRepo)
+	os.system("git pull origin " + self.cpdBranch + " -f")
+	os.system("git add * && git commit -m 'newpost'")
+	os.system("git push origin master")
         return None
     def staging(self):
         print("increase the version number")
