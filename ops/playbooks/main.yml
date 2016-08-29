@@ -1,4 +1,5 @@
 ---
+# not finished yet
   - hosts: test-devops-stefan
     vars_files:
       - ./vars.yml
@@ -6,3 +7,5 @@
     roles:
       - web_dev
       - web_staging
+      #- consdeploy
+      #- iteration

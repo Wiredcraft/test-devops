@@ -3,7 +3,7 @@
 ## Description
 Repos for Wiredcraft DevOps - Test - Static website generator and build flow
 
-## status
+## Status
 Current status: **NOT FINISHED YET**
 
 ## Structure
@@ -86,8 +86,8 @@ For operation tasks with ansible i prepared playbooks as below.
 - The stuffs here were only tested on Ubuntu 16.04 platform for a time matter
 (Pretty sure it won't work on RHEL without modifications)
 - To make the stuffs to run, you need below environments at least
-        - Python 2.7 +
-        - Ansible (2.0 + Recommended)
+    - Python 2.7 +
+    - Ansible (2.0 + Recommended)
 
 # Q&A
 

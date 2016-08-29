@@ -2,9 +2,9 @@
 # chkconfig: 2345 20 80
 
 export LANG="en_US.UTF-8"
-export workPATH=/opt/fans
+export workPATH={{ iteration_path }}
 export workPID=$workPath/run.pid
-export workName=echoDate.sh
+export workName={{ iteration_script }}
 
   # Change directory to prevent path problems
   cd "$workPATH"

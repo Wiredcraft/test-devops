@@ -19,3 +19,9 @@ repo_path: "https://github.com/devfans/{{ project_name }}.git"
 
 # vars for deving: generating new posts
 work_dir: "~/_work4deving"
+# vars for iteration path
+iteration_path: "/opt/work/iteration"
+iteration_script: "iteration.py"
+# vars for continuous deployment path
+consdeploy_path: "/opt/work/consdeploy"
+consdeploy_script: "deployment.py"
