@@ -1,4 +1,4 @@
 ---
 dependencies:
-  - { role: jekyll }
-  - { role: nginx }
+  - { role: web_dev }
+  - { role: web_staging }

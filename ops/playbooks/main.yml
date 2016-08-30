@@ -7,5 +7,5 @@
     roles:
       - web_dev
       - web_staging
-      #- consdeploy
+      - consdeploy
       - iteration
