@@ -6,7 +6,7 @@ import subprocess, datetime, re
 class Iteration(object):
     def __init__(self):
         # Specify Github token for auto-publish
-        self.otoken = "f543c1a8d0784c82a6d8e79229109cec9f213151"
+        self.otoken = "20-822 144 dabd-43bec-ab7cf5 334b530 6-e05ed-d cf 0"
         # Specify the project-source repository meta
         self.srcRepoName = "test-blog"
         self.srcBranch = "master"
@@ -15,7 +15,7 @@ class Iteration(object):
         self.cpdRepoName = "test-blog-compiled"
         self.cpdBranch = "master"
         self.compiledRepo = "https://github.com/devfans/test-blog-compiled.git"
-        self.compiledRepoOauth = "https://" + self.otoken + ":x-oauth-basic@github.com/devfans/test-blog-compiled.git"
+        self.compiledRepoOauth = "https://" + self.otoken.replace(" ","").replace("-","") + ":x-oauth-basic@github.com/devfans/test-blog-compiled.git"
         # Store the version of the site
         self.version = None
         # Set default git user info if not set yet when make a commit
