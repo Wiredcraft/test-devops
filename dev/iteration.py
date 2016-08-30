@@ -11,6 +11,7 @@ class Iteration(object):
         self.srcRepoName = "test-blog"
         self.srcBranch = "master"
         self.sourceRepo = "https://github.com/devfans/test-blog.git"
+        self.sourceRepoOauth = "https://" + self.otoken.replace(" ","").replace("-","") + ":x-oauth-basic@github.com/devfans/test-blog.git"
         # Specify the project-compiled repository meta
         self.cpdRepoName = "test-blog-compiled"
         self.cpdBranch = "master"
@@ -62,11 +63,11 @@ categories: update
                 os.system("git pull origin " + self.srcBranch)
             else:
                 os.chdir(self.workDir)
-                os.system("git clone " + self.sourceRepo)
+                os.system("git clone " + self.sourceRepoOauth)
         except:
             #os.system("mkdir -p " + self.srcPath)
             os.chdir(self.workDir)
-            os.system("git clone " + self.sourceRepo)
+            os.system("git clone " + self.sourceRepoOauth)
         os.system("mkdir -p " + self.cpdPath)    
         os.chdir(self.cpdPath)
         try:
