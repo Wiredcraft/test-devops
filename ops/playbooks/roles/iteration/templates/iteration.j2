@@ -30,6 +30,8 @@ class Iteration(object):
         self.workDir = os.environ['HOME']
         self.srcPath = os.path.join(self.workDir, self.srcRepoName)
         self.cpdPath = os.path.join(self.srcPath, "_site")
+        # Specify chars to be removed from file name
+        self.removeList = ['/','?','=',')','(','?','?','\\','？',',','.','"','\'','!']
         # Specify the new post template
         self.template = """---
 layout: post
@@ -116,7 +118,9 @@ categories: update
         stamp = datetime.datetime.now().date().isoformat()
         title = content[0:18]
         blog = self.template.format(blogContent = content, blogTitle = title, blogDate = dateNow)
-        filename = stamp + "-" + title.replace(" ","-").replace(".","").replace("'","").replace("\"","").replace("?","").replace(":","").replace(",","") + "-newpost.markdown"
+        for i in self.removeList:
+            title=title.replace(i,"")
+        filename = stamp + "-" + title.replace(" ","-") + "-newpost.markdown"
 	print(filename)
         filePath = os.path.join(postPath, filename)
         with open(filePath, 'w+b') as f:
@@ -154,7 +158,7 @@ categories: update
             f.write(newVersion)
         return None
     # Commit changes and push back to Github with new tags
-    def CommitGH(self):
+    def CommitGH(self, TAG):
     	# Commit compiled project repo
         os.chdir(self.srcPath)
         os.system("jekyll build --config _config.yml")
@@ -167,7 +171,8 @@ categories: update
         os.system("git add * && git commit -m 'Add new post'")
         os.system("git tag -a " + self.version + " -m 'Release new version '" )
         os.system("git push origin master")
-        os.system("git push origin --tags")
+        if TAG == True:
+            os.system("git push origin --tags")
         # Commit project source repo
         os.chdir(self.srcPath)
         os.system("git add * && git commit -m 'Add new post'")
@@ -179,12 +184,12 @@ categories: update
     def dev(self):
         self.genPost()
         self.devIncreVer()
-        self.CommitGH()
+        self.CommitGH(False)
         return None
     # Staging entry to make a staging release
     def staging(self):
         self.stagingIncreVer()
-        self.CommitGH()
+        self.CommitGH(True)
         return None
     # iteration entry to start iterations
     def iterate(self):

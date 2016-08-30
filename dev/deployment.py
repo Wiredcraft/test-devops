@@ -1,1 +1,115 @@
 #!/usr/bin/python
+import os, json, urllib2, subprocess, time, datetime, sys
+
+class GitHubAccess(object):
+    def __init__(self):
+        # define github access token mix with - or space to ignore from github security
+        self.token = "20-822 144 dabd-43bec-ab7cf5 334b530 6-e05ed-d cf 0"
+        self.repo = "test-blog-compiled"
+        self.api = "https://api.github.com/repos"
+        self.gitUser = "devfans"
+        return None
+    def getTagsUrl(self):
+        return self.api + "/" + self.gitUser + "/" + self.repo + "/tags"
+    def getCommitsUrl(self):
+        return self.api + "/" + self.gitUser + "/" + self.repo + "/commits"
+    def post(self, url):
+        try:
+			request = urllib2.Request(url)
+			request.add_header('Authorization', 'token ' + self.token.replace("-","").replace(" ",""))
+			res = urllib2.urlopen(request)
+			jsonRes = json.load(res)
+			return jsonRes
+        except urllib2.HTTPError as error:
+			print(error.read().decode())
+        except BaseException as e:
+			print(e)
+			return False
+    def getLastTag(self):
+        tags = self.post(self.getTagsUrl())
+        return tags[0]['name']
+
+    def getLastCommitDate(self):
+        commits = self.post(self.getCommitsUrl())
+        lastCommitDate = commits[0]['commit']['committer']['date']
+        return datetime.datetime.strptime(lastCommitDate, '%Y-%m-%dT%H:%M:%SZ')
+
+
+class ConsDeploy(object):
+    def __init__(self):
+        self.lastCommitDate = None
+        self.lastTag = None
+        self.gitaccess = GitHubAccess()
+        self.repoTag = None
+        self.repoCommitDate = None
+        self.interval = 2
+        self.repoBranch = "master"
+        self.devPath = "/opt/web/dev"
+        self.stagingPath = "/opt/web/staging"
+        self.devConfigPath = "_config_dev.yml"
+        self.stagingConfigPath = "_config_staging.yml"
+        return None
+
+    def getLastCommitDate(self):
+        repoDateStr = subprocess.check_output("git show -s --format=%ci ", shell=True)
+        self.lastCommitDate = datetime.datetime.strptime(repoDateStr.split(" +")[0], '%Y-%m-%d %H:%M:%S')
+        print("Got last local commit date" + self.lastCommitDate)
+        return None
+
+    def getLastTag(self):
+        self.lastTag = subprocess.check_output("git describe --abbrev=0 --tags", shell=True)
+        print("Got last local tag: " + self.lastTag)
+        return None
+
+    def getRepoCommitDate(self):
+        self.repoCommitDate = self.gitaccess.getLastCommitDate()
+        print("Got last repo commit date: " + self.repoCommitDate)
+        return None
+
+    def getRepoTag(self):
+        self.repoTag = self.gitaccess.getLastTag()
+        print("Got last repo tag: " + self.repoTag)
+        return None
+
+    def deployDev(self):
+        print("Start updating dev site!")
+        os.chdir(self.devPath)
+        os.chdir("source")
+        os.system("git pull origin " + self.repoBranch + " -f")
+        os.chdir(self.devPath)
+        os.system("jekyll build --config " + self.devConfigPath)
+        return None
+
+    def deployStaging(self):
+        print("Start updating staging site!")
+        os.chdir(self.stagingPath)
+        os.chdir("source")
+        os.system("git pull origin " + self.repoBranch + " -f")
+        os.chdir(self.stagingPath)
+        os.system("jekyll build --config " + self.stagingConfigPath)
+        return None
+
+    def consDeploy(self):
+        while True:
+            self.getRepoTag()
+            self.getLastTag()
+            self.getRepoCommitDate()
+            self.getLastCommitDate()
+            if self.lastCommitDate < self.repoCommitDate:
+                self.deployDev()
+            if self.lastTag < self.repoTag:
+                self.deployStaging()
+            time.sleep(self.interval*60)
+        return None
+
+    def main():
+        consdeploy = ConsDeploy()
+        consdeploy.consDeploy()
+        return None
+
+if __name__ == "__main__":
+    #main()
+    print("Starting")
+    gitaccess = GitHubAccess()
+    print(gitaccess.getLastCommitDate())
+    print(gitaccess.getLastTag())
