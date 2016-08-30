@@ -170,7 +170,7 @@ def main():
     choice = parser.parse_args()
     if choice.action == 'dev':
         try:
-            interator = Interation()
+            interator = Iteration()
             interator.dev()
             print("A dev action was made!")
         except BaseException as e:
@@ -178,7 +178,7 @@ def main():
         return None
     elif choice.action == 'staging':
         try:
-            interator = Interation()
+            interator = Iteration()
             interator.staging()
             print("A release action was made!")
         except BaseException as e:
@@ -187,7 +187,7 @@ def main():
     elif choice.action == 'iteration':
         try:
             print("Iteration started!")
-            interator = Interation()
+            interator = Iteration()
             interator.iterate()
         except BaseException as e:
             print(e)
