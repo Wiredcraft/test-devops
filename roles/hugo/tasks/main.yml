@@ -1,0 +1,8 @@
+---
+  #- name: build hugo from source
+  # FIXME: 16/8/30
+  # proxy or VPN is needed (golang.org is blocked by GFW)
+  #  become: "{{host_user}}"
+  #  shell: export GOPATH={{golang_home}}/godir && go get -u github.com/spf13/hugo
+  - name: install hugo from ubuntu repository directly
+    apt: name=hugo state=present

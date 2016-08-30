@@ -1,0 +1,8 @@
+---
+dependencies:
+  - {role: fortune}
+  - {role: git}
+  - {role: golang}
+  - {role: hugo}
+  - {role: nginx}
+  - {role: ssh}

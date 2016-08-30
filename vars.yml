@@ -1,0 +1,17 @@
+---
+host_user: vagrant
+
+golang_home: /home/vagrant
+
+site_files_repo: git@github.com:xuqingfeng/devops-site.git
+site_path: /home/vagrant/devops-site
+site_devops_url: github.com/xuqingfeng/devops
+site_devops_cli_path: cmd/devops
+site_dev_domain: dev.com
+site_dev_root_path: /var/www/dev.com
+site_staging_domain: staging.com
+site_staging_root_path: /var/www/staging.com
+site_run_dev_interval: 10
+# site_run_staging_interval is not used. (0 * * * *)
+site_run_staging_interval: 1
+site_run_check_interval: 5

@@ -1,0 +1,26 @@
+---
+  - name: install devops cli
+    become: "{{host_user}}"
+    shell: export GOPATH={{golang_home}}/godir && go get -u {{site_devops_url}}/{{site_devops_cli_path}}
+  - name: clone site files from git repo # TODO: 16/8/30 compare two repo
+    become: "{{host_user}}"
+    git: repo={{site_files_repo}} dest={{site_path}}
+  - name: deploy init site files to dev
+    become: "{{host_user}}"
+    command: rsync -r {{site_path}}/public/ {{site_dev_root_path}}
+  - name: deploy init site files to staging
+    become: "{{host_user}}"
+    command: rsync -r {{site_path}}/public/ {{site_staging_root_path}}
+  - name: copy check.sh
+    copy: src=check.sh dest=/usr/local/bin/ owner={{host_user}} mode=0755
+  - name: copy fakeDev.sh
+    copy: src=fakeDev.sh dest=/usr/local/bin/ owner={{host_user}} mode=0755
+  - name: copy fakeStaging.sh
+    copy: src=fakeStaging.sh dest=/usr/local/bin/ owner={{host_user}} mode=0755
+  # crontab job `crontab -u vagrant -l` use `state=absent` to stop job
+  - name: run devops dev every {{site_run_dev_interval}} minutes
+    cron: name="devops dev" user={{host_user}} job="/usr/local/bin/fakeDev.sh > /tmp/cron_fake_dev.log 2>&1" minute="*/{{site_run_dev_interval}}"
+  - name: run devops staging every {{site_run_staging_interval}} hour
+    cron: name="devops staging" user={{host_user}} job="/usr/local/bin/fakeStaging.sh > /tmp/cron_fake_staging.log 2>&1" minute="0"
+  - name: update site files every {{site_run_check_interval}} minutes
+    cron: name="check update" user={{host_user}} job="/usr/local/bin/check.sh > /tmp/cron_check.log 2>&1" minute="*/{{site_run_check_interval}}"

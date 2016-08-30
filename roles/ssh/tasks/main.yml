@@ -1,0 +1,13 @@
+---
+  - name: add github host to known_hosts
+    become: "{{host_user}}"
+    shell: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+    args:
+      creates: ~/.ssh/known_hosts
+  # github.com/xuqingfeng/devops-site deploy key, pls don't do evil things :) (https://developer.github.com/guides/managing-deploy-keys/#deploy-keys)
+  - name: add ssh private key
+    become: "{{host_user}}"
+    copy: src=id_rsa dest=~/.ssh/ mode=0600
+  - name: add ssh public key
+    become: "{{host_user}}"
+    copy: src=id_rsa.pub dest=~/.ssh/ mode=0644

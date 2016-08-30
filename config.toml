@@ -1,0 +1,6 @@
+baseurl = "/"
+title = "DevOps Site"
+theme = "hugo_theme_robust"
+
+[params]
+  version = "0.2.0"
