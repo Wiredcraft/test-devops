@@ -78,8 +78,24 @@ categories: update
     def initJekyll(self):
         try:
             os.system("sudo apt-get install -y git gem ruby ruby-dev gcc nodejs")
-            os.system("sudo gem install jekyll")
-            os.system("sudo gem install bundle")
+            aptList = subprocess.check_output("apt list",shell=True)
+            if aptList.count("git") <= 0:
+            	os.system("sudo apt-get install -y git")
+            if aptList.count("gem") <= 0:
+            	os.system("sudo apt-get install -y gem")
+            if aptList.count("ruby") <= 0:
+            	os.system("sudo apt-get install -y ruby")
+            if aptList.count("ruby-dev") <= 0:
+            	os.system("sudo apt-get install -y ruby-dev")
+            if aptList.count("gcc") <= 0:
+            	os.system("sudo apt-get install -y gcc")
+            if aptList.count("nodejs") <= 0:
+            	os.system("sudo apt-get install -y nodejs")
+            gemList = subprocess.check_output("gem list",shell=True)
+            if gemList.count("jekyll") <= 0:
+            	os.system("sudo gem install jekyll -f")
+            if gemList.count("bundle") <= 0:
+            	os.system("sudo gem install bundle -f")
         except BaseException as e:
             print("Error occurred when prepare for jekyll!")
             print(e)
