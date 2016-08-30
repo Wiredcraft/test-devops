@@ -20,7 +20,7 @@ start() {
   # Remove pidfile if still around
   test -f $workPID && rm -f $workPID
 
-  nohup python {{ iteration_script }} iteration > /dev/null 2>&1 & echo $! > run.pid
+  nohup python {{ iteration_script }} iteration > iteration.log 2>&1 & echo $! > run.pid
 }
 
 stop() {
