@@ -154,6 +154,7 @@ categories: update
         return None
     # Commit changes and push back to Github with new tags
     def CommitGH(self):
+    	# Commit compiled project repo
         os.chdir(self.srcPath)
         os.system("jekyll build --config _config.yml")
         os.chdir(self.cpdPath)
@@ -162,6 +163,12 @@ categories: update
         #except:
         #    print("Remote origin already exist!")
         #os.system("git pull origin " + self.cpdBranch + " -f")
+        os.system("git add * && git commit -m 'Add new post'")
+        os.system("git tag -a " + self.version + " -m 'Release new version '" )
+        os.system("git push origin master")
+        os.system("git push origin --tags")
+        # Commit project source repo
+        os.chdir(self.srcPath)
         os.system("git add * && git commit -m 'Add new post'")
         os.system("git tag -a " + self.version + " -m 'Release new version '" )
         os.system("git push origin master")
