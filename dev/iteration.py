@@ -122,8 +122,13 @@ categories: update
         # To fetch site version from jekyll data file and update it
         verPath = os.path.join(self.srcPath, '_data','meta.yml')
         version = subprocess.check_output("cat " + verPath, shell=True)
-        ver = re.findall(r'(version: \d.\d.)(\d)', version)
-        newVersion = ver[0][0] + str(int(ver[0][1]) + 1)
+        ver = re.findall(r'(version: )(\d).(\d).(\d)', version)
+        if ver[0][2] == '9' and ver[0][3] == '9':
+            newVersion = ver[0][0] + str(int(ver[0][1]) + 1) + ".0" + ".0"
+        elif ver[0][3] == '9':
+            newVersion = ver[0][0] + ver[0][1] + str(int(ver[0][2]) + 1) + ".0"
+        else:
+            newVersion = ver[0][0] + ver[0][1] + ver[0][2] + str(int(ver[0][3]) + 1)
         self.version = re.findall(r'version: (\d.\d.\d)', newVersion)[0]
         with open(verPath, 'w+b') as f:
             f.write(newVersion)
@@ -133,8 +138,11 @@ categories: update
         print("increase the version number for release")
         verPath = os.path.join(self.srcPath, '_data','meta.yml')
         version = subprocess.check_output("cat " + verPath, shell=True)
-        ver = re.findall(r'(version: \d.)(\d)(.\d)', version)
-        newVersion = ver[0][0] + str(int(ver[0][1]) + 1) + ".0"
+        ver = re.findall(r'(version: )(\d).(\d)(.\d)', version)
+        if ver[0][2] == '9':
+            newVersion = ver[0][0] + str(int(ver[0][1]) + 1) + ".0" + ".0"
+        else:
+            newVersion = ver[0][0] + ver[0][1] + str(int(ver[0][2]) + 1) + ".0"
         self.version = re.findall(r'version: (\d.\d.\d)', newVersion)[0]
         with open(verPath, 'w+b') as f:
             f.write(newVersion)
