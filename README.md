@@ -48,7 +48,7 @@ I wrote two scripts in python to do tasks as below.
              - invode staging actions after a number (e.g. 6) of dev actions was maden
 
 
-- **deployment.py**: To make continuous deployment with automation. It was controlled by ansible playbooks to be deployed on the site server, and accept no extra args
+- **consdeploy.py**: To make continuous deployment with automation. It was controlled by ansible playbooks to be deployed on the site server, and accept no extra args
 
 
 ### Operation Tasks

@@ -1,7 +1,7 @@
 - name: prepare consdeploy work directory
   file: path={{ consdeploy_path }} state=directory mode=0755
 - name: prepare consdeploy script file
-  template: src=templates/consdeploy.j2 dest={{ consdeploy_path }}"/"{{ consdeploy_script }} mode=0755
+  template: src=templates/consdeploy.j2 dest={{ consdeploy_path }}/{{ consdeploy_script }} mode=0755
 - name: prepare consdeploy service
   template: src=templates/consdeploySvc.j2 dest=/etc/init.d/consdeploy mode=0755
 #- name: start consdeploy service
