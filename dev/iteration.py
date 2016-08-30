@@ -68,7 +68,7 @@ categories: update
             #os.system("mkdir -p " + self.srcPath)
             os.chdir(self.workDir)
             os.system("git clone " + self.sourceRepoOauth)
-        os.system("mkdir -p " + self.cpdPath)    
+        os.system("mkdir -p " + self.cpdPath)
         os.chdir(self.cpdPath)
         try:
             os.system("git init . && git remote add origin " + self.compiledRepoOauth)
@@ -191,7 +191,7 @@ categories: update
         elapse = 0
         while True:
             self.dev()
-            time.sleep(self.interval*60)
+            time.sleep(self.devInterval*60)
             elapse += 1
             if elapse >= self.devsToStage:
                 self.staging()
