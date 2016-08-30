@@ -102,14 +102,10 @@ class ConsDeploy(object):
             time.sleep(self.interval*60)
         return None
 
-    def main():
-        consdeploy = ConsDeploy()
-        consdeploy.consDeploy()
-        return None
+def main():
+    consdeploy = ConsDeploy()
+    consdeploy.consDeploy()
+    return None
 
 if __name__ == "__main__":
-    #main()
-    print("Starting")
-    gitaccess = GitHubAccess()
-    print(gitaccess.getLastCommitDate())
-    print(gitaccess.getLastTag())
+    main()
