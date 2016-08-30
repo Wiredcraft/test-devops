@@ -191,7 +191,7 @@ categories: update
         elapse = 0
         while True:
             self.dev()
-            time.sleep(self.interval*60)
+            time.sleep(self.devInterval*60)
             elapse += 1
             if elapse >= self.devsToStage:
                 self.staging()
