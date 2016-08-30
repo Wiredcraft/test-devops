@@ -55,5 +55,3 @@ git_user: "devops stefan"
 dev_interval: 10
 # Specify after how many new posts created, it needs to make staging release
 devs_to_stage: 6
-# Specify chars to be removed from file name
-remove_list: "['/','?','=',')','(','?','?','\\','？',',','.','"','\'','!']"
