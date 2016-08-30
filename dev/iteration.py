@@ -126,9 +126,9 @@ categories: update
         if ver[0][2] == '9' and ver[0][3] == '9':
             newVersion = ver[0][0] + str(int(ver[0][1]) + 1) + ".0" + ".0"
         elif ver[0][3] == '9':
-            newVersion = ver[0][0] + ver[0][1] + str(int(ver[0][2]) + 1) + ".0"
+            newVersion = ver[0][0] + ver[0][1] + "." + str(int(ver[0][2]) + 1) + ".0"
         else:
-            newVersion = ver[0][0] + ver[0][1] + ver[0][2] + str(int(ver[0][3]) + 1)
+            newVersion = ver[0][0] + ver[0][1] + "." + ver[0][2] + "." + str(int(ver[0][3]) + 1)
         self.version = re.findall(r'version: (\d.\d.\d)', newVersion)[0]
         with open(verPath, 'w+b') as f:
             f.write(newVersion)
@@ -142,7 +142,7 @@ categories: update
         if ver[0][2] == '9':
             newVersion = ver[0][0] + str(int(ver[0][1]) + 1) + ".0" + ".0"
         else:
-            newVersion = ver[0][0] + ver[0][1] + str(int(ver[0][2]) + 1) + ".0"
+            newVersion = ver[0][0] + ver[0][1] + "." + str(int(ver[0][2]) + 1) + ".0"
         self.version = re.findall(r'version: (\d.\d.\d)', newVersion)[0]
         with open(verPath, 'w+b') as f:
             f.write(newVersion)
