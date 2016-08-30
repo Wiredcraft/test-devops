@@ -1,0 +1,3 @@
+---
+  - name: source .bashrc
+    shell: source {{golang_home}}/.bashrc

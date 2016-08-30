@@ -1,0 +1,22 @@
+---
+  - name: install nginx
+    apt: name=nginx state=present
+  - name: copy dev config file
+    copy: src={{site_dev_domain}} dest=/etc/nginx/sites-available/
+  - name: copy staging config file
+    copy: src={{site_staging_domain}} dest=/etc/nginx/sites-available/
+  - name: link
+    file: src=/etc/nginx/sites-available/{{item.src}} dest=/etc/nginx/sites-enabled/{{item.dest}} state=link
+    with_items:
+      - {src: "{{site_dev_domain}}", dest: "{{site_dev_domain}}"}
+      - {src: "{{site_staging_domain}}", dest: "{{site_staging_domain}}"}
+    notify:
+      - restart nginx
+  - name: disable cache in nginx # https://serverfault.com/questions/269420/disable-caching-when-serving-static-files-with-nginx-for-development
+    replace: dest=/etc/nginx/nginx.conf regexp='sendfile on;' replace='sendfile off;' backup=true
+    notify:
+      - restart nginx
+  - name: create dev site directory
+    file: path={{site_dev_root_path}} state=directory owner={{host_user}}
+  - name: create staging site directory
+    file: path={{site_staging_root_path}} state=directory owner={{host_user}}

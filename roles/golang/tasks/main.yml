@@ -1,0 +1,10 @@
+---
+  - name: install golang
+    apt: name=golang state=present
+  - name: create golang project directory
+    become: "{{host_user}}"
+    file: path={{golang_home}}/godir state=directory
+  - name: export GOPATH
+    lineinfile: dest={{golang_home}}/.bashrc line="export GOPATH={{golang_home}}/godir"
+  - name: add $GOPATH/bin to PATH
+    lineinfile: dest={{golang_home}}/.bashrc line="PATH=$PATH:$GOPATH/bin"

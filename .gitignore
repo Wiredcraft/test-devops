@@ -1,2 +1,6 @@
-.*
-!.gitignore
+.DS_Store
+.idea
+.vagrant
+vendor
+devops
+!cmd/devops
