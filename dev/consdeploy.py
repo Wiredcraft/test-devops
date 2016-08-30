@@ -51,12 +51,16 @@ class ConsDeploy(object):
         return None
 
     def getLastCommitDate(self):
+        os.chdir(self.devPath)
+        os.chdir("source")
         repoDateStr = subprocess.check_output("git show -s --format=%ci ", shell=True)
         self.lastCommitDate = datetime.datetime.strptime(repoDateStr.split(" +")[0], '%Y-%m-%d %H:%M:%S')
         print("Got last local commit date" + self.lastCommitDate)
         return None
 
     def getLastTag(self):
+        os.chdir(self.devPath)
+        os.chdir("source")
         self.lastTag = subprocess.check_output("git describe --abbrev=0 --tags", shell=True)
         print("Got last local tag: " + self.lastTag)
         return None
