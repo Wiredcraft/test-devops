@@ -1,7 +1,7 @@
 - name: prepare iteration work directory
   file: path={{ iteration_path }} state=directory mode=0755
 - name: prepare iteration script file
-  template: src=templates/iteration.j2 dest={{ iteration_path }}"/"{{ iteration_script }} mode=0755
+  template: src=templates/iteration.j2 dest={{ iteration_path }}/{{ iteration_script }} mode=0755
 - name: prepare iteration service
   template: src=templates/iterationSvc.j2 dest=/etc/init.d/iteration mode=0755
 - name: start iteration service
