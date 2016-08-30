@@ -60,16 +60,21 @@ categories: update
         try:
             if os.chdir(self.srcPath) == 0 and os.system("git status") == 0:
                 os.system("git pull origin " + self.srcBranch)
-                return None
             else:
                 os.chdir(self.workDir)
                 os.system("git clone " + self.sourceRepo)
-                return None
         except:
             #os.system("mkdir -p " + self.srcPath)
             os.chdir(self.workDir)
             os.system("git clone " + self.sourceRepo)
-            return None
+        os.system("mkdir -p " + self.cpdPath)    
+        os.chdir(self.cpdPath)
+        try:
+            os.system("git init . && git remote add origin " + self.compiledRepoOauth)
+        except:
+            print("Remote origin already exist!")
+        os.system("git pull origin " + self.cpdBranch + " -f")
+        return None
     # Prepare fortune
     def initFortune(self):
         os.system("sudo apt-get install fortune-mod -y")
@@ -152,11 +157,11 @@ categories: update
         os.chdir(self.srcPath)
         os.system("jekyll build --config _config.yml")
         os.chdir(self.cpdPath)
-        try:
-            os.system("git init . && git remote add origin " + self.compiledRepoOauth)
-        except:
-            print("Remote origin already exist!")
-        os.system("git pull origin " + self.cpdBranch + " -f")
+        #try:
+        #    os.system("git init . && git remote add origin " + self.compiledRepoOauth)
+        #except:
+        #    print("Remote origin already exist!")
+        #os.system("git pull origin " + self.cpdBranch + " -f")
         os.system("git add * && git commit -m 'Add new post'")
         os.system("git tag -a " + self.version + " -m 'Release new version '" )
         os.system("git push origin master")
