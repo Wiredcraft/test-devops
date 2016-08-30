@@ -6,16 +6,17 @@ import subprocess, datetime, re
 class Iteration(object):
     def __init__(self):
         # Specify Github token for auto-publish
-        self.otoken = "f543c1a8d0784c82a6d8e79229109cec9f213151"
+        self.otoken = "20-822 144 dabd-43bec-ab7cf5 334b530 6-e05ed-d cf 0"
         # Specify the project-source repository meta
         self.srcRepoName = "test-blog"
         self.srcBranch = "master"
         self.sourceRepo = "https://github.com/devfans/test-blog.git"
+        self.sourceRepoOauth = "https://" + self.otoken.replace(" ","").replace("-","") + ":x-oauth-basic@github.com/devfans/test-blog.git"
         # Specify the project-compiled repository meta
         self.cpdRepoName = "test-blog-compiled"
         self.cpdBranch = "master"
         self.compiledRepo = "https://github.com/devfans/test-blog-compiled.git"
-        self.compiledRepoOauth = "https://" + self.otoken + ":x-oauth-basic@github.com/devfans/test-blog-compiled.git"
+        self.compiledRepoOauth = "https://" + self.otoken.replace(" ","").replace("-","") + ":x-oauth-basic@github.com/devfans/test-blog-compiled.git"
         # Store the version of the site
         self.version = None
         # Set default git user info if not set yet when make a commit
@@ -60,16 +61,21 @@ categories: update
         try:
             if os.chdir(self.srcPath) == 0 and os.system("git status") == 0:
                 os.system("git pull origin " + self.srcBranch)
-                return None
             else:
                 os.chdir(self.workDir)
-                os.system("git clone " + self.sourceRepo)
-                return None
+                os.system("git clone " + self.sourceRepoOauth)
         except:
             #os.system("mkdir -p " + self.srcPath)
             os.chdir(self.workDir)
-            os.system("git clone " + self.sourceRepo)
-            return None
+            os.system("git clone " + self.sourceRepoOauth)
+        os.system("mkdir -p " + self.cpdPath)
+        os.chdir(self.cpdPath)
+        try:
+            os.system("git init . && git remote add origin " + self.compiledRepoOauth)
+        except:
+            print("Remote origin already exist!")
+        os.system("git pull origin " + self.cpdBranch + " -f")
+        return None
     # Prepare fortune
     def initFortune(self):
         os.system("sudo apt-get install fortune-mod -y")
@@ -78,8 +84,24 @@ categories: update
     def initJekyll(self):
         try:
             os.system("sudo apt-get install -y git gem ruby ruby-dev gcc nodejs")
-            os.system("sudo gem install jekyll")
-            os.system("sudo gem install bundle")
+            aptList = subprocess.check_output("apt list",shell=True)
+            if aptList.count("git") <= 0:
+            	os.system("sudo apt-get install -y git")
+            if aptList.count("gem") <= 0:
+            	os.system("sudo apt-get install -y gem")
+            if aptList.count("ruby") <= 0:
+            	os.system("sudo apt-get install -y ruby")
+            if aptList.count("ruby-dev") <= 0:
+            	os.system("sudo apt-get install -y ruby-dev")
+            if aptList.count("gcc") <= 0:
+            	os.system("sudo apt-get install -y gcc")
+            if aptList.count("nodejs") <= 0:
+            	os.system("sudo apt-get install -y nodejs")
+            gemList = subprocess.check_output("gem list",shell=True)
+            if gemList.count("jekyll") <= 0:
+            	os.system("sudo gem install jekyll -f")
+            if gemList.count("bundle") <= 0:
+            	os.system("sudo gem install bundle -f")
         except BaseException as e:
             print("Error occurred when prepare for jekyll!")
             print(e)
@@ -106,8 +128,13 @@ categories: update
         # To fetch site version from jekyll data file and update it
         verPath = os.path.join(self.srcPath, '_data','meta.yml')
         version = subprocess.check_output("cat " + verPath, shell=True)
-        ver = re.findall(r'(version: \d.\d.)(\d)', version)
-        newVersion = ver[0][0] + str(int(ver[0][1]) + 1)
+        ver = re.findall(r'(version: )(\d).(\d).(\d)', version)
+        if ver[0][2] == '9' and ver[0][3] == '9':
+            newVersion = ver[0][0] + str(int(ver[0][1]) + 1) + ".0" + ".0"
+        elif ver[0][3] == '9':
+            newVersion = ver[0][0] + ver[0][1] + "." + str(int(ver[0][2]) + 1) + ".0"
+        else:
+            newVersion = ver[0][0] + ver[0][1] + "." + ver[0][2] + "." + str(int(ver[0][3]) + 1)
         self.version = re.findall(r'version: (\d.\d.\d)', newVersion)[0]
         with open(verPath, 'w+b') as f:
             f.write(newVersion)
@@ -117,22 +144,32 @@ categories: update
         print("increase the version number for release")
         verPath = os.path.join(self.srcPath, '_data','meta.yml')
         version = subprocess.check_output("cat " + verPath, shell=True)
-        ver = re.findall(r'(version: \d.)(\d)(.\d)', version)
-        newVersion = ver[0][0] + str(int(ver[0][1]) + 1) + ".0"
+        ver = re.findall(r'(version: )(\d).(\d)(.\d)', version)
+        if ver[0][2] == '9':
+            newVersion = ver[0][0] + str(int(ver[0][1]) + 1) + ".0" + ".0"
+        else:
+            newVersion = ver[0][0] + ver[0][1] + "." + str(int(ver[0][2]) + 1) + ".0"
         self.version = re.findall(r'version: (\d.\d.\d)', newVersion)[0]
         with open(verPath, 'w+b') as f:
             f.write(newVersion)
         return None
     # Commit changes and push back to Github with new tags
     def CommitGH(self):
+    	# Commit compiled project repo
         os.chdir(self.srcPath)
         os.system("jekyll build --config _config.yml")
         os.chdir(self.cpdPath)
-        try:
-            os.system("git init . && git remote add origin " + self.compiledRepoOauth)
-        except:
-            print("Remote origin already exist!")
-        os.system("git pull origin " + self.cpdBranch + " -f")
+        #try:
+        #    os.system("git init . && git remote add origin " + self.compiledRepoOauth)
+        #except:
+        #    print("Remote origin already exist!")
+        #os.system("git pull origin " + self.cpdBranch + " -f")
+        os.system("git add * && git commit -m 'Add new post'")
+        os.system("git tag -a " + self.version + " -m 'Release new version '" )
+        os.system("git push origin master")
+        os.system("git push origin --tags")
+        # Commit project source repo
+        os.chdir(self.srcPath)
         os.system("git add * && git commit -m 'Add new post'")
         os.system("git tag -a " + self.version + " -m 'Release new version '" )
         os.system("git push origin master")
@@ -170,7 +207,7 @@ def main():
     choice = parser.parse_args()
     if choice.action == 'dev':
         try:
-            interator = Interation()
+            interator = Iteration()
             interator.dev()
             print("A dev action was made!")
         except BaseException as e:
@@ -178,7 +215,7 @@ def main():
         return None
     elif choice.action == 'staging':
         try:
-            interator = Interation()
+            interator = Iteration()
             interator.staging()
             print("A release action was made!")
         except BaseException as e:
@@ -187,7 +224,7 @@ def main():
     elif choice.action == 'iteration':
         try:
             print("Iteration started!")
-            interator = Interation()
+            interator = Iteration()
             interator.iterate()
         except BaseException as e:
             print(e)
