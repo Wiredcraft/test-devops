@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# -*- coding:utf-8 -*-  
+# -*- coding:utf-8 -*-
 import argparse, json, sys, os, time
 import subprocess, datetime, re
 
@@ -33,7 +33,7 @@ class Iteration(object):
         self.srcPath = os.path.join(self.workDir, self.srcRepoName)
         self.cpdPath = os.path.join(self.srcPath, "_site")
         # Specify chars to be removed from file name
-        self.removeList = ['/','?','=',')','(','?','?','\\','？',',','.','"','\'','!']
+        self.removeList = ['Q: ','/','?','=',')','(','?','?','\\','？',',','.','"','\'','!',':','?']
         # Specify the new post template
         self.template = """---
 layout: post
@@ -64,6 +64,7 @@ categories: update
         print("Sync from source")
         try:
             if os.chdir(self.srcPath) == 0 and os.system("git status") == 0:
+                print("Fetcing from project source repo")
                 os.system("git pull origin " + self.srcBranch)
             else:
                 os.chdir(self.workDir)

@@ -26,7 +26,9 @@ Here is the list of the technologies that's used in the test:
 - **Git**
 - Programming Language: **Python** / **Shell** .
 
-### Development task
+# Task Sections
+
+## Development task
 
 I wrote two scripts in python to do tasks as below.
 
@@ -63,6 +65,7 @@ For operation tasks with ansible i prepared playbooks as below.
 - **Roles**: ansible roles to make deployment tasks as seperated modules.
     - **nginx**: to configure nginx server
     - **jekyll**: to prepare jekyll tools suite.
+    - **deploy**: to deploy site for dev and staging domain
     - **web_dev**: to deploy site of dev domain
     - **web_staging**: to deploy site of staging domain.
     - **iteration**: configure target host for continuous deveployment and publish releases. Do tasks mainly including:
@@ -72,14 +75,59 @@ For operation tasks with ansible i prepared playbooks as below.
             - fetch the codebase of your site from github every N minutes,
             - update the dev for every new commit
             - update the staging for every new tag
+    - **stopiter**: Used to stop Continuous Iteration
+    - **stopdepl**: Used to stop Continuous Deployment
+
+## Repository
+
+Below GitHub repos will be used for the test:
+- [`test-devops`](https://github.com/devfans/test-devops): The main repo where my craft lives
+- [`test-blog`](https://github.com/devfans/test-blog): The site project source codes repo
+- [`test-blog-compiled`](https://github.com/devfans/test-blog-compiled): The site project compiled codes repo
 
 # Getting Started
 
 - Please follow below steps to get started:
-    - Make a git clone or pull request to fetch the codes into local
+    - Make a git clone or pull request to fetch the this repo into local
     - Naviagte into **test-devops/ops/**
     - Run script **start.sh** to start my craft:
-    - Specify arguements as script running to make craft work as desired.(This part is not finished yet!)
+    - Specify arguements as script running to make craft work as desired:
+
+```    
+[stefan@ops]$ . start.sh
+-----------------------------------------------------------------------------------------------------------
+Please define all variables in plabooks/vars.yml file!
+-----------------------------------------------------------------------------------------------------------
+Please specify the host as the target server: (using root user as default, will prompt for password.)
+test-devops-stefan
+-----------------------------------------------------------------------------------------------------------
+Please specify the action you want make, tips as below:
+========================
+deploy     :   Deploy dev/staging sites from scratch!
+dev        :   Deploy dev domain site from scratch!
+staging    :   Deploy staging domain site from scratch!
+consdeploy :   Continuously deploy dev/staging when update is required(Will deploy dev/staging at first.)
+iteration  :   Continuously generation new post, compile project, commit/push to project repo!
+stopdepl   :   Stop Continuously deployment!
+stopiter   :   Stop Continuously iteration!
+========================
+Specify action:
+iteration
+-----------------------------------------------------------------------------------------------------------
+Press enter to start the magic...  !!!
+
+Starting tasks
+-----------------------------------------------------------------------------------------------------------
+```
+- Prepare host info for site dev/Staging:
+  - Please append blow host info into local hosts file (Replace the **ip** with the your target host ip)
+  ```
+  139.59.240.152 dev staging
+  ```
+- Browse the sites:
+  - http://dev/
+  - http://staging/
+
 
 # Requirements
 
