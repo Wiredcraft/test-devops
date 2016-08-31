@@ -33,7 +33,7 @@ class Iteration(object):
         self.srcPath = os.path.join(self.workDir, self.srcRepoName)
         self.cpdPath = os.path.join(self.srcPath, "_site")
         # Specify chars to be removed from file name
-        self.removeList = ['/','?','=',')','(','?','?','\\','？',',','.','"','\'','!']
+        self.removeList = ['Q: ','/','?','=',')','(','?','?','\\','？',',','.','"','\'','!']
         # Specify the new post template
         self.template = """---
 layout: post

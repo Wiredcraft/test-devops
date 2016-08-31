@@ -57,7 +57,7 @@ class ConsDeploy(object):
         os.chdir("source")
         repoDateStr = subprocess.check_output("git show -s --format=%ci ", shell=True)
         self.lastCommitDate = datetime.datetime.strptime(repoDateStr.split(" +")[0], '%Y-%m-%d %H:%M:%S')
-        print("Got last local commit date" + self.lastCommitDate)
+        print("Got last local commit date" + str(self.lastCommitDate))
         return None
 
     def getLastTag(self):
@@ -69,7 +69,7 @@ class ConsDeploy(object):
 
     def getRepoCommitDate(self):
         self.repoCommitDate = self.gitaccess.getLastCommitDate()
-        print("Got last repo commit date: " + self.repoCommitDate)
+        print("Got last repo commit date: " + str(self.repoCommitDate))
         return None
 
     def getRepoTag(self):
