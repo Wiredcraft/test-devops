@@ -1,6 +1,8 @@
 #!/usr/bin/python
+# -*- coding:utf-8 -*-  
 import argparse, json, sys, os, time
 import subprocess, datetime, re
+
 
 # Define Iteration class for making new post and publish
 class Iteration(object):

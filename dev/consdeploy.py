@@ -1,4 +1,6 @@
 #!/usr/bin/python
+# -*- coding:utf-8 -*-
+
 import os, json, urllib2, subprocess, time, datetime, sys
 
 class GitHubAccess(object):
@@ -59,7 +61,7 @@ class ConsDeploy(object):
         return None
 
     def getLastTag(self):
-        os.chdir(self.devPath)
+        os.chdir(self.stagingPath)
         os.chdir("source")
         self.lastTag = subprocess.check_output("git describe --abbrev=0 --tags", shell=True)
         print("Got last local tag: " + self.lastTag)
