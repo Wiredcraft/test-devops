@@ -1,0 +1,6 @@
+- name: install ansible for ubuntu
+  apt: name=ansible state=present
+  when: ansible_os_family == "Debian"
+- name: install ansible for RHEL
+  yum: name=ansible state=present
+  when: ansible_os_family == "RedHat"

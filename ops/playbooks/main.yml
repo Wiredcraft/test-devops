@@ -1,0 +1,13 @@
+---
+  - hosts: ub2
+    vars_files:
+      - ./vars.yml
+    remote_user: root
+    roles:
+      - { role: deploy, when: action == "deploy" }
+      - { role: web_dev, when: action == "dev" or action == "deploy" or action == "consdeploy"}
+      - { role: web_staging, when: action == "staging" or action == "deploy" or action == "consdeploy"}
+      - { role: consdeploy, when: action == "consdeploy" }
+      - { role: iteration, when: action == "iteration" }
+      - { role: stopiter, when: action == "stopiter" }
+      - { role: stopdepl, when: action == "stopdepl" }
