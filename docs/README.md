@@ -136,6 +136,9 @@ Starting tasks
 - To make the stuffs to run, you need below environments at least
     - Python 2.7 +
     - Ansible (2.0 + Recommended)
+- For remote server access.
+    - use ssh keys to avoid password prompt
+    - **(Default)**when using password with **-k** parameter for ansible-playbook, please also disable host key checking in ansible config file
 
 # Q&A
 
