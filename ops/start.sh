@@ -26,6 +26,6 @@ echo "--------------------------------------------------------------------------
 echo "-----------------------------------------------------------------------------------------------------------"
 cd playbooks/
 ansible-playbook -e 'host_key_checking=False' prepare.yml --extra-vars "host=$host"
-ansible-playbook -e 'host_key_checking=False' -i staging main.yml --extra-vars "action=$action"
+ansible-playbook -e 'host_key_checking=False' -i staging main.yml --extra-vars "action=$action" -k
 cd ..
 echo "----------------------------------DONE----------------------------------------------------------------------"
