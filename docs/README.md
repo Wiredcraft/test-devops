@@ -4,7 +4,7 @@
 Repos for Wiredcraft DevOps - Test - Static website generator and build flow
 
 ## Status
-Current status: **NOT FINISHED YET**
+Current status: **Finished**
 
 ## Structure
 
@@ -90,7 +90,7 @@ Below GitHub repos will be used for the test:
 - Please follow below steps to get started:
     - Make a git clone or pull request to fetch the this repo into local
     - Naviagte into **test-devops/ops/**
-    - Run script **start.sh** to start my craft:
+    - Run script **start.sh** to start my craft.(Please define all variables in **plabooks/vars.yml** file!)
     - Specify arguements as script running to make craft work as desired:
 
 ```    

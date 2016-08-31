@@ -23,7 +23,7 @@ case "$1" in
   start)
 
   test -f $workPID && rm -f $workPID
-  nohup python {{ consdeploy_script }} consdeploy > consdeploy.log 2>&1 & echo $! > run.pid
+  nohup python {{ consdeploy_script }} > consdeploy.log 2>&1 & echo $! > run.pid
   echo "Started "$workName
     ;;
 

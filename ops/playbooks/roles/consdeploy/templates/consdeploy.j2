@@ -6,15 +6,18 @@ import os, json, urllib2, subprocess, time, datetime, sys
 class GitHubAccess(object):
     def __init__(self):
         # define github access token mix with - or space to ignore from github security
-        self.token = "20-822 144 dabd-43bec-ab7cf5 334b530 6-e05ed-d cf 0"
-        self.repo = "test-blog-compiled"
+        self.token = "{{ token }}"
+        self.repo = "{{ project_name }}"
         self.api = "https://api.github.com/repos"
-        self.gitUser = "devfans"
+        self.gitUser = "{{ git_repo_user }}"
         return None
+    # Get github tags api url
     def getTagsUrl(self):
         return self.api + "/" + self.gitUser + "/" + self.repo + "/tags"
+    # Get github commits api url
     def getCommitsUrl(self):
         return self.api + "/" + self.gitUser + "/" + self.repo + "/commits"
+    # Post to github api to get data
     def post(self, url):
         try:
 			request = urllib2.Request(url)
@@ -27,16 +30,17 @@ class GitHubAccess(object):
         except BaseException as e:
 			print(e)
 			return False
+    # Get repo's latest tag
     def getLastTag(self):
         tags = self.post(self.getTagsUrl())
         return tags[0]['name']
-
+    # Get repo's last commit date
     def getLastCommitDate(self):
         commits = self.post(self.getCommitsUrl())
         lastCommitDate = commits[0]['commit']['committer']['date']
         return datetime.datetime.strptime(lastCommitDate, '%Y-%m-%dT%H:%M:%SZ')
 
-
+# Define constinuous deployment class
 class ConsDeploy(object):
     def __init__(self):
         self.lastCommitDate = None
@@ -44,14 +48,14 @@ class ConsDeploy(object):
         self.gitaccess = GitHubAccess()
         self.repoTag = None
         self.repoCommitDate = None
-        self.interval = 2
-        self.repoBranch = "master"
-        self.devPath = "/opt/web/dev"
-        self.stagingPath = "/opt/web/staging"
-        self.devConfigPath = "_config_dev.yml"
-        self.stagingConfigPath = "_config_staging.yml"
+        self.interval = {{ check_interval }}
+        self.repoBranch = "{{ repo_branch }}"
+        self.devPath = "{{ web_dev_path }}"
+        self.stagingPath = "{{ web_staging_path }}"
+        self.devConfigPath = "{{ dev_config_path }}"
+        self.stagingConfigPath = "{{ staging_config_path }}"
         return None
-
+    # Get local repo last commit date
     def getLastCommitDate(self):
         os.chdir(self.devPath)
         os.chdir("source")
@@ -59,24 +63,24 @@ class ConsDeploy(object):
         self.lastCommitDate = datetime.datetime.strptime(repoDateStr.split(" +")[0], '%Y-%m-%d %H:%M:%S')
         print("Got last local commit date" + str(self.lastCommitDate))
         return None
-
+    # Get local repo latest tag
     def getLastTag(self):
         os.chdir(self.stagingPath)
         os.chdir("source")
         self.lastTag = subprocess.check_output("git describe --abbrev=0 --tags", shell=True)
         print("Got last local tag: " + self.lastTag)
         return None
-
+    # Get repo's last commit date
     def getRepoCommitDate(self):
         self.repoCommitDate = self.gitaccess.getLastCommitDate()
         print("Got last repo commit date: " + str(self.repoCommitDate))
         return None
-
+    # Get  repo's latest tag
     def getRepoTag(self):
         self.repoTag = self.gitaccess.getLastTag()
         print("Got last repo tag: " + self.repoTag)
         return None
-
+    # Deploy for dev domain
     def deployDev(self):
         print("Start updating dev site!")
         os.chdir(self.devPath)
@@ -85,7 +89,7 @@ class ConsDeploy(object):
         os.chdir(self.devPath)
         os.system("jekyll build --config " + self.devConfigPath)
         return None
-
+    # Deploy for staging domain
     def deployStaging(self):
         print("Start updating staging site!")
         os.chdir(self.stagingPath)
@@ -94,7 +98,7 @@ class ConsDeploy(object):
         os.chdir(self.stagingPath)
         os.system("jekyll build --config " + self.stagingConfigPath)
         return None
-
+    # Start constinuous deployment for dev/staging domains
     def consDeploy(self):
         while True:
             self.getRepoTag()

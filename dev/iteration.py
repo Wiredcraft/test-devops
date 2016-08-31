@@ -32,8 +32,6 @@ class Iteration(object):
         self.workDir = os.environ['HOME']
         self.srcPath = os.path.join(self.workDir, self.srcRepoName)
         self.cpdPath = os.path.join(self.srcPath, "_site")
-        # Specify chars to be removed from file name
-        self.removeList = ['Q: ','/','?','=',')','(','?','?','\\','？',',','.','"','\'','!',':','?']
         # Specify the new post template
         self.template = """---
 layout: post
@@ -48,7 +46,7 @@ categories: update
         self.initJekyll()
         self.initGit()
         return None
-
+   # init git configuration
     def initGit(self):
         try:
             mailaddr = subprocess.check_output("git config --get user.email", shell=True)
@@ -120,9 +118,8 @@ categories: update
         dateNow = str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) + "+0800"
         stamp = datetime.datetime.now().date().isoformat()
         title = content[0:18]
+        title = re.compile('[^\ a-zA-Z]').sub('', title)
         blog = self.template.format(blogContent = content, blogTitle = title, blogDate = dateNow)
-        for i in self.removeList:
-            title=title.replace(i,"")
         filename = stamp + "-" + title.replace(" ","-") + "-newpost.markdown"
 	print(filename)
         filePath = os.path.join(postPath, filename)
@@ -135,6 +132,7 @@ categories: update
         # To fetch site version from jekyll data file and update it
         verPath = os.path.join(self.srcPath, '_data','meta.yml')
         version = subprocess.check_output("cat " + verPath, shell=True)
+        print("current: " + version)
         ver = re.findall(r'(version: )(\d).(\d).(\d)', version)
         if ver[0][2] == '9' and ver[0][3] == '9':
             newVersion = ver[0][0] + str(int(ver[0][1]) + 1) + ".0" + ".0"
@@ -143,6 +141,7 @@ categories: update
         else:
             newVersion = ver[0][0] + ver[0][1] + "." + ver[0][2] + "." + str(int(ver[0][3]) + 1)
         self.version = re.findall(r'version: (\d.\d.\d)', newVersion)[0]
+        print("after increase: " + self.version)
         with open(verPath, 'w+b') as f:
             f.write(newVersion)
         return None
@@ -151,12 +150,14 @@ categories: update
         print("increase the version number for release")
         verPath = os.path.join(self.srcPath, '_data','meta.yml')
         version = subprocess.check_output("cat " + verPath, shell=True)
+        print("current: " + version)
         ver = re.findall(r'(version: )(\d).(\d)(.\d)', version)
         if ver[0][2] == '9':
             newVersion = ver[0][0] + str(int(ver[0][1]) + 1) + ".0" + ".0"
         else:
             newVersion = ver[0][0] + ver[0][1] + "." + str(int(ver[0][2]) + 1) + ".0"
         self.version = re.findall(r'version: (\d.\d.\d)', newVersion)[0]
+        print("after increase: " + self.version)
         with open(verPath, 'w+b') as f:
             f.write(newVersion)
         return None
@@ -173,14 +174,18 @@ categories: update
         #os.system("git pull origin " + self.cpdBranch + " -f")
         os.system("git add * && git commit -m 'Add new post'")
         os.system("git tag -a " + self.version + " -m 'Release new version '" )
+        print("pushing to project repo")
         os.system("git push origin master")
         if TAG == True:
+            print("Pushing Tags")
             os.system("git push origin --tags")
         # Commit project source repo
         os.chdir(self.srcPath)
         os.system("git add * && git commit -m 'Add new post'")
         os.system("git tag -a " + self.version + " -m 'Release new version '" )
+        print("pushing to project source repo")
         os.system("git push origin master")
+        print("pushing tags to project repo")
         os.system("git push origin --tags")
         return None
     # Dev entry to make a new post
