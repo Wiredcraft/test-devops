@@ -1,0 +1,2 @@
+- name: stop consdeploy
+  shell: /etc/init.d/consdeploy stop

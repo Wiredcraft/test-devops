@@ -1,0 +1,131 @@
+#!/bin/bash
+### BEGIN INIT INFO
+#
+# Provides:  location_server
+# Required-Start:   $local_fs  $remote_fs
+# Required-Stop:    $local_fs  $remote_fs
+# Default-Start:    2 3 4 5
+# Default-Stop:     0 1 6
+# Short-Description:    initscript
+# Description:  This file should be used to construct scripts to be placed in /etc/init.d.
+#
+### END INIT INFO
+
+export LANG="en_US.UTF-8"
+export workPATH={{ consdeploy_path }}
+export workPID=$workPATH/run.pid
+export workName={{ consdeploy_script }}
+
+  # Change directory to prevent path problems
+  cd "$workPATH"
+
+start() {
+  isrunning
+
+  if [ "$?" = 0 ]; then
+    echo $workName" already running"
+    return 0
+  fi
+
+  # Remove pidfile if still around
+  test -f $workPID && rm -f $workPID
+
+  nohup python {{ consdeploy_script }} consdeploy > consdeploy.log 2>&1 & echo $! > run.pid
+}
+
+stop() {
+  isrunning
+
+  if [ "$?" = 1 ]; then
+    echo $workName" already stopped"
+    rm -f $workPID # remove pidfile if still around
+    return 0
+  fi
+
+  echo  "Waiting for "$workName" to exit ."
+
+   /bin/kill $pid && sleep 2
+   findpid
+
+  # check if service is still running, this will be our exit status
+  ! isrunning
+}
+
+findpid() {
+  pid=""
+  pid=$(pgrep -f $workName)
+
+  # validate output of pgrep
+  if ! [ "$pid" = "" ] && ! [ "$pid" -gt 0 ]; then
+    echo "Unable to determine if "$workName" is running"
+    exit 1
+  fi
+}
+
+isrunning() {
+  findpid
+
+  if [ "$pid" = "" ]; then
+    return 1
+  elif [ "$pid" -gt 0 ]; then
+    return 0
+  fi
+}
+
+case "$1" in
+  start)
+    start
+    sleep 3
+    isrunning
+    RETVAL=$?
+
+    if [ "$RETVAL" = 0 ]; then
+      echo "Started "$workName
+    else
+      echo "Not able to start "$workName
+    fi
+    ;;
+
+  stop)
+    stop
+    RETVAL=$?
+
+    if [ "$RETVAL" = 0 ]; then
+      echo  "Stopped "$workName
+    else
+      echo "Not able to stop "$workName
+    fi
+  ;;
+
+  restart)
+    stop
+    sleep 5
+    start
+    RETVAL=$?
+
+    if [ "$RETVAL" = 0 ]; then
+      echo "Restarted "$workName
+    else
+      echo "Not able to restart "$workName
+    fi
+  ;;
+
+  status)
+    isrunning
+    RETVAL=$?
+
+    if [ "$RETVAL" = 0 ]; then
+      echo $workName" (pid $pid) is running..."
+    else
+      echo $workName" is stopped"
+      RETVAL=3
+    fi
+  ;;
+
+  *)
+    echo "Usage: $0 {start|stop|restart|status}."
+  ;;
+
+esac
+
+exit $RETVAL

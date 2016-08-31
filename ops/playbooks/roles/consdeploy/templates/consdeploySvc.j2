@@ -1,0 +1,52 @@
+#!/bin/bash
+### BEGIN INIT INFO
+#
+# Provides:  location_server
+# Required-Start:   $local_fs  $remote_fs
+# Required-Stop:    $local_fs  $remote_fs
+# Default-Start:    2 3 4 5
+# Default-Stop:     0 1 6
+# Short-Description:    initscript
+# Description:  This file should be used to construct scripts to be placed in /etc/init.d.
+#
+### END INIT INFO
+
+export LANG="en_US.UTF-8"
+export workPATH={{ consdeploy_path }}
+export workPID=$workPATH/run.pid
+export workName={{ consdeploy_script }}
+
+  # Change directory to prevent path problems
+  cd "$workPATH"
+
+case "$1" in
+  start)
+
+  test -f $workPID && rm -f $workPID
+  nohup python {{ consdeploy_script }} > consdeploy.log 2>&1 & echo $! > run.pid
+  echo "Started "$workName
+    ;;
+
+  stop)
+    pid=$(pgrep -f $workName)
+    kill $pid
+    echo  "Stopped "$workName
+
+  ;;
+
+  status)
+    pid=$(pgrep -f $workName)
+
+
+    if  ! [ "$pid" = "" ] && ! [ "$pid" -eq 0 ]; then
+      echo $workName" (pid $pid) is running..."
+    else
+      echo $workName" is stopped"
+    fi
+  ;;
+
+  *)
+    echo "Usage: $0 {start|stop|status}."
+  ;;
+
+esac

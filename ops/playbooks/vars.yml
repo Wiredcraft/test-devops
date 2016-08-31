@@ -1,0 +1,48 @@
+---
+web_path: /opt/web
+
+# vars for site dev
+web_dev_path: "{{ web_path }}/dev"
+src_dev_path: "{{ web_dev_path }}/source"
+target_dev_path: "{{ web_dev_path }}/_site_dev"
+config_dev_path: "{{ web_dev_path }}/_config_dev.yml"
+# vars for site staging
+web_staging_path: "{{ web_path }}/staging"
+src_staging_path: "{{ web_staging_path }}/source"
+target_staging_path: "{{ web_staging_path }}/_site_staging"
+config_staging_path: "{{ web_staging_path }}/_config_staging.yml"
+# vars for site jekyll config
+dev_config_path: "_config_dev.yml"
+staging_config_path: "_config_staging.yml"
+
+
+# github repo for the project
+git_repo_user: "devfans"
+project_name: "test-blog-compiled"
+repo_path: "https://github.com/{{ git_repo_user }}/{{ project_name }}.git"
+repo_branch: "master"
+# Specify the project-source repository on GitHub
+src_repo_name:  "test-blog"
+src_branch: "master"
+source_repo: "https://github.com/{{ git_repo_user }}/{{ src_repo_name }}.git"
+# Specify Github token for auto-publish
+token: "20-822 144 dabd-43bec-ab7cf5 334b530 6-e05ed-d cf 0"
+
+
+# vars for continuous iteration
+iteration_path: "/opt/work/iteration"
+iteration_script: "iteration.py"
+# Set default git user info if not set yet when make a commit
+git_email: "devops@wiredcraft.com"
+git_user: "devops stefan"
+# Specify the time interval (in minutes) for new post generation
+dev_interval: 10
+# Specify after how many new posts created, it needs to make staging release
+devs_to_stage: 6
+
+
+# vars for continuous deployment path
+consdeploy_path: "/opt/work/consdeploy"
+consdeploy_script: "consdeploy.py"
+# check interval in minutes
+check_interval: 2
