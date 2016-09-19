@@ -9,7 +9,7 @@ Vagrant.configure("2") do |config|
     vb.cpus = 2
     vb.name = "devopstest"
   end
-  config.vm.synced_folder "/Users/min/devops", "/vagrant"
+  
   config.vm.provision "ansible" do |ansible|
     ansible.sudo = true
     ansible.playbook = "provision/playbook.yml"
