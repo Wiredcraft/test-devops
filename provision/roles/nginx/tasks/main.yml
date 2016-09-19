@@ -12,6 +12,6 @@
     - reload nginx
 
 - name: configure staging nginx
-  copy: src=staging.conf dest=/etc/nginx/conf.d/staginf.conf mode=0755
+  copy: src=staging.conf dest=/etc/nginx/conf.d/staging.conf mode=0755
   notify:
     - reload nginx

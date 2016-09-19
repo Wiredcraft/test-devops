@@ -24,7 +24,7 @@ tags: devops
         self.template = template
 
     def _generate(self):
-        content = os.system(self.cmd)
+        content = commands.getoutput(self.cmd)
         title = " ".join(re.split('\W+',content)[:5])
         final_post = self.template.format(title=title,content=content,timestamp=self.timestamp)
         return final_post
@@ -74,17 +74,18 @@ class PushtoGH(object):
     
     def sync_to_staging(self):
         rsync = '/usr/bin/rsync -avzr --delete {s} {d}'.format(s=self.config['dev']['source'],d=self.config['staging']['source'])
-        os.system(rsync)     
+        commands.getoutput(rsync)     
     def push(self,ver):
         if self.env == 'dev':
             try:
                 print 'in devops dev process'
                 os.chdir(self.path)
-                print os.system('jekyll build -q --config _config_dev.yml')
-                print os.system('git init')
-                print os.system('git add _posts _site')
-                print os.system('git commit -m "just add a new post"')
-                print os.system('git push origin master -f') 
+                
+                print commands.getoutput('/root/.gem/ruby/2.3.0/bin/jekyll build -q --config _config_dev.yml')
+                print commands.getoutput('git init')
+                print commands.getoutput('git add _posts _site')
+                print commands.getoutput('git commit -m "just add a new post"')
+                print commands.getoutput('git push origin master -f') 
                 print 'leave devops dev process'
             except Exception as e:    
                 print e
@@ -93,12 +94,12 @@ class PushtoGH(object):
                 print 'in devops staging process'
                 self.sync_to_staging()
                 os.chdir(self.path)
-                print os.system('jekyll build -q --config _config_staging.yml')
-                print os.system('git init')
-                print os.system('git add _posts _site -f')
-                print os.system('git commit -m "just add release tag"')
-                print os.system('git tag  -a v%s -m "add new tag"'%ver)
-                print os.system('git push --tags origin master -f')
+                print commands.getoutput('/root/.gem/ruby/2.3.0/bin/jekyll build -q --config _config_staging.yml')
+                print commands.getoutput('git init')
+                print commands.getoutput('git add _posts _site -f')
+                print commands.getoutput('git commit -m "just add release tag"')
+                print commands.getoutput('git tag  -a v%s -m "add new tag"'%ver)
+                print commands.getoutput('git push --tags origin master -f')
                 print 'leave devops staginf process'
              except  Exception as e:
                 print e

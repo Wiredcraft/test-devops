@@ -9,7 +9,7 @@ base['staging']="{{ staging_blog_root }}"
 status() {
 for arg in $@
 do
-  if ps -ef |grep -q _config_$arg.ym[l]
+  if ps -ef |grep -q "_config_$arg.ym[l]"
   then
     echo "running"
   else
@@ -28,8 +28,7 @@ do
   then
     echo "$arg jekyll server already runing"
   else
-    $jekyll build -q --config "_config_$arg.yml" 
-    $jekyll server -q --config "_config_$arg.yml" 
+    $jekyll server -q -w --config "_config_$arg.yml" & 
    fi
 done
 }
