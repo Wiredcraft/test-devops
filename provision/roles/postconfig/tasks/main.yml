@@ -23,10 +23,10 @@
   shell: "sudo su root -c '/opt/jekyllctl.sh start staging'" 
 
 - name: add cron for generate post every 5 min and pust to github
-  cron: name="make post every 5 min" minute="*/5"  job="(cd /opt; /usr/bin/python devops.py dev)" 
+  cron: name="make post every 5 min" minute="*/10"  job="(cd /opt; /usr/bin/python devops.py dev)" 
 
 - name: add cron for tag staging blog every 10 min and pust to github
-  cron: name="tag staging blog every 10 min" minute="*/10"  job="(cd /opt; /usr/bin/python devops.py staging)"
+  cron: name="tag staging blog every 10 min" hour="*/1"  job="(cd /opt; /usr/bin/python devops.py staging)"
 
 - name: add cron check github commit and tags every 5 min
   cron: name="check new commit and tags on github" minute="*/5"  job="(cd /opt; /usr/bin/python watcher.py)"
