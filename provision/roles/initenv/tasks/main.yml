@@ -1,0 +1,118 @@
+- name: find jeykll binary
+  become: yes
+  shell:  find /root -name jekyll -type f|grep /bin/|while read i;do dirname $i ;done 
+  register: jekyllbinary
+
+- name: create dev blog
+  become: yes
+  command: "{{ jekyllbinary.stdout }}/jekyll new {{ dev_blog_root }} creates={{ dev_blog_root }}"
+
+- name: create staging blog
+  become: yes
+  command: "{{ jekyllbinary.stdout }}/jekyll new {{ staging_blog_root }} creates={{ staging_blog_root }}"
+
+- name: replace dev gemfile
+  become: yes
+  copy: src=Gemfile dest={{dev_blog_root}}
+
+- name: replace staging gemfile
+  become: yes
+  copy: src=Gemfile dest={{staging_blog_root}}
+
+- name: bundle install on dev
+  become: yes
+  command: "{{ jekyllbinary.stdout }}/bundle install"
+  args:
+    chdir: "{{ dev_blog_root }}"
+
+- name: bundle install on staging
+  become: yes
+  command: "{{ jekyllbinary.stdout }}/bundle install"
+  args:
+    chdir: "{{ staging_blog_root }}"
+
+- name: copy template to dev blog
+  become: yes
+  copy: src={{ item }} dest={{ dev_blog_root }}
+  with_items:
+    - _data
+    - _includes
+    - _layouts
+
+- name: copy template to staging blog
+  become: yes
+  copy: src={{ item }} dest={{ staging_blog_root }}
+  with_items:
+    - _data
+    - _includes
+    - _layouts
+
+- name: config jekyll dev
+  copy: src=_config_dev.yml dest={{ dev_blog_root }}
+
+- name: config jekyll staging
+  copy: src=_config_staging.yml dest={{ staging_blog_root }}
+
+- name: git config username
+  command: git config --global user.name "min"
+
+- name:  git config mail
+  command: git config --global user.email "ri0day@163.com"
+
+- name: add github host to known_hosts
+  become: yes
+  shell: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+  args:
+    creates: ~/.ssh/known_hosts
+
+- name: add ssh private key
+  become: yes
+  copy: src=id_rsa dest=~/.ssh/ mode=0600
+
+
+- name: add ssh public key
+  become: yes
+  copy: src=id_rsa.pub dest=~/.ssh/ mode=0644
+
+- name: init dev git repo
+  become: yes
+  shell: git init
+  args:
+    chdir: "{{ dev_blog_root }}"
+
+- name: init staging git repo
+  become: yes
+  shell: git init
+  args:
+    chdir: "{{ staging_blog_root }}"
+
+- name: check upstream for dev
+  become: yes
+  shell: "grep origin {{ dev_blog_root }}/.git/config"
+  register: dev_upstream_check  
+  ignore_errors: true
+
+- name: add upstream for dev
+  become: yes
+  shell: "git remote add origin {{ remote_repo }} chdir={{ dev_blog_root }}"
+  when: dev_upstream_check|failed
+
+
+- name: check upstream for staging
+  become: yes
+  shell: "grep origin {{ staging_blog_root }}/.git/config chdir={{ staging_blog_root }}"
+  register: staging_upstream_check
+  ignore_errors: true
+
+- name: add upstream for staging
+  become: yes
+  shell: git remote add origin {{ remote_repo }} chdir={{ staging_blog_root }}
+  when: staging_upstream_check|failed
+
+- name: set git ignore file 
+  become: yes
+  copy: src=.gitignore dest={{ item }}
+  with_items:
+    - "{{ dev_blog_root }}"
+    - "{{ staging_blog_root }}"
+
