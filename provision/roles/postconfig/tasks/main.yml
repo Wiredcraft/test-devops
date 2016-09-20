@@ -1,0 +1,34 @@
+- name: add jekyll server control script
+  template: src=templates/jekyllctl.j2 dest=/opt/jekyllctl.sh mode=0754
+
+- name: add wachter to server
+  template: src=templates/watcher.j2 dest=/opt/watcher.py mode=0754
+
+- name: add devops.py to server
+  template: src=templates/devops.j2 dest=/opt/devops.py mode=0754
+
+- name: add devops process script
+  copy: src=utils.py  dest=/opt/
+ 
+- name: install feedparser for watcher
+  pip: name='feedparser' 
+
+#spend a lot of time on this ,because gem installed on root env,ansible using ubuntu user ,sudo module don't work
+#https://github.com/jekyll/jekyll/issues/2923
+
+- name: startup jekyll dev server
+  raw: "sudo su root -c '/opt/jekyllctl.sh start dev'" 
+
+- name: startup jekyll staging server
+  shell: "sudo su root -c '/opt/jekyllctl.sh start staging'" 
+
+- name: add cron for generate post every 10 min and pust to github
+  cron: name="make post every 10 min" minute="*/10"  job="(cd /opt; /usr/bin/python devops.py dev >/tmp/dev.log 2>&1)" 
+
+- name: add cron for tag staging blog every 1 hour and pust to github
+  cron: name="tag staging blog every 1 hour" minute="02" hour="*/1"  job="(cd /opt; /usr/bin/python devops.py staging >/tmp/staging.log 2>&1)"
+
+- name: add cron check github commit and tags every 5 min
+  cron: name="check new commit and tags on github" minute="*/5"  job="(cd /opt; /usr/bin/python watcher.py >/tmp/watcher.log 2>&1)"
+
+

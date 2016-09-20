@@ -1,0 +1,3 @@
+dev_blog_root: /opt/devops/dev_blog
+staging_blog_root: /opt/devops/staging_blog
+remote_repo: git@github.com:ri0day/devopsblog.git

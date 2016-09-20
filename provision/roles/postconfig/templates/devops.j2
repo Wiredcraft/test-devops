@@ -1,0 +1,39 @@
+#!/usr/bin/python
+#-*- coding:utf-8
+from utils import VersionUpdateHandler,MakeFortunePost,PushtoGH
+from sys import argv
+from random import randint
+from time import strftime
+
+
+config={
+'dev':
+    {
+       'base':'{{ dev_blog_root }}',
+       'dest':'{{ dev_blog_root }}/_site/',
+       'source':'{{ dev_blog_root }}/_posts/',
+       'ver_file':'{{ dev_blog_root }}/_data/meta.yml'
+    },
+
+'staging':
+    {
+       'base':'{{ staging_blog_root }}',
+       'dest':'{{ staging_blog_root }}/_site/',
+       'source':'{{ staging_blog_root }}/_posts/',
+       'ver_file':'{{ staging_blog_root }}/_data/meta.yml'
+    }
+
+}
+
+arg = argv[1] 
+
+if arg in [ "dev", "staging"]:
+    try:
+        filename = strftime('%Y-%m-%d')+'-'+str(randint(100,65535))+'.markdown'
+        mark = MakeFortunePost(config[arg]['source']+'%s'%filename).writedown()
+        ver = VersionUpdateHandler(arg,config[arg]['ver_file']).writeback()
+        PushtoGH(arg,config).push(ver)
+    except Exception as e:
+        print e
+else:
+    print 'no such sub command'

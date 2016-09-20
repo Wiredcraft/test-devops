@@ -1,0 +1,52 @@
+#!/bin/bash
+jekyll=$(find /root -name jekyll -type f |grep bin)
+declare -A base
+
+base['dev']="{{ dev_blog_root }}"
+base['staging']="{{ staging_blog_root }}"
+
+
+status() {
+for arg in $@
+do
+  if ps -ef |grep -q "_config_$arg.ym[l]"
+  then
+    echo "running"
+  else
+    echo "not"
+  fi
+done
+}
+
+
+start() {
+for arg in $@
+do
+  echo "start $arg jekyll server"
+  cd ${base[$arg]}
+  if [[  "$(status $arg)" == "running" ]]
+  then
+    echo "$arg jekyll server already runing"
+  else
+    $jekyll server -q -w --config "_config_$arg.yml" & 
+   fi
+done
+}
+
+
+stop() {
+for arg in $@
+do
+echo "stoping $arg jekyll"
+  if ps -ef |grep _config_$arg.ym[l] 
+    then
+      ps -ef |grep _config_$arg.ym[l] |awk '{print $2}'|xargs kill -9
+  else
+      echo "jekyll $arg not runing"
+      exit
+  fi
+done
+echo "$arg jekyll server killed"
+}
+
+eval $1 $2

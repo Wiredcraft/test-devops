@@ -1,0 +1,33 @@
+- name: Install jekyll blog requirements
+  apt: pkg={{ item }} state=latest
+  with_items:
+     - git
+     - gem
+     - ruby
+     - nodejs
+     - ruby-dev
+     - gcc
+     - nginx
+     - make
+     - fortune
+
+- name: gem install jekyll
+  gem: name=jekyll state=latest user_install=yes 
+- name: gem install bundle
+  gem: name=bundle state=latest user_install=yes
+
+- name: remove default repo
+  become: yes
+  command: gem sources --remove https://rubygems.org/
+
+- name: add taobao repo
+  become: yes  
+  command: gem sources -a https://ruby.taobao.org/
+
+- name: setting variables
+  shell: find /root -name jekyll -type f|grep /bin/ |while read i ;do dirname $i ;done
+  register: result
+
+- name: add jekyll to PATH env 
+  lineinfile: dest=/root/.bashrc line='export PATH=$PATH:{{result.stdout}}' insertafter='EOF' regexp='export PATH=\$PATH:{{result.stdout}}' state=present
+ 

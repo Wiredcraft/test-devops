@@ -1,0 +1,17 @@
+- name: ensure nginx running after reboot
+  service: name=nginx enabled=yes
+
+- name:  main configure file  of nginx disable sendfile
+  copy: src=nginx.conf dest=/etc/nginx/nginx.conf mode=0755
+  notify:
+    - reload nginx
+
+- name: configure dev nginx
+  copy: src=dev.conf dest=/etc/nginx/conf.d/dev.conf mode=0755
+  notify:
+    - reload nginx
+
+- name: configure staging nginx
+  copy: src=staging.conf dest=/etc/nginx/conf.d/staging.conf mode=0755
+  notify:
+    - reload nginx

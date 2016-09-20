@@ -1,0 +1,40 @@
+#!/usr/bin/python
+import os
+from commands import getoutput
+
+class NightWatcher(object):
+    def __init__(self,env):
+        self.env = env
+        self.local_commit_cmd = 'git log --pretty=format:"%H" -1'
+        self.remote_commit_cmd = 'git ls-remote --heads origin|cut -f 1'
+        self.local_tag_cmd = 'git tag -l|tail -n 1'
+        self.remote_tag_cmd = '''git ls-remote -t  | awk '{print $2}' | cut -d '/' -f 3 | cut -d '^' -f 1  | sort -b -t . -k 1,1nr -k 2,2nr -k 3,3r -k 4,4r -k 5,5r | uniq|head -n 1 2>/dev/null'''
+        self.config = {'dev':'{{ dev_blog_root }}','staging':'{{ staging_blog_root }}'}
+
+    def watcher(self):
+        os.chdir(self.config[self.env])
+        if self.env == 'dev':
+            print 'check dev blog commit'
+            local = getoutput(self.local_commit_cmd)
+            remote = getoutput(self.remote_commit_cmd)
+            if local != remote:
+                print 'new commit detected ,need pull'
+                self._pull()
+            else:
+                print 'dev no need pull'
+        if self.env == 'staging':
+            print 'check staging blog tags'
+            local = getoutput(self.local_tag_cmd)
+            remote = getoutput(self.remote_tag_cmd).split()[-1]
+            if local != remote:
+                print 'new tag detected ,need pull remote:%s local:%s'%(remote,local)
+                self._pull()
+            else:
+                print 'staging no need pull'   
+         
+    def _pull(self):
+        os.chdir(self.config[self.env])
+        getoutput('git pull origin master -f')
+            
+NightWatcher('dev').watcher()
+NightWatcher('staging').watcher()
