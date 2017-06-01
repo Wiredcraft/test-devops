@@ -1,0 +1,7 @@
+version_patch=`grep -oP 'version:\s+[0-9]\.[0-9]\.\K([0-9])' <_config.yml`
+new_version_patch=$(expr $version_patch + 1)
+sed -E "s/version:\s+([0-9]+)\.([0-9]+)\.[0-9]+/version: \1.\2.$new_version_patch/" <_config.yml > _config.yml.tmp && mv _config.yml.tmp _config.yml
+
+# version_minor=`grep -oP 'version:\s+[0-9]\.\K[0-9](?=\.[0-9])' <_config.yml`
+# new_version_minor=$(expr $minor_version + 1)
+# sed -E "s/version:\s+([0-9]+)\.[0-9]+\.[0-9]+/version: \1.$new_minor_version.0/" <_config.yml > _config.yml.tmp && mv _config.yml.tmp _config.yml
