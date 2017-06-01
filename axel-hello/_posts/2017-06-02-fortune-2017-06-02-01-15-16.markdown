@@ -1,0 +1,11 @@
+---
+layout: post
+title:  "Fortune"
+date:   2017-06-02 01:15:16 +0200
+categories: special
+---
+
+I have a dream.  I have a dream that one day, on the red hills of Georgia, 
+the sons of former slaves and the sons of former slaveowners will be able to
+sit down together at the table of brotherhood.
+		-- Martin Luther King, Jr.
