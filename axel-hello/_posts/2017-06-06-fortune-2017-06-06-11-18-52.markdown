@@ -1,0 +1,9 @@
+---
+layout: post
+title:  "Fortune"
+date:   2017-06-06 11:18:52 +0200
+categories: special
+---
+
+Any sufficiently advanced bug is indistinguishable from a feature.
+		-- Rich Kulawiec
