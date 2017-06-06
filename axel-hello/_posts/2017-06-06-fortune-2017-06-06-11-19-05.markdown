@@ -1,0 +1,9 @@
+---
+layout: post
+title:  "Fortune"
+date:   2017-06-06 11:19:05 +0200
+categories: special
+---
+
+  A verbal contract isn't worth the paper it's written on. Include
+  me out. -Samuel Goldwyn
