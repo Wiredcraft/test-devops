@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-06-02T01:29:20+02:00</updated><id>http://localhost:4000/</id><title type="html">Axel says hi</title><subtitle>Hello Wiredcraft! This website was made for the DevOps test.
+</subtitle><author><name>Axel Chalon</name></author><entry><title type="html">Fortune</title><link href="http://localhost:4000/special/2017/06/02/fortune-2017-06-02-01-24-20.html" rel="alternate" type="text/html" title="Fortune" /><published>2017-06-02T01:24:20+02:00</published><updated>2017-06-02T01:24:20+02:00</updated><id>http://localhost:4000/special/2017/06/02/fortune-2017-06-02-01-24-20</id><content type="html" xml:base="http://localhost:4000/special/2017/06/02/fortune-2017-06-02-01-24-20.html">&lt;p&gt;Dear Emily:
+	I saw a long article that I wish to rebut carefully, what should
+I do?
+		– Angry&lt;/p&gt;
+
+&lt;p&gt;Dear Angry:
+	Include the entire text with your article, and include your comments
+between the lines.  Be sure to post, and not mail, even though your article
+looks like a reply to the original.  Everybody &lt;em&gt;loves&lt;/em&gt; to read those long
+point-by-point debates, especially when they evolve into name-calling and
+lots of “Is too!” – “Is not!” – “Is too, twizot!” exchanges.
+		– Emily Postnews Answers Your Questions on Netiquette&lt;/p&gt;</content><author><name>Axel Chalon</name></author><summary type="html">Dear Emily: I saw a long article that I wish to rebut carefully, what should I do? – Angry</summary></entry><entry><title type="html">Fortune</title><link href="http://localhost:4000/special/2017/06/02/fortune-2017-06-02-01-15-16.html" rel="alternate" type="text/html" title="Fortune" /><published>2017-06-02T01:15:16+02:00</published><updated>2017-06-02T01:15:16+02:00</updated><id>http://localhost:4000/special/2017/06/02/fortune-2017-06-02-01-15-16</id><content type="html" xml:base="http://localhost:4000/special/2017/06/02/fortune-2017-06-02-01-15-16.html">&lt;p&gt;I have a dream.  I have a dream that one day, on the red hills of Georgia, 
+the sons of former slaves and the sons of former slaveowners will be able to
+sit down together at the table of brotherhood.
+		– Martin Luther King, Jr.&lt;/p&gt;</content><author><name>Axel Chalon</name></author><summary type="html">I have a dream. I have a dream that one day, on the red hills of Georgia, the sons of former slaves and the sons of former slaveowners will be able to sit down together at the table of brotherhood. – Martin Luther King, Jr.</summary></entry><entry><title type="html">First post!</title><link href="http://localhost:4000/special/2017/06/01/first-post.html" rel="alternate" type="text/html" title="First post!" /><published>2017-06-01T23:26:47+02:00</published><updated>2017-06-01T23:26:47+02:00</updated><id>http://localhost:4000/special/2017/06/01/first-post</id><content type="html" xml:base="http://localhost:4000/special/2017/06/01/first-post.html">&lt;p&gt;Hello world!&lt;/p&gt;</content><author><name>Axel Chalon</name></author><summary type="html">Hello world!</summary></entry></feed>
