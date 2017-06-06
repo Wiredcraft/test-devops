@@ -1,0 +1,44 @@
+Script started on Tue 06 Jun 2017 11:16:33 CEST
+]0;xx@archxel:~/web/devops/axel-hello[xx@archxel axel-hello]$ ./script
+No argument specified!
+]0;xx@archxel:~/web/devops/axel-hello[xx@archxel axel-hello]$ ./script dev
+Configuration file: /home/xx/web/devops/axel-hello/_config.yml
+            Source: /home/xx/web/devops/axel-hello
+       Destination: /home/xx/web/devops/axel-hello/_site
+ Incremental build: disabled. Enable with --incremental
+      Generating... 
+                    done in 0.21 seconds.
+ Auto-regeneration: disabled. Use --watch to enable.
+]0;xx@archxel:~/web/devops/axel-hello[xx@archxel axel-hello]$ ./script dev
+Configuration file: /home/xx/web/devops/axel-hello/_config.yml
+            Source: /home/xx/web/devops/axel-hello
+       Destination: /home/xx/web/devops/axel-hello/_site
+ Incremental build: disabled. Enable with --incremental
+      Generating... 
+                    done in 0.234 seconds.
+ Auto-regeneration: disabled. Use --watch to enable.
+[static-site-fortune bf55354] Automatically generated fortune post
+ 11 files changed, 348 insertions(+), 14 deletions(-)
+ create mode 100644 axel-hello/_posts/2017-06-06-fortune-2017-06-06-11-16-38.markdown
+ create mode 100644 axel-hello/_posts/2017-06-06-fortune-2017-06-06-11-18-52.markdown
+ create mode 100644 axel-hello/_site/special/2017/06/06/fortune-2017-06-06-11-16-38.html
+ create mode 100644 axel-hello/_site/special/2017/06/06/fortune-2017-06-06-11-18-52.html
+ create mode 100644 axel-hello/_site/typescript
+error: src refspec master does not match any.
+error: failed to push some refs to 'https://github.com/axelchalon/test-devops'
+]0;xx@archxel:~/web/devops/axel-hello[xx@archxel axel-hello]$ ./script dev
+Configuration file: /home/xx/web/devops/axel-hello/_config.yml
+            Source: /home/xx/web/devops/axel-hello
+       Destination: /home/xx/web/devops/axel-hello/_site
+ Incremental build: disabled. Enable with --incremental
+      Generating... 
+                    done in 0.257 seconds.
+ Auto-regeneration: disabled. Use --watch to enable.
+[static-site-fortune 8151e32] Automatically generated fortune post
+ 10 files changed, 177 insertions(+), 13 deletions(-)
+ create mode 100644 axel-hello/_posts/2017-06-06-fortune-2017-06-06-11-19-05.markdown
+ create mode 100644 axel-hello/_site/special/2017/06/06/fortune-2017-06-06-11-19-05.html
+Counting objects: 45, done.
+Delta compression using up to 4 threads.
+Compressing objects:   2% (1/36)   Compressing objects:   5% (2/36)   Compressing objects:   8% (3/36)   Compressing objects:  11% (4/36)   Compressing objects:  13% (5/36)   Compressing objects:  16% (6/36)   Compressing objects:  19% (7/36)   Compressing objects:  22% (8/36)   Compressing objects:  25% (9/36)   Compressing objects:  27% (10/36)   Compressing objects:  30% (11/36)   Compressing objects:  33% (12/36)   Compressing objects:  36% (13/36)   Compressing objects:  38% (14/36)   Compressing objects:  41% (15/36)   Compressing objects:  44% (16/36)   Compressing objects:  47% (17/36)   Compressing objects:  50% (18/36)   Compressing objects:  52% (19/36)   Compressing objects:  55% (20/36)   Compressing objects:  58% (21/36)   Compressing objects:  61% (22/36)   Compressing objects:  63% (23/36)   Compressing objects:  66% (24/36)   Compressing objects:  69% (25/36)   Compressing objects:  72% (26/36)   Compressing objects:  75% (27/36)   Compressing objects:  77% (28/36)   Compressing objects:  80% (29/36)   Compressing objects:  83% (30/36)   Compressing objects:  86% (31/36)   Compressing objects:  88% (32/36)   Compressing objects:  91% (33/36)   Compressing objects:  94% (34/36)   Compressing objects:  97% (35/36)   Compressing objects: 100% (36/36)   Compressing objects: 100% (36/36), done.
+Writing objects:   2% (1/45)   Writing objects:   4% (2/45)   Writing objects:   6% (3/45)   Writing objects:   8% (4/45)   Writing objects:  11% (5/45)   Writing objects:  13% (6/45)   Writing objects:  15% (7/45)   Writing objects:  17% (8/45)   Writing objects:  2
