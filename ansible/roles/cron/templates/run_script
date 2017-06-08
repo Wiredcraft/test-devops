@@ -1,5 +1,5 @@
 # Create a new post every 10 minutes
-*/10 * * * * root cd {{dev_directory}}/axel-hello && git pull && ./script dev
+*/10 * * * * root cd {{dev_directory}}/axel-hello && git pull && ./script dev >> /var/log/cron_run_script_dev.log 2>&1
 
 # Commit to staging every hour
-0 * * * * root cd {{dev_directory}}/axel-hello && git pull && ./script staging && cd {{staging_directory}} && git pull
+0 * * * * root cd {{dev_directory}}/axel-hello && git pull && ./script staging && cd {{staging_directory}} && git pull >> /var/log/cron_run_script_staging.log 2>&1
