@@ -1,2 +1,4 @@
 - name: Install jekyll gem
   command: /usr/local/rvm/bin/rvm all do gem install jekyll --version {{jekyll_version}} 
+- name: Install bundler gem
+  command: /usr/local/rvm/bin/rvm all do gem install bundler
