@@ -1,0 +1,8 @@
+---
+layout: post
+title:  "Fortune"
+date:   2017-06-08 22:10:02 +0200
+categories: special
+---
+
+
