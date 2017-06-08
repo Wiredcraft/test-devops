@@ -1,0 +1,6 @@
+- name: Copy run_script crontabs
+  template: src=run_script dest=/etc/cron.d/run_script mode=0644
+- name: Copy dev autoupdate crontabs
+  template: src=update_dev dest=/etc/cron.d/update_dev mode=0644
+- name: Copy staging autoupdate crontabs
+  template: src=update_staging dest=/etc/cron.d/update_staging mode=0644

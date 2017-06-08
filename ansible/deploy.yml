@@ -5,3 +5,4 @@
     - ruby_rvm
     - jekyll
     - nginx
+    - cron
