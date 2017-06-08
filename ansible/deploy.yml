@@ -1,0 +1,7 @@
+- hosts: axel-hello
+  roles:
+    - git
+    - fetch_site
+    - ruby_rvm
+    - jekyll
+    - nginx

@@ -1,0 +1,19 @@
+---
+# All ansible-jekyll variables
+# Override any in your local ansible group_vars/jekyll.yml
+http_user: www-data
+
+dev_directory: /var/www/dev/
+dev_www_root: /var/www/dev/_site/
+dev_hostname: dev.findingbeauty.in
+dev_port: 3555
+
+staging_directory: /var/www/staging/
+staging_www_root: /var/www/staging/_site/
+staging_hostname: staging.findingbeauty.in
+staging_port: 3556
+
+git_repo_url: https://github.com/axelchalon/test-devops.git
+
+jekyll_version: 3.4.3
+ruby_version: 2.4.1

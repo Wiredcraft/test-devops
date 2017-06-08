@@ -1,0 +1,29 @@
+---
+- name: Install nginx
+  action: apt pkg=nginx state=installed
+- name: Copy nginx configuration
+  template: src=nginx.conf dest=/etc/nginx/nginx.conf mode=0644
+  notify:
+    - restart nginx
+- name: Copy dev site configuration
+  template: src=dev dest=/etc/nginx/sites-available/dev mode=0644
+  notify:
+    - restart nginx
+- name: Enable dev site
+  file: src=/etc/nginx/sites-available/dev dest=/etc/nginx/sites-enabled/dev
+  args: 
+    state: link
+    mode: 0755
+  notify:
+    - restart nginx 
+- name: Copy staging site configuration
+  template: src=staging dest=/etc/nginx/sites-available/staging mode=0644
+  notify:
+    - restart nginx
+- name: Enable staging site
+  file: src=/etc/nginx/sites-available/staging dest=/etc/nginx/sites-enabled/staging
+  args: 
+    state: link
+    mode: 0755
+  notify:
+    - restart nginx
