@@ -6,6 +6,12 @@
     - name: "github_password"
       prompt: "Enter your GitHub password"
       private: yes 
+    - name: "git_email"
+      prompt: "Enter your Git email"
+      private: no 
+    - name: "git_name"
+      prompt: "Enter your Git name"
+      private: no
   roles:
     - git
     - fetch_site
