@@ -2,5 +2,5 @@ server {
     listen 80;
     server_name {{dev_hostname}};
 
-    root {{dev_www_root}};
+    root {{dev_directory}}/axel-hello/_site/;
 }

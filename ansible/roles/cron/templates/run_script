@@ -1,5 +1,5 @@
 # Create a new post every 10 minutes
-*/10 * * * * cd {{dev_directory}} && ./script dev
+*/10 * * * * cd {{dev_directory}}/axel-hello && ./script dev
 
 # Commit to staging every hour
-0 * * * * cd {{dev_directory}} && ./script staging
+0 * * * * cd {{dev_directory}}/axel-hello && ./script staging

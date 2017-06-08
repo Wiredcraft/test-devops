@@ -2,5 +2,5 @@ server {
     listen 80;
     server_name {{staging_hostname}};
     
-    root {{staging_www_root}};
+    root {{staging_directory}}/axel-hello/_site/;
 }
