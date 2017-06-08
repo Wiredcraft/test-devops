@@ -1,0 +1,9 @@
+---
+layout: post
+title:  "Fortune"
+date:   2017-06-08 19:53:24 +0200
+categories: special
+---
+
+Q:	How many IBM 370's does it take to execute a job?
+A:	Four, three to hold it down, and one to rip its head off.
