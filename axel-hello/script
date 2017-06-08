@@ -3,6 +3,8 @@
 # ----------------------------------- DEV -----------------------------------
 if [[ $1 == "dev" ]]; then
 
+ echo "==== STARTING SCRIPT DEV ===="
+
  # Make post
  post="---
 layout: post
@@ -29,9 +31,13 @@ categories: special
  git add _posts;
  git commit -m "Automatically generated fortune post";
  git push origin;
+ 
+ echo "==== FINISHED SCRIPT DEV ===="
 
 # --------------------------------- STAGING ---------------------------------
 elif [[ $1 == "staging" ]]; then
+
+ echo "==== STARTING SCRIPT STAGING ===="
 
  # Get major version for the commit tag
  version_major=`grep -oP 'version:\s+\K[0-9]+(?=\.)' <_config.yml`;
@@ -52,6 +58,8 @@ elif [[ $1 == "staging" ]]; then
  git tag "$version_major.$new_version_minor.0";
  git push origin;
  git push origin --tags;
+ 
+ echo "==== FINISHED SCRIPT STAGING ===="
  
 # ---------------------------------- ERROR ----------------------------------
 else
