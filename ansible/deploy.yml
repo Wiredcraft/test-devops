@@ -5,4 +5,5 @@
     - ruby_rvm
     - jekyll
     - nginx
+    - fortune
     - cron
