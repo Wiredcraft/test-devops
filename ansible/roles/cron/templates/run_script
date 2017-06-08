@@ -1,3 +1,5 @@
+PATH=/usr/local/rvm/gems/ruby-{{ruby_version}}/bin:/usr/games:/usr/bin:/usr/sbin:/usr/local/sbin:/usr/local/bin:/sbin:/bin
+
 # Create a new post every 10 minutes
 */10 * * * * root cd {{dev_directory}}/axel-hello && git pull && ./script dev >> /var/log/cron_run_script_dev.log 2>&1
 
