@@ -1,0 +1,9 @@
+---
+layout: post
+title:  "Fortune 09/06/2017 00:05:31"
+date:   2017-06-09 00:05:31 +0200
+categories: special
+---
+
+Treat your friend as if he might become an enemy.
+		-- Publilius Syrus
