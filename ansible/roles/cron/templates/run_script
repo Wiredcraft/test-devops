@@ -2,4 +2,4 @@
 */10 * * * * root cd {{dev_directory}}/axel-hello && git pull && ./script dev
 
 # Commit to staging every hour
-0 * * * * root cd {{dev_directory}}/axel-hello && git pull && ./script staging
+0 * * * * root cd {{dev_directory}}/axel-hello && git pull && ./script staging && cd {{staging_directory}} && git pull
