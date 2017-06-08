@@ -6,7 +6,7 @@ if [[ $1 == "dev" ]]; then
  # Make post
  post="---
 layout: post
-title:  \"Fortune `date "+%Y/%m/%d %H:%M:%S"`\"
+title:  \"Fortune `date "+%d/%m/%Y %H:%M:%S"`\"
 date:   `date +%Y-%m-%d\ %H:%M:%S` +0200
 categories: special
 ---
