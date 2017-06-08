@@ -1,1 +1,1 @@
-*/5 * * * * cd {{dev_directory}} && git pull
+*/5 * * * * root cd {{dev_directory}} && git pull

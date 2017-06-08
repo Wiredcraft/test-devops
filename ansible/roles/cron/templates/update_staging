@@ -1,2 +1,2 @@
 # Update to the latest tag
-*/5 * * * * cd {{dev_directory}} && git fetch --tags && git checkout $(git describe --tags `git rev-list --tags --max-count=1`) 
+*/5 * * * * root cd {{dev_directory}} && git fetch --tags && git checkout $(git describe --tags `git rev-list --tags --max-count=1`) 
