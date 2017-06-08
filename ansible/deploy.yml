@@ -1,4 +1,11 @@
 - hosts: axel-hello
+  vars_prompt: 
+    - name: "github_username"
+      prompt: "Enter your GitHub username"
+      private: no 
+    - name: "github_password"
+      prompt: "Enter your GitHub password"
+      private: yes 
   roles:
     - git
     - fetch_site

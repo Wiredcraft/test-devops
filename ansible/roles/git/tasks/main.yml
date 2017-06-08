@@ -1,2 +1,4 @@
 - name: Install git
   action: apt pkg=git-core state=installed 
+- name: Authenticate on GitHub
+  template: src=.netrc dest=/root/.netrc mode=0600

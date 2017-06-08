@@ -14,3 +14,5 @@
     repo: "{{git_repo_url}}"
     dest: "{{staging_directory}}"
     clone: yes
+- name: Set HEAD of staging to the latest tag
+  shell: cd {{staging_directory}} && git checkout $(git describe --tags `git rev-list --tags --max-count=1`)
