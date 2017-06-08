@@ -2,3 +2,7 @@
   command: /usr/local/rvm/bin/rvm all do gem install jekyll --version {{jekyll_version}} 
 - name: Install bundler gem
   command: /usr/local/rvm/bin/rvm all do gem install bundler
+- name: Install dependencies with bundler (dev)
+  command: cd {{dev_directory}}/axel-hello && bundle
+- name: Install dependencies with bundler (staging)
+  command: cd {{staging_directory}}/axel-hello && bundle
