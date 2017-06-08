@@ -3,6 +3,10 @@
 - name: Install bundler gem
   command: /usr/local/rvm/bin/rvm all do gem install bundler
 - name: Install dependencies with bundler (dev)
-  command: cd {{dev_directory}}/axel-hello && bundle
+  command: /bin/bash -lc 'bundle'
+  args:
+      chdir: "{{dev_directory}}/axel-hello"
 - name: Install dependencies with bundler (staging)
-  command: cd {{staging_directory}}/axel-hello && bundle
+  command: /bin/bash -lc 'bundle'
+  args:
+      chdir: "{{staging_directory}}/axel-hello"
