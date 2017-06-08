@@ -1,4 +1,3 @@
----
 - name: Create http_user
   user: name={{http_user}} group={{http_user}}
 - name: Create dev directory

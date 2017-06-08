@@ -1,5 +1,3 @@
----
-#Install ruby, rvm
 - name: Install curl
   action: apt pkg=curl state=installed
 - name: Install ruby and rvm
