@@ -5,6 +5,8 @@
     repo: "{{git_repo_url}}"
     dest: "{{dev_directory}}"
     clone: yes
+- name: Set {{http_user}} as owner of the dev directory
+  file: dest={{dev_directory}} owner={{http_user}} group={{http_user}} recurse=yes
 - name: Create staging directory
   file: dest={{staging_directory}} mode=0775 owner={{http_user}} group={{http_user}} state=directory 
 - name: Clone git repo to staging directory
@@ -12,5 +14,7 @@
     repo: "{{git_repo_url}}"
     dest: "{{staging_directory}}"
     clone: yes
+- name: Set {{http_user}} as owner of the staging directory
+  file: dest={{staging_directory}} owner={{http_user}} group={{http_user}} recurse=yes
 - name: Set HEAD of staging to the latest tag
   shell: cd {{staging_directory}} && git checkout $(git describe --tags `git rev-list --tags --max-count=1`)
