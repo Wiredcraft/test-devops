@@ -79,7 +79,7 @@ I would have done a few things intuitively a bit differently if the assignment h
  - I would have worked with two branches (`dev` and `staging`) on GitHub and simply set up the `dev` environment to be up-to-date with the `dev` branch, and the `staging` environment to be up-to-date with the `staging` branch.
  
 Some things that could be improved:
- - You mentioned testing but I don't really know what to test, or what's the best way to test this. Maybe I could have used `failed_when` in Ansible.
+ - You mentioned testing but I don't really know what to test, or what's the best way to test this.
 
 ---
 
