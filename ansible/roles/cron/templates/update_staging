@@ -1,2 +1,2 @@
 # Update to the latest tag
-*/5 * * * * {{http_user}} cd {{staging_directory}} && git fetch --tags && git checkout $(git describe --tags `git rev-list --tags --max-count=1`) >> /var/log/cron_update_staging.log 2>&1
+*/5 * * * * {{http_user}} cd {{staging_directory}} && git fetch --tags && git checkout $(git describe --tags `git rev-list --tags --max-count=1`) >> /var/log/crontabs/cron_update_staging.log 2>&1

@@ -13,6 +13,7 @@
       prompt: "Enter your Git name"
       private: no
   roles:
+    - create_user
     - git
     - fetch_site
     - ruby_rvm

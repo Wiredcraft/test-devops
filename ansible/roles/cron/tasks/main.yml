@@ -1,3 +1,5 @@
+- name: Create crontabs log directory
+  file: path=/var/log/crontabs state=directory owner={{http_user}} group={{http_user}}
 - name: Copy run_script crontabs
   template: src=run_script dest=/etc/cron.d/run_script mode=0644
 - name: Copy dev autoupdate crontab

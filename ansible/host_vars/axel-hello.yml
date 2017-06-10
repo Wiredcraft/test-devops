@@ -1,4 +1,5 @@
 http_user: www-data
+http_user_home: /var/www
 
 dev_directory: /var/www/dev
 dev_hostname: dev.findingbeauty.in
@@ -11,3 +12,9 @@ git_repo_default_branch: static-site-fortune
 
 jekyll_version: 3.4.3
 ruby_version: 2.4.1
+
+PATH=/usr/local/rvm/rubies/ruby-2.4.1/bin:/usr/local/rvm/gems/ruby-2.4.1/bin:/usr/games:/usr/bin:/usr/sbin:/usr/local/sbin:/usr/local/bin:/sbin:/bin
+
+
+ajouter
+/usr/local/rvm/rubies/ruby-2.4.1/bin/ruby

@@ -1,5 +1,3 @@
-- name: Create http_user
-  user: name={{http_user}} group={{http_user}}
 - name: Create dev directory
   file: dest={{dev_directory}} mode=0775 owner={{http_user}} group={{http_user}} state=directory
 - name: Clone git repo to dev directory

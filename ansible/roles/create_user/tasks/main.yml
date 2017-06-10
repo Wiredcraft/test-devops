@@ -1,0 +1,2 @@
+- name: Create http_user
+  user: name={{http_user}} groups={{http_user}} home={{http_user_home}} 
