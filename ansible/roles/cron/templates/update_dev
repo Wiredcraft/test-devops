@@ -1,1 +1,1 @@
-*/5 * * * * root cd {{dev_directory}} && git pull  >> /var/log/cron_update_dev.log 2>&1
+*/5 * * * * {{http_user}} cd {{dev_directory}} && git pull  >> /var/log/cron_update_dev.log 2>&1
