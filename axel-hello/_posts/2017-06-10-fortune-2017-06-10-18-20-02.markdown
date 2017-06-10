@@ -1,0 +1,10 @@
+---
+layout: post
+title:  "Fortune 10/06/2017 18:20:02"
+date:   2017-06-10 18:20:02 +0200
+categories: special
+---
+
+In the Spring, I have counted 136 different kinds of weather inside of
+24 hours.
+		-- Mark Twain, on New England weather
