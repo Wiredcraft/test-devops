@@ -40,7 +40,7 @@ The static website comes with `axel-hello/script`, a shell script that you can c
  
    This will:
      - increment the version number by 0.1.0 in `_config.yml`
-     - build the webste (update `axel-hello/_site`)
+     - build the website (update `axel-hello/_site`)
      - commit, tag the commit with the version number, and push
 
 ## Ansible Playbook (automatic deployment)
