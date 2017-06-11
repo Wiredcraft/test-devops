@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+
+# ----------------------------------- DEV -----------------------------------
+if [[ $1 == "dev" ]]; then
+
+ echo "==== STARTING SCRIPT DEV ===="
+
+ # Make post
+ post="---
+layout: post
+title:  \"Fortune `date "+%d/%m/%Y %H:%M:%S"`\"
+date:   `date +%Y-%m-%d\ %H:%M:%S` +0200
+categories: special
+---
+
+`fortune`"
+
+ echo "$post" > _posts/`date +%Y-%m-%d`-fortune-`date +%Y-%m-%d-%H-%M-%S`.markdown
+
+ # Increment patch version
+ version_patch=`grep -oP 'version:\s+[0-9]+\.[0-9]+\.\K[0-9]+' <_config.yml`;
+ new_version_patch=$(expr $version_patch + 1);
+ sed -E "s/version:\s+([0-9]+)\.([0-9]+)\.[0-9]+/version: \1.\2.$new_version_patch/" <_config.yml > _config.yml.tmp && mv _config.yml.tmp _config.yml;
+ 
+ # Build
+ jekyll build;
+ 
+ # Commit & push
+ git add _config.yml;
+ git add _site;
+ git add _posts;
+ git commit -m "Automatically generated fortune post";
+ git push origin;
+ 
+ echo "==== FINISHED SCRIPT DEV ===="
+
+# --------------------------------- STAGING ---------------------------------
+elif [[ $1 == "staging" ]]; then
+
+ echo "==== STARTING SCRIPT STAGING ===="
+
+ # Get major version for the commit tag
+ version_major=`grep -oP 'version:\s+\K[0-9]+(?=\.)' <_config.yml`;
+
+ # Increment minor version
+ old_version_minor=`grep -oP 'version:\s+[0-9]+\.\K[0-9]+(?=\.[0-9]+)' <_config.yml`;
+ new_version_minor=$(expr $old_version_minor + 1);
+ sed -E "s/version:\s+([0-9]+)\.[0-9]+\.[0-9]+/version: \1.$new_version_minor.0/" <_config.yml > _config.yml.tmp && mv _config.yml.tmp _config.yml;
+
+ # Build
+ jekyll build;
+ 
+ # Commit & push
+ git add _config.yml;
+ git add _site;
+ git add _posts;
+ git commit -m "Automatic staging build";
+ git tag "$version_major.$new_version_minor.0";
+ git push origin;
+ git push origin --tags;
+ 
+ echo "==== FINISHED SCRIPT STAGING ===="
+ 
+# ---------------------------------- ERROR ----------------------------------
+else
+
+ echo "No argument specified!" 1>&2;
+ exit 1;
+ 
+fi

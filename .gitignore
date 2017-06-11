@@ -1,2 +1,4 @@
 .*
+!/ansible/roles/git/templates/.netrc
+!/ansible/roles/git/templates/.gitconfig
 !.gitignore

@@ -1,0 +1,14 @@
+http_user: www-data
+http_user_home: /var/www
+
+dev_directory: /var/www/dev
+dev_hostname: dev.findingbeauty.in
+
+staging_directory: /var/www/staging
+staging_hostname: staging.findingbeauty.in
+
+git_repo_url: https://github.com/axelchalon/test-devops.git
+git_repo_default_branch: static-site-fortune
+
+jekyll_version: 3.4.3
+ruby_version: 2.4.1

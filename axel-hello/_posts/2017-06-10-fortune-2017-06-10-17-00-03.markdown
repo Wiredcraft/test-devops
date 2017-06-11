@@ -1,0 +1,9 @@
+---
+layout: post
+title:  "Fortune 10/06/2017 17:00:02"
+date:   2017-06-10 17:00:02 +0200
+categories: special
+---
+
+Q:	Why did the programmer call his mother long distance?
+A:	Because that was her name.

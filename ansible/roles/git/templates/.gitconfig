@@ -1,0 +1,6 @@
+[user]
+	name = {{git_name}}
+	email = {{git_email}}
+
+[push]
+    default = simple

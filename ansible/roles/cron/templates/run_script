@@ -1,0 +1,7 @@
+PATH=/usr/local/rvm/rubies/ruby-2.4.1/bin:/usr/local/rvm/gems/ruby-2.4.1/wrappers/:/usr/games:/usr/bin:/usr/sbin:/usr/local/sbin:/usr/local/bin:/sbin:/bin
+
+# Create a new post every 10 minutes
+*/10 * * * * {{http_user}} (cd {{dev_directory}}/axel-hello && git pull && ./script dev) >> /var/log/crontabs/cron_run_script_dev.log 2>&1
+
+# Commit to staging every hour
+7 * * * * {{http_user}} (cd {{dev_directory}}/axel-hello && git pull && ./script staging && cd {{staging_directory}} && git checkout {{git_repo_default_branch}} && git pull) >> /var/log/crontabs/cron_run_script_staging.log 2>&1
