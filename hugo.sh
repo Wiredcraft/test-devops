@@ -24,4 +24,13 @@ if [ "$1" = 'dev' ]
 elif [ "$1" = 'staging' ]
     then
     echo 'staging'
+    VERSION_STR=$(grep 'site_version' ${HUGO_PATH}/data/version.yml)
+    version_num=${VERSION_STR##'site_version: Version '}
+    main_num=$(echo ${version_num} | cut -d'.' -f 1)
+    staging_num=$(echo ${version_num} | cut -d'.' -f 2)
+    new_version_num=${main_num}.$(( ${staging_num}+1 )).0
+    sed -i '' "s/${version_num}/${new_version_num}/g" ${HUGO_PATH}/data/version.yml
+    git add .
+    git commit -m "new staging version ${new_version_num}"
+    git tag "${new_version_num}"
 fi
