@@ -21,6 +21,7 @@ if [ "$1" = 'dev' ]
     cd ..
     git add .
     git commit -m "new dev version ${dev_new_str}"
+    git push
 elif [ "$1" = 'staging' ]
     then
     VERSION_STR=$(grep 'site_version' ${HUGO_PATH}/data/version.yml)
