@@ -9,7 +9,6 @@ if [ "$1" = 'dev' ]
     echo 'dev'
     VERSION_STR=$(grep 'site_version' ${HUGO_PATH}/data/version.yml)
     staging_num=$(echo ${VERSION_STR} |cut -d'.' -f 2)
-    echo ${staging_num}
     str_lenth=${#VERSION_STR}
     dev_str=${VERSION_STR::$(( ${str_lenth}-1 ))}
     dev_last_num=${VERSION_STR: -1}
@@ -17,9 +16,9 @@ if [ "$1" = 'dev' ]
     dev_new_str=${dev_str}${dev_new_last_num}
     sed -i '' "s/${VERSION_STR}/${dev_new_str}/g" ${HUGO_PATH}/data/version.yml
     cd ${HUGO_PATH}
-    hugo new posts/${dev_new_last_num}.md
+    hugo new posts/${staging_num}-${dev_new_last_num}.md
     POST_STR=$(fortune)
-    echo ${POST_STR} >> ./content/posts/${dev_new_last_num}.md
+    echo ${POST_STR} >> ./content/posts/${staging_num}-${dev_new_last_num}.md
     cd ..
     git add .
     git commit -m "new dev version ${dev_new_str}"
