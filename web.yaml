@@ -2,17 +2,20 @@
   hosts: testserver
   sudo: True
   tasks:
-    - name: install snapd
-      apt: name=snapd update_cache=yes
-
     - name: install hugo
-      shell: snap install hugo
+      apt: name=hugo update_cache=yes
 
     - name: copy deploy script
       copy: src=deploy.sh  dest=/opt/deploy.sh
 
     - name: execture deploy script
-      shell: deploy.sh
-      args:
-        chdir: /opt
-        executable: /bin/bash
+      shell: bash /opt/deploy.sh
+
+    - name: install nginx
+      apt: name=nginx update_cache=yes
+
+    - name: copy nginx config file
+      copy: src=nginx.conf dest=/etc/nginx/conf.d/test-devops.conf
+
+    - name: start nginx
+      service: name=nginx state=started
