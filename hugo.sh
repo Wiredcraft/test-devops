@@ -6,7 +6,6 @@ HUGO_PATH='./quickstart'
 
 if [ "$1" = 'dev' ]
     then
-    echo 'dev'
     VERSION_STR=$(grep 'site_version' ${HUGO_PATH}/data/version.yml)
     staging_num=$(echo ${VERSION_STR} |cut -d'.' -f 2)
     str_lenth=${#VERSION_STR}
@@ -24,7 +23,6 @@ if [ "$1" = 'dev' ]
     git commit -m "new dev version ${dev_new_str}"
 elif [ "$1" = 'staging' ]
     then
-    echo 'staging'
     VERSION_STR=$(grep 'site_version' ${HUGO_PATH}/data/version.yml)
     version_num=${VERSION_STR##'site_version: Version '}
     main_num=$(echo ${version_num} | cut -d'.' -f 1)

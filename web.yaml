@@ -1,0 +1,18 @@
+- name: configure hugo server
+  hosts: testserver
+  sudo: True
+  tasks:
+    - name: install snapd
+      apt: name=snapd update_cache=yes
+
+    - name: install hugo
+      shell: snap install hugo
+
+    - name: copy deploy script
+      copy: src=deploy.sh  dest=/opt/deploy.sh
+
+    - name: execture deploy script
+      shell: deploy.sh
+      args:
+        chdir: /opt
+        executable: /bin/bash
