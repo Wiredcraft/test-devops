@@ -33,4 +33,5 @@ elif [ "$1" = 'staging' ]
     git add .
     git commit -m "new staging version ${new_version_num}"
     git tag "${new_version_num}"
+    git push
 fi
