@@ -19,6 +19,8 @@ if [ "$1" = 'dev' ]
     POST_STR=$(fortune)
     echo ${POST_STR} >> ./content/posts/${dev_new_last_num}.md
     cd ..
+    git add .
+    git commit -m "new dev version ${dev_new_str}"
 elif [ "$1" = 'staging' ]
     then
     echo 'staging'
