@@ -8,8 +8,8 @@ if [ "$1" = 'dev' ]
     then
     echo 'dev'
     VERSION_STR=$(grep 'site_version' ${HUGO_PATH}/data/version.yml)
-    staging_num=${VERSION_STR%.*}
-    print ${staging_num}
+    staging_num=$(${VERSION_STR} |cut -d'.' -f 2)
+    echo ${staging_num}
     str_lenth=${#VERSION_STR}
     dev_str=${VERSION_STR::$(( ${str_lenth}-1 ))}
     dev_last_num=${VERSION_STR: -1}
