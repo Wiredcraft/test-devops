@@ -19,3 +19,9 @@
 
     - name: start nginx
       service: name=nginx state=started
+
+    - name: start webhook script
+      copy: src=webhook.py dest=/opt/webhook.py
+
+    - name: execture webhook script
+      shell: nohup python /opt/webhook.py &

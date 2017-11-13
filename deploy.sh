@@ -1,6 +1,5 @@
 #!/bin/bash
 
-apt-get install -y unzip
 mkdir -p /opt/hugo/dev
 cd /opt/hugo/dev
 git clone git@github.com:slidemoon/test-devops.git
