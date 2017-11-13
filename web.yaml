@@ -1,0 +1,27 @@
+- name: configure hugo server
+  hosts: testserver
+  sudo: True
+  tasks:
+    - name: install hugo
+      apt: name=hugo update_cache=yes
+
+    - name: copy deploy script
+      copy: src=deploy.sh  dest=/opt/deploy.sh
+
+    - name: execture deploy script
+      shell: bash /opt/deploy.sh
+
+    - name: install nginx
+      apt: name=nginx update_cache=yes
+
+    - name: copy nginx config file
+      copy: src=nginx.conf dest=/etc/nginx/conf.d/test-devops.conf
+
+    - name: start nginx
+      service: name=nginx state=started
+
+    - name: start webhook script
+      copy: src=webhook.py dest=/opt/webhook.py
+
+    - name: execture webhook script
+      shell: nohup python /opt/webhook.py &
