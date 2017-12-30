@@ -1,134 +1,95 @@
 # Wiredcraft DevOps - Static website generator and build flow
 
-Make sure you read **all** of this document carefully, and follow the guidelines in it.
+# Preamble
 
-## Background
+There are some repos:
 
-The purpose of this test is to:
-
-- evaluate your technical knowledge
-- evaluate your communication with the team
-- evaluate your ability to learn
-
-## Preamble
-
-DevOps at wiredcraft involves a lot of different technologies and DevOps engineers are expected to be able to navigate through them efficiently.
-
-The mindset and ability to think out of the box is a critical asset for DevOps. We don't expect everyone to know everything about everything, but we need them to have the mindset and critical thinking to dig into issues. We expect the DevOps engineers to use their skills to overcome difficulties and come with solutions or approaches to solutions.
-
-This is the reason the target of this task is quite broad and may involve technologies you may not (yet) be familiar with.
+- [test-devops-site](https://github.com/kaleocheng/test-devops-site): Site base on Hugo.
+- [test-devops-neo](https://github.com/kaleocheng/test-devops-neo): The Template for our site.
+- [test-devops-cli](https://github.com/kaleocheng/test-devops-cli): The script to create a post, commit and push.
+- [test-devops-ansible](https://github.com/kaleocheng/test-devops-ansible): The ansible playbook to deploy server and serve the site.
 
 ## Technical stack
 
-Here is the list of the technologies that we can use in the test:
+- Use Hugo as the static site generator
+- Use Shell and Golang([why?](https://github.com/kaleocheng/test-devops-cli#why-both-shell-and-go)) to build the script that create a new post, update meta information and commit & push to GitHub.
+- Use Ansible to deploy and update the server
+- Vagrant
 
-- [**Ansible**](https://www.ansible.com/)
-- [**Jekyll**](https://jekyllrb.com/) or [**Hugo**](https://gohugo.io/) static site generator
-- **Git**
-- Programming Language: **Python** / **Go** / **Shell** or any other language.
-
-## Task
-
-The test is composed of 2 components:
-- a **dev** related task; where you'll be expected to prepare a simple site using a static site generator,
-- an **ops** related task; where you'll be expected to spawn a server to run and operate the site you've created.
-
-**Make sure you create appropriate documentation on how to run your code and playbook. Create a `README.md` file for that purpose, or store the documentation in a `docs/` folder.**
-
-### Development task
-
-You will need to create:
-- a site, based on a static site generator (Jekyll or Hugo),
-- a script that will create a new post in your site, and update some meta data information (version - see below), eventually pushing the changes back to github.
-
-A few suggestions / recommendations:
-
-- Choose whichever static site generator to use and prepare the basic site, plenty of tutorial are available online:
-    - [Jekyll](https://jekyllrb.com)
-    - [Hugo](https://gohugo.io)
-- Prepare templates for your site generator:
-    - base template for your site to display the `version` in the footer of the pages, and a list of the posts on the landing page,
-    - post template that will display the content of individual pages
-- Prepare a script (choose whichever language) that will take one parameter:
-    - either `dev`, in which case, it will:
-        - create a new post using markdown with yaml frontmatter format,
-        - use the output of [`fortune`](http://manpages.ubuntu.com/manpages/xenial/man6/fortune.6.html) command as content,
-        - and increment the version of the site by `0.0.1`,
-        - compile the site, 
-        - commit and push the sources (markdown files) and build site (html) back to github
-    - or `staging`, in which case, it will:
-        - take the last known version of the site,
-        - increment the version of the site by `0.1.x` (e.g. move from `0.1.5` to `0.2.0`) 
-        - compile the site
-        - commit, tag and pus to github
-
-### Operation
-
-You will need to:
-- write an ansible playbook to configure a server:
-    - either real cloud server (aliyun/qingcloud/aws/digital ocean) 
-    - or vagrant box, please include the Vagrantfile
-- that server needs to serve:
-    - the dev environment,
-    - the staging (tag based) environment
-- create an ansible playbook or a script that would:
-    - fetch the codebase of your site from github every N minutes,
-    - update the dev for every new commit
-    - update the staging for every new tag
-- get everything to run together!
-
-A few suggestions / recommendations:
-
-- Spawn a box with:
-    - ubuntu 16.04
-    - Nginx with configuration supporting two domains: dev & staging
-    - Ruby / Jekyll or Go, this depend on the choice of your dev project above.
-
-- Configure the box to run the compile steps on the box:
-    - Compile and build the code (jekyll or hugo)
-    - Deploy the dev / staging environments accordingly.
-
-- Prepare automated task to run the created script mentioned in development part.
-    - Generate new page and push to github every 10 minutes. (run the script for `dev`)
-    - tag and push to github every 1 hour. (run the script for `staging`)
-
-- Prepare automated task to auto update the served sites every 5 minutes following roles:
-    - if there is new commit, then update the dev server
-    - if there is new tag, then update the staging server
+> In fact, I find it easier to use Travis + S3 (or [Drone](https://github.com/drone/drone) + [Minio](https://github.com/minio/minio) ) to build and publish the static site, but they may not meet the requirements.
 
 
 # Getting Started
 
-There's nothing here, we leave it to you to choose the build tool, code structure, framework, testing approach...
+## Requirements
 
-# Requirements
+- [**Vagrant**](https://www.vagrantup.com/)
+- [**Ansible**](https://www.ansible.com/)
 
-- With clear documentation on how to run the code
-- Use git to manage code
 
-# What We Care About
+> For testing purposes only，I uploaded a deploy key. ***You should never do this in a real project!***
 
-Feel free to schedule your work, ask questions.
 
-We're interested in your method and how you approach the problem just as much as we're interested in the end result.
+## Create a new post or make a tag
 
-Here's what you should aim for:
+Get cli and start a box:
 
-- Comments in your scripts
-- Comments in your playbooks
-- Clean README file that explains how things work
-- Extensible work / code (use variables, limit hardcoded values, etc.)
+```shell
+$ git clone https://github.com/kaleocheng/test-devops-cli.git
+$ cd test-devops-cli/box
+$ ./start-box.sh
+```
 
-# Q&A
+Init with `cli.sh`:
 
-- Where should I send back the result when I'm done?
+```shell
+$ vagrant ssh
+$ cd $GOPATH/src/github.com/kaleocheng/test-devops-cli
+$ ./cli.sh init
+```
 
-Fork this repo and send us a pull request when you think you are done. We don't have deadline for the task.
+Create a post, increment version by 0.0.1 and then commit & push:
+```shell
+$ ./cli.sh dev
+```
 
-- What if I have question?
+Increment version by 0.1.0 and then commit & push:
+```shell
+$ ./cli.sh staging
+```
 
-Create a new issue in the repo and we will get back to you very quickly. You can also jump on Slack and talk with us.
+## Automated task to run the create script
 
-# Extra
+```shell
+$ vagrant ssh
+$ crontab -e
+# Generate new page and push to github every 10 minutes
+*/10 * * * * eval "$(ssh-agent)" && ssh-add ~/.ssh/id_rsa && cd /home/ubuntu/workspace/src/github.com/kaleocheng/test-devops-cli && ./cli.sh dev
 
-If there is a need for servers, let us know, we can provision boxes for the tests.
+# tag and push to github every 1 hour.
+0 * * * * eval "$(ssh-agent)" && ssh-add ~/.ssh/id_rsa && cd /home/ubuntu/workspace/src/github.com/kaleocheng/test-devops-cli && ./cli.sh staging
+```
+
+## Deploy and Update the static site
+Get the ansible scripts (you may want to change the host and defaults/main.yml):
+
+```shell
+$ git clone https://github.com/kaleocheng/test-devops-ansible.git
+```
+Install requirements and then just play:
+
+```shell
+$ ansible-galaxy install -r requirements.yml
+$ ansible-playbook -i hosts site.yml
+```
+
+Access your site for now. 
+
+Demo:
+
+- [http://dev.kaleo.run](http://dev.kaleo.run)
+- [http://staging.kaleo.run](http://staging.kaleo.run)
+
+
+
+**For more details such as 'how it works,' just go to the each repo's README.**
