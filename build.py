@@ -29,7 +29,8 @@ global_pwd = os.getcwd()
 assert "config.toml" in os.listdir(global_pwd)
 
 
-def write_version(html_path, v):
+def write_version(v):
+    html_path = global_pwd+"/themes/beg/layouts/_default/baseof.html"
     with open(html_path, encoding="utf-8") as html_fobj:
         soup = BS(html_fobj)
     tag = soup.find_all(id="specialflag")[0]
@@ -38,7 +39,8 @@ def write_version(html_path, v):
         html_fobj.write(soup.prettify("utf-8"))
 
 
-def update_config(path):
+def update_config():
+    path = global_pwd + "/config.toml"
     cfg_dict = toml.load(path)
     global global_flag
     if "version" in cfg_dict:
@@ -55,15 +57,14 @@ def update_config(path):
     return cfg_dict["version"]
 
 
-def shell_cmd(cmd_ary):
-    global_pwd
-    try:
-        path_fd = os.open()
-        os.fchdir(path_fd)
-    except IOError:
-        return False
-    output = subprocess.check_output(cmd_ary)
-    return output
+def shell_cmd(post_name):
+    create_p = ["hugo", "new", "posts/%s.md" % post_name]
+    pipeline = "fortune >> %s" % global_pwd+"/content/posts/"+post_name+".md"
+    output = subprocess.check_output(create_p)
+    print(output.decode("utf-8"))
+    output = subprocess.check_output(pipeline, shell=True)
+    print(output.decode("utf-8"))
+
 
 
 def git_operate(v):
@@ -71,15 +72,22 @@ def git_operate(v):
     repo_ins = Repo(global_pwd)
     untracked = repo_ins.untracked_files
     if len(untracked) > 0:
-        repo_ins.index.commit(untracked)
+        repo_ins.index.add(untracked)
     repo_ins.index.commit("Website Version "+v)
     org_ins = repo_ins.remotes.origin
     org_ins.push()
 
 
+def title_gen(version):
+    title = version.split(".")[2]
+    return str(int(title)+1)
+
+
 if __name__ == "__main__":
-    version = update_config("/Users/admin/quickstart/config.toml")
-    write_version(
-        "/Users/admin/quickstart/themes/beg/layouts/_default/baseof.html",
-        version
-    )
+    last_v = update_config()
+    write_version(last_v)
+    if global_flag == "dev":
+        shell_cmd(title_gen(last_v))
+    else:
+        pass
+    git_operate(last_v)
