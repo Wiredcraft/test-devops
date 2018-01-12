@@ -66,7 +66,6 @@ def shell_cmd(post_name):
     print(output.decode("utf-8"))
 
 
-
 def git_operate(v):
     global global_pwd
     repo_ins = Repo(global_pwd)
