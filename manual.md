@@ -17,7 +17,7 @@ Firstly, i assume you run the script on local computer instead of web server. Yo
     - gitpython
     - toml
 
-* Install hugo
+* Install hugo(version 0.30.0 or higher)
 
 * Init git repo or clone from remote by youself
 
