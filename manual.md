@@ -28,6 +28,8 @@ cd [your repo path]
 
 hugo new site .
 
+git init
+
 git submodule add https://github.com/h2so4gun/customtemplate.git themes/beg;\
 
 echo 'theme = "beg"' >> config.toml
