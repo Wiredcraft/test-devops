@@ -1,8 +1,10 @@
 # encoding:utf-8
+# python3
 # author:huang
 from bs4 import BeautifulSoup as BS
 from git import Repo
 import toml
+import time
 import argparse
 import subprocess
 import os
@@ -77,6 +79,18 @@ def git_operate(v):
     org_ins.push()
 
 
+def temporary_tag(v):
+    print(
+        subprocess.check_output(
+            ["git", "tag", "-a", v, "-m", v]
+        ).decode("utf-8")
+    )
+    print(
+        subprocess.check_output(
+            ["git", "push", "--tags"]
+        ).decode("utf-8")
+    )
+
 def title_gen(version):
     title = version.split(".")[2]
     return str(int(title)+1)
@@ -87,6 +101,8 @@ if __name__ == "__main__":
     write_version(last_v)
     if global_flag == "dev":
         shell_cmd(title_gen(last_v))
+        git_operate(last_v)
     else:
-        pass
-    git_operate(last_v)
+        git_operate(last_v)
+        time.sleep(5)
+        temporary_tag(last_v)

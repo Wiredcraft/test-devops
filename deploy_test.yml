@@ -1,0 +1,23 @@
+---
+- hosts: testservers
+  vars:
+    site_path: "/root/myStaticWeb"
+    repo_path: "https://github.com/h2so4gun/myStaticWeb.git"
+  tasks:
+  - name: install hugo
+    apt:
+      name: hugo
+      state: present
+  - name: fetch repo every minutes
+    cron:
+      name: "fetch repo"
+      minute: "*/20"
+      job: "git -C {{ site_path }} pull"
+      user: root
+      cron_file: ansible_fetch_repo
+      state: present
+  - name: build git repo
+    git:
+       repo: "{{ repo_path }}"
+       dest: "{{ site_path }}-test"
+       update: yes

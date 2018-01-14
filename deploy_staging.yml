@@ -1,0 +1,11 @@
+---
+- hosts: testservers
+  vars:
+    site_path: "/root/myStaticWeb"
+    repo_path: "https://github.com/h2so4gun/myStaticWeb.git"
+  tasks:
+  - name: build git repo
+    git:
+       repo: "{{ repo_path }}"
+       dest: "{{ site_path }}-staging"
+       update: yes
