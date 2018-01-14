@@ -26,6 +26,10 @@ def resp_webhook():
     else:
         return someone("test")
 
+# Using subprocess to run ansible playbook. 
+# Because ansible python api is too heavy. 
+# If i build the big system, i will use ansible python api.
+
 
 if __name__ == '__main__':
     app.run(
