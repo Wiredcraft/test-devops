@@ -12,6 +12,10 @@ global_pwd = os.getcwd()
 if "config.toml" not in os.listdir(global_pwd):
     global_pwd = os.path.split(os.path.realpath(__file__))[0]
 assert "config.toml" in os.listdir(global_pwd)
+try:
+    os.mkdir(global_pwd + "/themes/beg/archetypes")
+except:
+    pass
 
 
 def write_version(v):
@@ -45,10 +49,7 @@ def update_config(flag):
 def shell_cmd(post_name):
     create_p = ["hugo", "new", "posts/%s.md" % post_name]
     pipeline = "fortune >> %s" % global_pwd+"/content/posts/"+post_name+".md"
-    try:
-        output = subprocess.check_output(create_p, shell=True)
-    except:
-        os.mkdir(global_pwd+"/themes/beg/archetypes")
+    output = subprocess.check_output(create_p)
     output = subprocess.check_output(pipeline, shell=True)
     print(output.decode("utf-8"))
 
