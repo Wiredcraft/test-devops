@@ -5,14 +5,14 @@ from bs4 import BeautifulSoup as BS
 from git import Repo
 import toml
 import time
-import argparse
 import subprocess
 import os
-global_flag = ""
+from threading import Timer
 global_pwd = os.getcwd()
 if "config.toml" not in os.listdir(global_pwd):
     global_pwd = os.path.split(os.path.realpath(__file__))[0]
 assert "config.toml" in os.listdir(global_pwd)
+
 
 def write_version(v):
     html_path = global_pwd+"/themes/beg/layouts/_default/baseof.html"
@@ -24,10 +24,10 @@ def write_version(v):
         html_fobj.write(soup.prettify("utf-8"))
 
 
-def update_config():
+def update_config(flag):
     path = global_pwd + "/config.toml"
     cfg_dict = toml.load(path)
-    global global_flag
+    global_flag = flag
     if "version" in cfg_dict:
         ary = cfg_dict["version"].split(".")
         if global_flag == "dev":
@@ -76,38 +76,58 @@ def temporary_tag(v):
         ).decode("utf-8")
     )
 
+
 def title_gen(version):
     title = version.split(".")[2]
     return str(int(title)+1)
 
 
-if __name__ == "__main__":
-    os_args = argparse.ArgumentParser(
-        prog="build tool",
-        description="Development Task in Python"
-    )
-    os_args.add_argument(
-        "command",
-        help='''
-            dev:
-                1.create new post with some setting in yaml
-                2.output of fortune command as content
-                3.configure version and compile the website
-                4.posts and website file will be pushed to github
-            staging:
-                1.increment the big version
-                2.configure and compile
-                3.posts and website file will be pushed to github
-        '''
-    )
-    global global_flag
-    global_flag = os_args.parse_args().command
-    last_v = update_config()
+def staging():
+    last_v = update_config("staging")
     write_version(last_v)
-    if global_flag == "dev":
-        shell_cmd(title_gen(last_v))
-        git_operate(last_v)
-    else:
-        git_operate(last_v)
-        time.sleep(5)
-        temporary_tag(last_v)
+    git_operate(last_v)
+    time.sleep(5)
+    temporary_tag(last_v)
+
+
+def dev():
+    last_v = update_config("dev")
+    write_version(last_v)
+    shell_cmd(title_gen(last_v))
+    git_operate(last_v)
+
+
+class CycleRun(object):
+
+    def __init__(self, interval, func, *args, **kwargs):
+        self._timer = None
+        self.function = func
+        self.interval = interval
+        self.args = args
+        self.kwargs = kwargs
+        self.is_running = False
+        self.start()
+
+    def _run(self):
+        self.is_running = False
+        self.start()
+        self.function(*self.args, **self.kwargs)
+
+    def start(self):
+        if not self.is_running:
+            self._timer = Timer(self.interval, self._run)
+            self._timer.start()
+            self.is_running = True
+
+    def stop(self):
+        self._timer.cancel()
+        self.is_running = False
+
+
+dev_timer = CycleRun(600, dev)
+staging_timer = CycleRun(3600, staging)
+
+
+if __name__ == "__main__":
+    print("Starting...")
+
