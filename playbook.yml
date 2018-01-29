@@ -1,0 +1,18 @@
+---
+- hosts: all
+  become: true
+  remote_user: vagrant
+  become_method: sudo
+  become_user: root
+
+  tasks:
+
+  - name: Install hugo server
+    pip:
+      name: virtualenv
+      executable: pip3
+
+  - git:
+    repo: 'https://github.com/Wiredcraft/test-devops.git'
+    dest: test-devops/wired
+    update: yes
