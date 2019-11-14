@@ -1,0 +1,4 @@
+---
+- hosts: devopstest.com
+  tasks:
+    - ping:
