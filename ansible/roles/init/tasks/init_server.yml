@@ -46,6 +46,14 @@
   args:
     chdir: /home/vagrant
 
+- name: install jekyll
+  become: "{{ remote_user }}"
+  shell: |
+    source ~/.bashrc
+    gem install bundler jekyll
+  args:
+    chdir: /home/vagrant
+
 - name: setenforce permissive
   shell: |
     setenforce permissive
