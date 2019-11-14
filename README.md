@@ -80,7 +80,7 @@ You will need to:
 A few suggestions / recommendations:
 
 - Spawn a box with:
-    - ubuntu 16.04
+    - CentOS 7
     - Nginx with configuration supporting two domains: dev & staging
     - Ruby / Jekyll or Go, this depend on the choice of your dev project above.
 
