@@ -1,0 +1,84 @@
+---
+- name: install nginx 
+  yum:
+    state: installed
+    name: nginx
+    update_cache: yes
+
+
+- name: Copy nginx.conf
+  copy:
+    src: nginx.conf
+    dest: /etc/nginx/nginx.conf
+    owner: root
+    group: root
+
+- name: create sites-available folder
+  file:
+    path: "/etc/nginx/sites-available"
+    owner: nginx
+    group: nginx
+    mode: 0755
+    state: directory
+
+- name: create sites-enabled folder
+  file:
+    path: "/etc/nginx/sites-enabled"
+    owner: nginx
+    group: nginx
+    mode: 0755
+    state: directory
+
+- name: create log folders folder
+  file:
+    path: "{{ item }}"
+    owner: nginx
+    group: nginx
+    mode: 0755
+    state: directory
+  with_items:
+    - "{{ logs_dev_root }}"
+    - "{{ logs_stage_root }}"
+
+- name: create www dev folder
+  file:
+    path: "{{www_dev_root}}"
+    owner:  nginx
+    group: nginx
+    mode: 0755
+    state: directory
+
+- name: create www stage folder
+  file:
+    path: "{{www_stage_root}}"
+    owner:  nginx
+    group: nginx
+    mode: 0755
+    state: directory
+
+- name: Template a dev module settings
+  template:
+    src: "devopstest_{{ item }}.j2"
+    dest: "/etc/nginx/sites-available/devopstest_{{ item }}.conf"
+    owner: nginx
+    group: nginx
+    mode: 0755
+  with_items:
+    - dev
+    - stage
+
+- name: Nginx sites symlink
+  file:
+    state: link
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    force: yes
+  with_items:
+    - { src: "/etc/nginx/sites-available/devopstest_dev.conf", dest: "/etc/nginx/sites-enabled/devopstest_dev.conf" }
+    - { src: "/etc/nginx/sites-available/devopstest_stage.conf", dest: "/etc/nginx/sites-enabled/devopstest_stage.conf" }
+  
+
+- name: start and enable nginx 
+  shell: |
+    systemctl start nginx
+    systemctl enable nginx

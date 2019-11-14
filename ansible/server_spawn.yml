@@ -1,4 +1,7 @@
 ---
-- hosts: devopstest.com
-  tasks:
-    - ping:
+- name: initial server spawn 
+  hosts: "{{ host | default('devopstest.com') }}"
+  remote_user: "{{ remote_user }}"
+
+  roles:
+    - init

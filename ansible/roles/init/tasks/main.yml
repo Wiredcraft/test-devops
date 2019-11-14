@@ -1,0 +1,8 @@
+---
+- include: init_server.yml
+  become: yes
+  tags: init
+
+- include: init_nginx.yml
+  become: yes
+  tags: nginx

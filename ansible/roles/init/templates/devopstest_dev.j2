@@ -1,0 +1,13 @@
+server {
+        server_name dev.devopstest.com;
+        listen 80;
+        listen [::]:80;
+        
+        location / {
+                try_files $uri $uri/ /index.html;
+                root {{ www_dev_root }};
+        }
+
+        access_log {{ logs_dev_root }}/access;
+        error_log {{ logs_dev_root }}/error;
+}

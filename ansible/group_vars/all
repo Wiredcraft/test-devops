@@ -1,0 +1,15 @@
+---
+# software versions
+ruby: "2.5.1"
+# git
+remote_user: "vagrant"
+upstream: git@github.com:ilyamochalov/{{project_name}}.git
+
+
+# server paths
+www_root: "/var/www"
+www_dev_root: "{{ www_root }}/dev"
+www_stage_root: "{{ www_root }}/stage"
+logs_root: "/var/log/nginx"
+logs_dev_root: "{{ logs_root }}/dev"
+logs_stage_root: "{{ logs_root }}/stage"

@@ -94,7 +94,7 @@ EOT
 $ ssh devopstest.com
 ```
 
-- Next, we need to provision the vagrant box with Ansible playbook (make sure are inside the python virtual environment we created before)
+- Next, we need to provision the vagrant box with Ansible playbook
 ```sh
-TODO
+$ make box_init
 ```
