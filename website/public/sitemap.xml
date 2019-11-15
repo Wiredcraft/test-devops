@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>dev.devopstest.com/posts/post-at-2019-11-15-1573820909/</loc>
+    <lastmod>2019-11-15T12:28:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>dev.devopstest.com/posts/</loc>
+    <lastmod>2019-11-15T12:28:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>dev.devopstest.com/</loc>
+    <lastmod>2019-11-15T12:28:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>dev.devopstest.com/posts/post-at-2019-11-15-1573800772/</loc>
+    <lastmod>2019-11-15T14:52:52+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>dev.devopstest.com/categories/</loc>
+  </url>
+  
+  <url>
+    <loc>dev.devopstest.com/tags/</loc>
+  </url>
+  
+</urlset>

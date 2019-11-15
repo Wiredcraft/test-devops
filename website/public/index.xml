@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Wiredcraft DevOps</title>
+    <link>dev.devopstest.com/</link>
+    <description>Recent content on Wiredcraft DevOps</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 15 Nov 2019 12:28:29 +0000</lastBuildDate>
+    
+	<atom:link href="dev.devopstest.com/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Post at 2019 11 15 1573820909</title>
+      <link>dev.devopstest.com/posts/post-at-2019-11-15-1573820909/</link>
+      <pubDate>Fri, 15 Nov 2019 12:28:29 +0000</pubDate>
+      
+      <guid>dev.devopstest.com/posts/post-at-2019-11-15-1573820909/</guid>
+      <description>Being overloaded is the sign of a true Debian maintainer.</description>
+    </item>
+    
+    <item>
+      <title>Post at 2019 11 15 1573800772</title>
+      <link>dev.devopstest.com/posts/post-at-2019-11-15-1573800772/</link>
+      <pubDate>Fri, 15 Nov 2019 14:52:52 +0800</pubDate>
+      
+      <guid>dev.devopstest.com/posts/post-at-2019-11-15-1573800772/</guid>
+      <description>A homeowner&amp;rsquo;s reach should exceed his grasp, or what&amp;rsquo;s a weekend for?</description>
+    </item>
+    
+  </channel>
+</rss>
