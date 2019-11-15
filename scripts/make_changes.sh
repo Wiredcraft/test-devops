@@ -84,7 +84,7 @@ push_changes_stage() {
     NEW_VERSION=$(increment_version $CURRENT_VERSION 2)
     bump_version
 
-    make hogo_build_stage TAG=NEW_VERSION
+    make hogo_build_stage TAG=$NEW_VERSION
 }
 
 bump_version() {

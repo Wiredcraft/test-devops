@@ -1,0 +1,15 @@
+---
+- name: Set push changes dev environment crontab
+  become: "{{ remote_user }}"
+  cron:
+    name: "push env changes"
+    minute: "5-55/15"
+    job: "cd {{ push_repo }} && /bin/bash {{ push_repo }}/scripts/make_changes.sh dev 2>&1"
+
+
+- name: Set push changes stage environment crontab
+  become: "{{ remote_user }}"
+  cron:
+    name: "push stage changes"
+    minute: "0"
+    job: "cd {{ push_repo }} && /bin/bash {{ push_repo }}/scripts/make_changes.sh stage 2>&1"

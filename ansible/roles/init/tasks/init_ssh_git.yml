@@ -13,7 +13,7 @@
     group: "{{ remote_user }}"
     mode: '0600'
 
-- name: copy ssh config
+- name: copy ssh config file
   copy:
     src: config
     dest: "{{ ssh_config }}"

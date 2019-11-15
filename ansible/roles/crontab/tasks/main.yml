@@ -1,0 +1,4 @@
+---
+- include: init_push_crontab.yml
+  become: yes
+  tags: push

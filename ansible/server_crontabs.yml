@@ -1,0 +1,7 @@
+---
+- name: initial crontab settings
+  hosts: "{{ host | default('devopstest.com') }}"
+  remote_user: "{{ remote_user }}"
+
+  roles:
+    - crontab
