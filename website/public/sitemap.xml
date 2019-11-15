@@ -3,51 +3,56 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>stage.devopstest.com/posts/post-at-2019-11-15-1573823701/</loc>
+    <loc>dev.devopstest.com/posts/post-at-2019-11-15-1573824301/</loc>
+    <lastmod>2019-11-15T13:25:01+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>dev.devopstest.com/posts/</loc>
+    <lastmod>2019-11-15T13:25:01+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>dev.devopstest.com/</loc>
+    <lastmod>2019-11-15T13:25:01+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>dev.devopstest.com/posts/post-at-2019-11-15-1573823701/</loc>
     <lastmod>2019-11-15T13:15:01+00:00</lastmod>
   </url>
   
   <url>
-    <loc>stage.devopstest.com/posts/</loc>
-    <lastmod>2019-11-15T13:15:01+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>stage.devopstest.com/</loc>
-    <lastmod>2019-11-15T13:15:01+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>stage.devopstest.com/posts/post-at-2019-11-15-1573823592/</loc>
+    <loc>dev.devopstest.com/posts/post-at-2019-11-15-1573823592/</loc>
     <lastmod>2019-11-15T13:13:12+00:00</lastmod>
   </url>
   
   <url>
-    <loc>stage.devopstest.com/posts/post-at-2019-11-15-1573823401/</loc>
+    <loc>dev.devopstest.com/posts/post-at-2019-11-15-1573823401/</loc>
     <lastmod>2019-11-15T13:10:01+00:00</lastmod>
   </url>
   
   <url>
-    <loc>stage.devopstest.com/posts/post-at-2019-11-15-1573821901/</loc>
+    <loc>dev.devopstest.com/posts/post-at-2019-11-15-1573821901/</loc>
     <lastmod>2019-11-15T12:45:01+00:00</lastmod>
   </url>
   
   <url>
-    <loc>stage.devopstest.com/posts/post-at-2019-11-15-1573820909/</loc>
+    <loc>dev.devopstest.com/posts/post-at-2019-11-15-1573820909/</loc>
     <lastmod>2019-11-15T12:28:29+00:00</lastmod>
   </url>
   
   <url>
-    <loc>stage.devopstest.com/posts/post-at-2019-11-15-1573800772/</loc>
+    <loc>dev.devopstest.com/posts/post-at-2019-11-15-1573800772/</loc>
     <lastmod>2019-11-15T14:52:52+08:00</lastmod>
   </url>
   
   <url>
-    <loc>stage.devopstest.com/categories/</loc>
+    <loc>dev.devopstest.com/categories/</loc>
   </url>
   
   <url>
-    <loc>stage.devopstest.com/tags/</loc>
+    <loc>dev.devopstest.com/tags/</loc>
   </url>
   
 </urlset>

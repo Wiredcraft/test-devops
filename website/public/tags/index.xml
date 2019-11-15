@@ -2,12 +2,12 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Wiredcraft DevOps</title>
-    <link>stage.devopstest.com/tags/</link>
+    <link>dev.devopstest.com/tags/</link>
     <description>Recent content in Tags on Wiredcraft DevOps</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     
-	<atom:link href="stage.devopstest.com/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="dev.devopstest.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
   </channel>
