@@ -1,0 +1,6 @@
+Host github.com
+     HostName github.com
+     StrictHostKeyChecking no
+     PasswordAuthentication no
+     IdentityFile ~/.ssh/wiredcraft_devops_test_key
+     UserKnownHostsFile /dev/null

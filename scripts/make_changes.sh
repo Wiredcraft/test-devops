@@ -70,14 +70,21 @@ increment_version() {
     return 0
 }
 
-update_dev() {
+push_changes_dev() {
+    make hugo_new_post
+
     NEW_VERSION=$(increment_version $CURRENT_VERSION)
     bump_version
+
+    make hogo_build_dev
+    
 }
 
-update_stage() {
+push_changes_stage() {
     NEW_VERSION=$(increment_version $CURRENT_VERSION 2)
     bump_version
+
+    make hogo_build_stage TAG=NEW_VERSION
 }
 
 bump_version() {
@@ -93,7 +100,7 @@ main() {
     if [ $# -eq 0 ]; then echo "$usage"; return 1; fi 
     local env="${1}"    # environment string
 
-    update_$env
+    push_changes_$env
 } 
 
 main "$@"

@@ -6,3 +6,11 @@
 - include: init_nginx.yml
   become: yes
   tags: nginx
+
+- include: init_ssh_git.yml
+  become: yes
+  tags: ssh_git
+
+- include: init_ansible.yml
+  become: yes
+  tags: ansible

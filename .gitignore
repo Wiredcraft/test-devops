@@ -1,4 +1,2 @@
 .*
 !.gitignore
-vagrant_box/*
-!vagrant_box/Vagrantfile

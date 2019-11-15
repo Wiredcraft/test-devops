@@ -1,0 +1,36 @@
+---
+- name: add git user config
+  become: "{{ remote_user }}"
+  shell: |
+    git config --global user.name "WiredCraft DevOps"
+    git config --global user.email wiredcraft@mail.com
+
+- name: copy ssh key
+  copy:
+    src: wiredcraft_devops_test_key
+    dest: "{{ ssh_key_path }}"
+    owner: "{{ remote_user }}"
+    group: "{{ remote_user }}"
+    mode: '0600'
+
+- name: copy ssh config
+  copy:
+    src: config
+    dest: "{{ ssh_config }}"
+    owner: "{{ remote_user }}"
+    group: "{{ remote_user }}"
+    mode: '0700'
+
+- name: Clone push repo
+  become: "{{ remote_user }}"
+  git:
+    clone: yes
+    repo: "{{ git_origin }}"
+    dest: "{{ push_repo }}"
+
+- name: Clone pull repo
+  become: "{{ remote_user }}"
+  git:
+    clone: yes
+    repo: "{{ git_origin }}"
+    dest: "{{ pull_repo }}"

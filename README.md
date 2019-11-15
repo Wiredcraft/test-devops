@@ -67,30 +67,13 @@ $ source .venv/bin/activate
 - First, we need to spawn a vagrant box with following commands:
 
 ```sh
-# start the vagrant box
-$ cd vagrant_box
-$ vagrant up
-
-#copy vagrant box ssh key to your local user .ssh
-$ cp .vagrant/machines/default/virtualbox/private_key ~/.ssh/vagrant_key_201912
-
-$ chmod 600 ~/.ssh/vagrant_key_201912
+# create a vagrant box
+$ make box_create
 
 # add following lines to `/etc/hosts` file using text editor of your choice
 192.168.33.10 devopstest.com
 192.168.33.10 dev.devopstest.com
 192.168.33.10 stage.devopstest.com
-
-$ cat <<EOT>> ~/.ssh/config
-Host devopstest.com
-     HostName devopstest.com
-     User vagrant
-     Port 22
-     StrictHostKeyChecking no
-     PasswordAuthentication no
-     IdentityFile ~/.ssh/vagrant_key_201912
-     UserKnownHostsFile /dev/null
-EOT
 
 # test ssh settings by connecting to the box
 $ ssh devopstest.com

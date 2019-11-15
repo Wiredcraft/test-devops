@@ -1,10 +1,13 @@
 ---
-# software versions
-ruby: "2.5.1"
 # git
 remote_user: "vagrant"
-upstream: git@github.com:ilyamochalov/{{project_name}}.git
-
+project_name: "test-devops"
+git_origin: "git@github.com:ilyamochalov/{{project_name}}.git"
+git_branch: "ilya/homework"
+ssh_key_path: "/home/{{ remote_user }}/.ssh/wiredcraft_devops_test_key"
+ssh_config: "/home/{{ remote_user }}/.ssh/config"
+push_repo: "/home/{{ remote_user }}/{{ project_name }}/push"
+pull_repo: "/home/{{ remote_user }}/{{ project_name }}/pull"
 
 # server paths
 www_root: "/var/www"
