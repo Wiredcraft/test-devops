@@ -17,6 +17,8 @@ In this project, I use a local Vagrant box for `dev` and `stage` environment. Th
 - Vagrant 2.2.x
 - Python 2.7.x as default on your local
 - Ansible 
+- **GNU grep**
+- Perl 5.x
 
 ### Local environment requirements setup:
 

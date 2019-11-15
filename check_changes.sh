@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/bash
 
 get_status_data() {
     git fetch origin 
@@ -32,8 +32,8 @@ check_changes() {
 }
 
 main() {
-  get_status_data
-  check_changes
+    get_status_data
+    check_changes
 }
 
 main 

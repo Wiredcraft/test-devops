@@ -1,0 +1,7 @@
+baseURL = "http://example.org/"
+languageCode = "en-us"
+title = "Wiredcraft DevOps"
+theme = "ananke"
+
+[params]
+  version = "0.0.2"
