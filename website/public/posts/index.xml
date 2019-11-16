@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Wiredcraft DevOps</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 16 Nov 2019 10:37:50 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 16 Nov 2019 10:45:07 +0000</lastBuildDate>
     
 	<atom:link href="http://dev.devopstest.com/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Post at 2019 11 16 1573901107</title>
+      <link>http://dev.devopstest.com/posts/post-at-2019-11-16-1573901107/</link>
+      <pubDate>Sat, 16 Nov 2019 10:45:07 +0000</pubDate>
+      
+      <guid>http://dev.devopstest.com/posts/post-at-2019-11-16-1573901107/</guid>
+      <description>If God had a beard, he&amp;rsquo;d be a UNIX programmer.</description>
+    </item>
     
     <item>
       <title>Post at 2019 11 16 1573900670</title>
