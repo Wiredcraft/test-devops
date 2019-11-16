@@ -82,4 +82,5 @@ $ ssh devopstest.com
 - Next, we need to provision the vagrant box with Ansible playbook
 ```sh
 $ make box_init
+$ make box_init_crontabs
 ```

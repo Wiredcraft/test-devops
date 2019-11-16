@@ -55,6 +55,9 @@
     state: link
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
+    owner: "{{ deploy_user }}"
+    group: "{{ deploy_user }}"
+    mode: 0755
     force: yes
   with_items:
     - { src: "{{ www_dev_root_latest_init }}", dest: "{{ www_dev_root_latest }}" }

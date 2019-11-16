@@ -9,10 +9,10 @@
     - git-core
 
 - name: Add yum hugo.repo
-  shell: |
-    wget https://copr.fedorainfracloud.org/coprs/daftaupe/hugo/repo/epel-7/daftaupe-hugo-epel-7.repo -O hugo.repo
-  args:
-    chdir: /etc/yum.repos.d
+  get_url:
+    url: https://copr.fedorainfracloud.org/coprs/daftaupe/hugo/repo/epel-7/daftaupe-hugo-epel-7.repo
+    dest: /etc/yum.repos.d/hugo.repo
+    mode: "0644"
 
 - name: Install hugo 
   yum:
@@ -20,6 +20,16 @@
     name: hugo
     update_cache: yes
 
+- name: Get fortune rpm 
+  get_url:
+    url: https://download-ib01.fedoraproject.org/pub/epel/7/x86_64/Packages/f/fortune-mod-1.99.1-17.el7.x86_64.rpm
+    dest: "{{ fortune_file }}"
+    mode: "0644"
+
+- name: Install fortune rpm
+  shell: |
+    yum localinstall -y {{ fortune_file }}
+  warn: false
 
 - name: Setenforce permissive
   shell: |

@@ -52,7 +52,7 @@ deploy() {
     local DEPLOY_LATEST="${DEPLOY_ENV}/latest"
     local DEPLOY_PREVIOUS="${DEPLOY_ENV}/previous"
 
-    git checkout REV
+    git checkout "${REV}"
 
     mkdir -p "${DEPLOY_SOURCE}"
     cp -r ./website/public/* "${DEPLOY_SOURCE}"
