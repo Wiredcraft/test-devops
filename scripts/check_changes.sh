@@ -54,7 +54,8 @@ deploy() {
 
     git checkout REV
 
-    cp -r ./website/public/* "${DEPLOY_FOLDER}"
+    mkdir -p "${DEPLOY_SOURCE}"
+    cp -r ./website/public/* "${DEPLOY_SOURCE}"
     ln -sfn $(readlink ${DEPLOY_LATEST}) "${DEPLOY_PREVIOUS}"
     ln -sfn "${DEPLOY_SOURCE}" "${DEPLOY_LATEST}" 
 
