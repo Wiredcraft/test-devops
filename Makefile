@@ -12,10 +12,10 @@ box_ssh:
 	cd vagrant_box && vagrant ssh
 
 box_init:
-	make actibate_venv && cd ansible && ansible-playbook -i inventory server_spawn.yml --tags=init,ngin,ssh_git,ansible
+	make actibate_venv && cd ansible && ansible-playbook -i inventory server_spawn.yml --tags=init,nginx,ssh_git,ansible
 
 box_init_crontabs:
-	make actibate_venv && cd ansible && ansible-playbook -i inventory server_crontabs.yml --tags=push
+	make actibate_venv && cd ansible && ansible-playbook -i inventory server_crontabs.yml --tags=push,pull
 
 # management
 actibate_venv:
@@ -29,7 +29,7 @@ hugo_new_post:
 	cd website && export NEW_POST_PATH=posts/post-at-$$(date '+%Y-%m-%d-%s').md && hugo new $${NEW_POST_PATH} && fortune >> content/$${NEW_POST_PATH}
 
 hugo_compile:
-	cd website && hugo -D -b $${ENV}.devopstest.com && cd ..
+	cd website && hugo -D -b http://$${ENV}.devopstest.com/ && cd ..
 
 hogo_build_dev:
 	make git_update_local && make hugo_compile ENV=dev && git add . && git commit -m "Automatic dev post at $$(date '+%Y-%m-%d-%s')" && git push origin

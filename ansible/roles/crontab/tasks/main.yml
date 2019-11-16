@@ -2,3 +2,7 @@
 - include: init_push_crontab.yml
   become: yes
   tags: push
+
+- include: init_pull_crontab.yml
+  become: yes
+  tags: pull

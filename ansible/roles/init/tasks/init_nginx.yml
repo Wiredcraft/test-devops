@@ -1,5 +1,11 @@
 ---
-- name: install nginx 
+- name: Install epel 
+  yum:
+    state: installed
+    name: epel-release
+    update_cache: yes
+
+- name: Install nginx 
   yum:
     state: installed
     name: nginx
@@ -13,7 +19,7 @@
     owner: root
     group: root
 
-- name: create sites-available folder
+- name: Create sites-available folder
   file:
     path: "/etc/nginx/sites-available"
     owner: nginx
@@ -21,7 +27,7 @@
     mode: 0755
     state: directory
 
-- name: create sites-enabled folder
+- name: Create sites-enabled folder
   file:
     path: "/etc/nginx/sites-enabled"
     owner: nginx
@@ -29,7 +35,7 @@
     mode: 0755
     state: directory
 
-- name: create log folders folder
+- name: Create log folders, dev/stage roots
   file:
     path: "{{ item }}"
     owner: nginx
@@ -39,24 +45,23 @@
   with_items:
     - "{{ logs_dev_root }}"
     - "{{ logs_stage_root }}"
+    - "{{ www_dev_root }}"
+    - "{{ www_dev_root_latest_init }}"
+    - "{{ www_stage_root }}"
+    - "{{ www_stage_root_latest_init }}"
 
-- name: create www dev folder
+- name: Deployment root sites symlinks
   file:
-    path: "{{www_dev_root}}"
-    owner:  nginx
-    group: nginx
-    mode: 0755
-    state: directory
+    state: link
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    force: yes
+  with_items:
+    - { src: "{{ www_dev_root_latest_init }}", dest: "{{ www_dev_root_latest }}" }
+    - { src: "{{ www_stage_root_latest_init }}", dest: "{{ www_stage_root_latest }}" }
+  
 
-- name: create www stage folder
-  file:
-    path: "{{www_stage_root}}"
-    owner:  nginx
-    group: nginx
-    mode: 0755
-    state: directory
-
-- name: Template a dev module settings
+- name: Create dev/stage sites nginx settings
   template:
     src: "devopstest_{{ item }}.j2"
     dest: "/etc/nginx/sites-available/devopstest_{{ item }}.conf"
@@ -64,8 +69,8 @@
     group: nginx
     mode: 0755
   with_items:
-    - dev
-    - stage
+    - "dev"
+    - "stage"
 
 - name: Nginx sites symlink
   file:
@@ -78,7 +83,7 @@
     - { src: "/etc/nginx/sites-available/devopstest_stage.conf", dest: "/etc/nginx/sites-enabled/devopstest_stage.conf" }
   
 
-- name: start and enable nginx 
+- name: Start and enable nginx 
   shell: |
     systemctl start nginx
     systemctl enable nginx

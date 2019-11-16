@@ -94,7 +94,7 @@ bump_version() {
 
 main() {
     local usage=" USAGE: make_changes <env>
-    <env> : Environment parameter (either dev or stag)"
+    <env> : Environment parameter (either dev or stage)"
     
     # Get environment argument.
     if [ $# -eq 0 ]; then echo "$usage"; return 1; fi 

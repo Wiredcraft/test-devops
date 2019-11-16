@@ -1,5 +1,5 @@
 ---
-- name: install python pip
+- name: Install python pip
   shell: |
     curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
     python get-pip.py
@@ -7,7 +7,7 @@
     chdir: /tmp
 
 
-- name: install fortune
+- name: Install linux fortune
   shell: |
     wget https://download-ib01.fedoraproject.org/pub/epel/7/x86_64/Packages/f/fortune-mod-1.99.1-17.el7.x86_64.rpm
     yum localinstall -y fortune-mod-1.99.1-17.el7.x86_64.rpm

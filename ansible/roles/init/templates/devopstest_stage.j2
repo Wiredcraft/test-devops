@@ -5,7 +5,7 @@ server {
         
         location / {
                 try_files $uri $uri/ /index.html;
-                root {{ www_stage_root }};
+                root {{ www_stage_root_latest }};
         }
 
         access_log {{ logs_stage_root }}/access;

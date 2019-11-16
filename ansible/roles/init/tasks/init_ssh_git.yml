@@ -1,11 +1,11 @@
 ---
-- name: add git user config
+- name: Add git user config
   become: "{{ remote_user }}"
   shell: |
     git config --global user.name "WiredCraft DevOps"
     git config --global user.email wiredcraft@mail.com
 
-- name: copy ssh key
+- name: Copy ssh key
   copy:
     src: wiredcraft_devops_test_key
     dest: "{{ ssh_key_path }}"
@@ -13,7 +13,7 @@
     group: "{{ remote_user }}"
     mode: '0600'
 
-- name: copy ssh config file
+- name: Copy ssh config file
   copy:
     src: config
     dest: "{{ ssh_config }}"

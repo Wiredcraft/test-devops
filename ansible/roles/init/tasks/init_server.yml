@@ -1,5 +1,5 @@
 ---
-- name: install dev dependencies
+- name: Install dev dependencies
   yum:
     state: installed
     name: "{{ packages }}"
@@ -8,20 +8,20 @@
     - wget
     - git-core
 
-- name: set hugo.repo
+- name: Add yum hugo.repo
   shell: |
     wget https://copr.fedorainfracloud.org/coprs/daftaupe/hugo/repo/epel-7/daftaupe-hugo-epel-7.repo -O hugo.repo
   args:
     chdir: /etc/yum.repos.d
 
-- name: install hugo 
+- name: Install hugo 
   yum:
     state: installed
     name: hugo
     update_cache: yes
 
 
-- name: setenforce permissive
+- name: Setenforce permissive
   shell: |
     setenforce permissive
 
