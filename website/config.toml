@@ -4,4 +4,4 @@ title = "Wiredcraft DevOps"
 theme = "ananke"
 
 [params]
-  version = "0.1.5"
+  version = "0.1.6"
