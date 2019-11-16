@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Wiredcraft DevOps</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 16 Nov 2019 13:05:02 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 16 Nov 2019 13:20:02 +0000</lastBuildDate>
     
 	<atom:link href="http://dev.devopstest.com/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Post at 2019 11 16 1573910401</title>
+      <link>http://dev.devopstest.com/posts/post-at-2019-11-16-1573910401/</link>
+      <pubDate>Sat, 16 Nov 2019 13:20:02 +0000</pubDate>
+      
+      <guid>http://dev.devopstest.com/posts/post-at-2019-11-16-1573910401/</guid>
+      <description>Checking host system type&amp;hellip; i586-unknown-linux configure: error: sorry, this is the gnu os, not linux &amp;ndash; Topic on #Linux</description>
+    </item>
     
     <item>
       <title>Post at 2019 11 16 1573909502</title>
