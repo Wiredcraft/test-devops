@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Wiredcraft DevOps</title>
@@ -6,10 +6,19 @@
     <description>Recent content on Wiredcraft DevOps</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 17 Nov 2019 05:55:34 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 17 Nov 2019 09:54:19 +0000</lastBuildDate>
     
 	<atom:link href="http://dev.devopstest.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Post at 2019 11 17 1573984459</title>
+      <link>http://dev.devopstest.com/posts/post-at-2019-11-17-1573984459/</link>
+      <pubDate>Sun, 17 Nov 2019 09:54:19 +0000</pubDate>
+      
+      <guid>http://dev.devopstest.com/posts/post-at-2019-11-17-1573984459/</guid>
+      <description>It&amp;rsquo;s there as a sop to former Ada programmers. :-) &amp;ndash; Larry Wall regarding 10_000_000 in 11556@jpl-devvax.JPL.NASA.GOV</description>
+    </item>
     
     <item>
       <title>Post at 2019 11 17 1573970134</title>
