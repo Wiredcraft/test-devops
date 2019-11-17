@@ -16,7 +16,7 @@ pull_repo: "/home/{{ remote_user }}/{{ project_name }}/pull"
 
 # server paths
 www_root: "/var/www"
-www_dev_root: "{{ www_root }}/{{ dev_name }}"
+www_dev_root: "{{ www_root }}/{{ dev }}"
 www_dev_root_latest: "{{ www_dev_root }}/latest"
 www_dev_root_latest_init: "{{ www_dev_root }}/latest_init"
 www_stage_root: "{{ www_root }}/{{ stage }}"

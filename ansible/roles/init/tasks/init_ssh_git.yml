@@ -21,19 +21,17 @@
     group: "{{ remote_user }}"
     mode: '0700'
 
-- name: Clone push repo
+- name: Prepare push repo
   become: "{{ remote_user }}"
   git:
     clone: yes
     repo: "{{ git_origin }}"
     dest: "{{ push_repo }}"
 
-- name: Clone pull repo
+- name: Prepare pull repo
   become: "{{ remote_user }}"
-  git:
-    clone: yes
-    repo: "{{ git_origin }}"
-    dest: "{{ pull_repo }}"
+  shell: |
+    cp -r "{{ push_repo }}" "{{ pull_repo }}"
 
 
 - name: Initial warmup for dev and stage websites

@@ -77,7 +77,6 @@ push_changes_dev() {
     bump_version
 
     make hogo_build_dev
-    
 }
 
 push_changes_stage() {
@@ -91,7 +90,8 @@ bump_version() {
     perl -pi -e  "s/${CURRENT_VERSION}/${NEW_VERSION}/g"  $CONFIG_PATH
 }
 
-
+# This script can be run on local but meant to be run in a box;
+# Please execute it from the project root repository
 main() {
     local usage=" USAGE: make_changes <env>
     <env> : Environment parameter (either dev or stage)"

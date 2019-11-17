@@ -37,7 +37,7 @@ check_changes() {
 
 
 deploy() {
-    local usage=" USAGE: make_changes <env> <rev>
+    local usage=" USAGE: deploy <env> <rev>
     <env> : Environment parameter (either dev or stage)
     <rev> : Either git hash or tag (756375f3e or 0.1.0)"
     
@@ -62,7 +62,10 @@ deploy() {
     git checkout "${LOCAL_BRANCH}"
 }
 
+# This script should be run on a box (not on local);
+# Please execute this script from the project root repository
 main() {
+    local usage="USAGE: changes_changes"
     get_status_data
     update_local
     check_changes

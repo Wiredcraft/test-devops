@@ -4,7 +4,6 @@
 - [Background](#Background)
 - [System overview](#System-overview)
 - [Repository structure](#Repository-structure)
-- [Local environment requirements](#Local-environment-requirements)
 - [Setting-up development environment](#Setting-up-development-environment)
 
 ## Background
@@ -41,7 +40,7 @@ Once you follow steps at [Setting-up development environment](#Setting-up-develo
 ```
 .
 ├── Makefile    <--- Collection of useful commands 
-├── ansible     <--- Ansible playbooks for server spawn (ment to be run from local against Vagrant box)
+├── ansible     <--- Ansible playbooks for server spawn (meant to be run from local against Vagrant box)
 ├── scripts     <--- Crontab scripts (meant to be run on the box)
 ├── vagrant_box <--- Vagrant configs 
 └── website     <--- HUGO website
@@ -99,7 +98,7 @@ $ which virtualenv
 # navigate to our project repo
 $cd /home/ilya/dev/test-devops
 
-# crete python environemnt
+# crete python environment
 $ virtualenv --system-site-packages --no-download .venv
 ```
 - Install Ansible inside virtual environment
@@ -130,7 +129,7 @@ $ make box_create
 $ ssh devopstest.com
 ```
 
-- Next, we need to provision the vagrant box with Ansible playbook (takes sometime depending on your internet network)
+- Next, we need to provision the vagrant box with Ansible playbook (takes sometime depending on your internet network, if you have error `Failure talking to yum: Cannot find a valid baseurl for repo: updates/7/x86_64` it's due to poor network, please rerun the playbook)
 ```sh
 $ make box_init
 ```
