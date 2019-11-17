@@ -28,8 +28,7 @@
 
 - name: Install fortune rpm
   shell: |
-    yum localinstall -y {{ fortune_file }}
-  warn: false
+    yum localinstall -y "{{ fortune_file }}"
 
 - name: Setenforce permissive
   shell: |

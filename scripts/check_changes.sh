@@ -23,7 +23,6 @@ check_changes() {
     if [ "${TAG_LAST}" != "${TAG_LAST_UPDATED}" ]; then
         echo "New tag"
         deploy stage "${TAG_LAST_UPDATED}"
-        return 1
     else
         echo "There is no new tag"
     fi
@@ -31,7 +30,6 @@ check_changes() {
     if [ "${REV_LOCAL}" != "${REV_REMOTE}" ]; then
         echo "Remote repository has new commits"
         deploy dev "${REV_REMOTE}"
-        return 1
     else
         echo "Remote repository doesn't have new commits"
     fi 
@@ -39,7 +37,7 @@ check_changes() {
 
 
 deploy() {
-    local usage=" USAGE: make_changes <env>
+    local usage=" USAGE: make_changes <env> <rev>
     <env> : Environment parameter (either dev or stage)
     <rev> : Either git hash or tag (756375f3e or 0.1.0)"
     

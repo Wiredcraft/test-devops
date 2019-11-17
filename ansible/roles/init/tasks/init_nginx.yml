@@ -19,27 +19,22 @@
     owner: root
     group: root
 
-- name: Create sites-available folder
-  file:
-    path: "/etc/nginx/sites-available"
-    owner: nginx
-    group: nginx
-    mode: 0755
-    state: directory
-
-- name: Create sites-enabled folder
-  file:
-    path: "/etc/nginx/sites-enabled"
-    owner: nginx
-    group: nginx
-    mode: 0755
-    state: directory
-
-- name: Create log folders, dev/stage roots
+- name: Create sites-available and sites-enabled folder
   file:
     path: "{{ item }}"
     owner: nginx
     group: nginx
+    mode: 0755
+    state: directory
+  with_items:
+    - "/etc/nginx/sites-available"
+    - "/etc/nginx/sites-enabled"
+
+- name: Create log folders, dev/stage roots
+  file:
+    path: "{{ item }}"
+    owner: "{{ remote_user }}"
+    group: "{{ remote_user }}"
     mode: 0755
     state: directory
   with_items:
@@ -55,8 +50,8 @@
     state: link
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
-    owner: "{{ deploy_user }}"
-    group: "{{ deploy_user }}"
+    owner: "{{ remote_user }}"
+    group: "{{ remote_user }}"
     mode: 0755
     force: yes
   with_items:
@@ -84,7 +79,7 @@
   with_items:
     - { src: "/etc/nginx/sites-available/devopstest_dev.conf", dest: "/etc/nginx/sites-enabled/devopstest_dev.conf" }
     - { src: "/etc/nginx/sites-available/devopstest_stage.conf", dest: "/etc/nginx/sites-enabled/devopstest_stage.conf" }
-  
+
 
 - name: Start and enable nginx 
   shell: |

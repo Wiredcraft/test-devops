@@ -34,3 +34,22 @@
     clone: yes
     repo: "{{ git_origin }}"
     dest: "{{ pull_repo }}"
+
+
+- name: Initial warmup for dev and stage websites
+  become: "{{ remote_user }}"
+  shell: |
+    cd "{{ pull_repo }}"
+
+    LOCAL_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+    TAG=$(git tag | sort -V | tail -1)
+    REV=$(git rev-parse HEAD)
+
+    git checkout "${REV}"
+    cp -r ./website/public/* "{{ www_dev_root_latest_init }}"
+
+    git checkout "${TAG}"
+    cp -r ./website/public/* "{{ www_stage_root_latest_init }}" 
+
+    git checkout "${LOCAL_BRANCH}"
+    sudo systemctl reload nginx.service 

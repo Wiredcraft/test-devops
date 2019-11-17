@@ -3,5 +3,5 @@
   become: "{{ remote_user }}"
   cron:
     name: "pull changes and deploy"
-    minute: "*/5"
+    minute: "3-57/3"
     job: "cd {{ pull_repo }} && /bin/bash {{ pull_repo }}/scripts/check_changes.sh 2>&1"
