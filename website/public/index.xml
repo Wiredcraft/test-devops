@@ -6,10 +6,19 @@
     <description>Recent content on Wiredcraft DevOps</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 16 Nov 2019 13:35:01 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 17 Nov 2019 03:18:46 +0000</lastBuildDate>
     
 	<atom:link href="http://dev.devopstest.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Post at 2019 11 17 1573960726</title>
+      <link>http://dev.devopstest.com/posts/post-at-2019-11-17-1573960726/</link>
+      <pubDate>Sun, 17 Nov 2019 03:18:46 +0000</pubDate>
+      
+      <guid>http://dev.devopstest.com/posts/post-at-2019-11-17-1573960726/</guid>
+      <description>The rubber band broke</description>
+    </item>
     
     <item>
       <title>Post at 2019 11 16 1573911301</title>
