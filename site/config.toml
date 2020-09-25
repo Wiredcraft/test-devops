@@ -1,0 +1,13 @@
+baseURL = "http://example.org/"
+languageCode = "en-us"
+title = "Wiredcraft | Demo"
+theme = "yinyang"
+
+[author]
+  name = "Wiredcraft"
+  homepage = "https://joway.io/"
+
+[params]
+extraHead = ''
+mainSections = ["posts"]
+favicon = "https://wiredcraft.com/assets/favicons/favicon-32x32.png"
