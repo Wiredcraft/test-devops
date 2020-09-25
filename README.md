@@ -22,6 +22,7 @@ This is the reason the target of this task is quite broad and may involve techno
 
 Here is the list of the technologies that we can use in the test:
 
+- [**Terraform**](https://www.terraform.io/)
 - [**Ansible**](https://www.ansible.com/)
 - [**Jekyll**](https://jekyllrb.com/) or [**Hugo**](https://gohugo.io/) static site generator
 - **Git**
@@ -54,25 +55,23 @@ A few suggestions / recommendations:
         - create a new post using markdown with yaml frontmatter format,
         - use the output of [`fortune`](http://manpages.ubuntu.com/manpages/xenial/man6/fortune.6.html) command as content,
         - and increment the version of the site by `0.0.1`,
-        - compile the site, 
+        - compile the site,
         - commit and push the sources (markdown files) and build site (html) back to github
     - or `staging`, in which case, it will:
         - take the last known version of the site,
-        - increment the version of the site by `0.1.x` (e.g. move from `0.1.5` to `0.2.0`) 
+        - increment the version of the site by `0.1.x` (e.g. move from `0.1.5` to `0.2.0`)
         - compile the site
         - commit, tag and pus to github
 
 ### Operation
 
 You will need to:
-- write an ansible playbook to configure a server:
-    - either real cloud server (aliyun/qingcloud/aws/digital ocean) 
-    - or vagrant box, please include the Vagrantfile
+- spawn a server with terraform in aliyun/gcp/aws/digital-ocean
+- write an ansible playbook to configure a server
 - that server needs to serve:
     - the dev environment,
     - the staging (tag based) environment
-- create an ansible playbook or a script that would:
-    - fetch the codebase of your site from github every N minutes,
+- use Github Actions to:
     - update the dev for every new commit
     - update the staging for every new tag
 - get everything to run together!
@@ -91,11 +90,6 @@ A few suggestions / recommendations:
 - Prepare automated task to run the created script mentioned in development part.
     - Generate new page and push to github every 10 minutes. (run the script for `dev`)
     - tag and push to github every 1 hour. (run the script for `staging`)
-
-- Prepare automated task to auto update the served sites every 5 minutes following roles:
-    - if there is new commit, then update the dev server
-    - if there is new tag, then update the staging server
-
 
 # Getting Started
 
