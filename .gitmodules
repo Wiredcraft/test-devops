@@ -1,3 +1,0 @@
-[submodule "site/themes/yinyang"]
-	path = site/themes/yinyang
-	url = git@github.com:joway/hugo-theme-yinyang.git

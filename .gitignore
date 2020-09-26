@@ -1,9 +1,15 @@
-venv
-inventory.cfg
+# project
 id_rsa
 id_rsa.pub
-terraform.tfstate*
 site/public
 
-.*
+# python
+venv
+
+# ansible
+inventory.cfg
+
+.terraform
+terraform.tfstate*
+
 !.gitignore

@@ -1,9 +1,10 @@
-WORKDIR:=$(pwd)
+WORKDIR:=${pwd}
 SITEDIR:=./site
 HTMLDIR:=${SITEDIR}/public
 DEPLOYDIR:=/var/www
-SERVER_IP:=$(SERVER_IP)
+SERVER_IP:=${SERVER_IP}
 TERRAFORM_DIR:=./terraform
+SSH_USER:=root
 SSH_PUBLIC_KEY:=id_rsa.pub
 SSH_FINGERPRINT:=$(shell ssh-keygen -E md5 -lf ${SSH_PUBLIC_KEY} | awk '{print $$2}' | tail -c +5)
 
@@ -28,7 +29,9 @@ upgrade-staging:
 	echo upgrade-staging
 
 deploy-dev:
-	ansible-playbook -u root --private-key id_rsa -i ./ansible/inventory.cfg ./ansible/deploy-dev.yml
+	./cli/ci.sh
+	ansible-playbook -u ${SSH_USER} --private-key id_rsa -i ./ansible/inventory.cfg ./ansible/deploy-dev.yml
 
 deploy-staging:
-	ansible-playbook -u root --private-key id_rsa -i ./ansible/inventory.cfg ./ansible/deploy-dev.yml
+	./cli/ci.sh
+	ansible-playbook -u ${SSH_USER} --private-key id_rsa -i ./ansible/inventory.cfg ./ansible/deploy-staging.yml

@@ -1,0 +1,20 @@
+name: Publish staging
+on:
+  push:
+    tags:
+      - 1.*.*
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: dawidd6/action-ansible-playbook@v2
+        with:
+          playbook: ansible/deploy-dev.yml
+          directory: ./
+          key: ${{secrets.SSH_KEY}}
+          inventory: |
+            [all]
+            ${{secrets.SERVER_IP}}
+          options: |
+            --verbose

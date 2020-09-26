@@ -3,13 +3,13 @@ import argparse
 from config import parse_config
 
 
-def update_minor_version(version: str):
+def update_minor_version(version):
     sub_versions = version.split('.')
     minor = int(sub_versions[1]) + 1
     return f'{sub_versions[0]}.{minor}.{sub_versions[2]}'
 
 
-def update_patch_version(version: str):
+def update_patch_version(version):
     sub_versions = version.split('.')
     patch = int(sub_versions[2]) + 1
     return f'{sub_versions[0]}.{sub_versions[1]}.{patch}'
