@@ -11,3 +11,5 @@ theme = "yinyang"
 extraHead = ''
 mainSections = ["posts"]
 favicon = "https://wiredcraft.com/assets/favicons/favicon-32x32.png"
+
+version = "0.0.1"

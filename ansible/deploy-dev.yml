@@ -1,0 +1,9 @@
+- name: Deploy Playbook
+  hosts: all
+  tasks:
+    - name: Deploy html
+      copy:
+        src: ../site/public/
+        dest: /var/www/dev/
+        mode: '0755'
+      notify: restart nginx

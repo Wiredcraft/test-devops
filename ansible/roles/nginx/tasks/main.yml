@@ -1,0 +1,19 @@
+- name: Install nginx
+  yum:
+    name: nginx
+    state: present
+- name: Create dev dir
+  file:
+    path: '{{ location_dev }}'
+    state: directory
+    mode: '0755'
+- name: Create staging dir
+  file:
+    path: '{{ location_staging }}'
+    state: directory
+    mode: '0755'
+- name: Copy nginx configuration
+  template:
+    src: nginx.conf
+    dest: /etc/nginx/nginx.conf
+  notify: restart nginx

@@ -1,2 +1,9 @@
+venv
+inventory.cfg
+id_rsa
+id_rsa.pub
+terraform.tfstate*
+site/public
+
 .*
 !.gitignore

@@ -1,0 +1,6 @@
+- name: Ansible Main Playbook
+  hosts: all
+  become: yes
+  roles:
+    - common
+    - nginx
