@@ -1,5 +1,7 @@
 <div class="site-footer">
   <div class="site-footer-item">
+    {{- if .IsHome -}}
     <span>{{ .Site.Params.version }}</span>
+    {{- end -}}
   </div>
 </div>

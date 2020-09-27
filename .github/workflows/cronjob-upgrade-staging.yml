@@ -1,0 +1,53 @@
+name: cronjob - upgrade staging
+on:
+  schedule:
+    # slow down commit speed
+    - cron: "0 0 * * *"
+    # - cron: "5 * * * *"
+jobs:
+  upgrade:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup git
+        run: |
+          git config user.email "joway.w@gmail.com"
+          git config user.name "GitHub Actions"
+      - name: Install dependencies
+        run: sudo apt-get install fortune
+      - name: Setup hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: "0.75.1"
+      - run: |
+          make upgrade-staging
+      - name: Build hugo
+        run: ./cli/hugo_build.sh
+      - run: |
+          git add -A
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "No changes to commit"
+          else
+            git commit -m "cron: staging"
+          fi
+          source ./cli/common.sh
+          version=$(current_version site/config.toml)
+          git tag -a v$version -m "v${version}"
+      - name: Push back
+        uses: ad-m/github-push-action@master
+        with:
+          branch: interview
+          tags: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Copy to server
+        uses: dawidd6/action-ansible-playbook@v2
+        with:
+          playbook: ansible/deploy-staging.yml
+          directory: ./
+          key: ${{secrets.SSH_KEY}}
+          inventory: |
+            [all]
+            ${{secrets.SERVER_IP}}
+          options: |
+            --user root
+            --verbose

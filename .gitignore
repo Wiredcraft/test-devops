@@ -2,6 +2,7 @@
 id_rsa
 id_rsa.pub
 site/public
+*.bak
 
 # python
 venv
@@ -9,7 +10,7 @@ venv
 # ansible
 inventory.cfg
 
-.terraform
+.terraform*
 terraform.tfstate*
 
 !.gitignore

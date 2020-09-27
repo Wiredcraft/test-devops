@@ -6,4 +6,3 @@
         src: ../site/public/
         dest: /var/www/dev/
         mode: '0755'
-      notify: restart nginx

@@ -23,15 +23,11 @@ destroy-server:
 	terraform destroy -auto-approve -var do_token=${DO_TOKEN} -var ssh_fingerprint=${SSH_FINGERPRINT} ${TERRAFORM_DIR}
 
 upgrade-dev:
-	echo upgrade-dev
+	echo "upgrade dev"
+	./cli/upgrade.sh dev
+	./cli/hugo_build.sh
 
 upgrade-staging:
-	echo upgrade-staging
-
-deploy-dev:
-	./cli/ci.sh
-	ansible-playbook -u ${SSH_USER} --private-key id_rsa -i ./ansible/inventory.cfg ./ansible/deploy-dev.yml
-
-deploy-staging:
-	./cli/ci.sh
-	ansible-playbook -u ${SSH_USER} --private-key id_rsa -i ./ansible/inventory.cfg ./ansible/deploy-staging.yml
+	echo "upgrade staging"
+	./cli/upgrade.sh staging
+	./cli/hugo_build.sh

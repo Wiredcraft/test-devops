@@ -1,0 +1,49 @@
+name: cronjob - upgrade dev
+on:
+  schedule:
+    # slow down commit speed
+    - cron: "0 0 * * *"
+    # - cron: "*/10 * * * *"
+jobs:
+  upgrade:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup git
+        run: |
+          git config user.email "joway.w@gmail.com"
+          git config user.name "GitHub Actions"
+      - name: Install dependencies
+        run: sudo apt-get install fortune
+      - name: Setup hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: "0.75.1"
+      - run: |
+          make upgrade-dev
+      - name: Build hugo
+        run: ./cli/hugo_build.sh
+      - run: |
+          git add -A
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "No changes to commit"
+          else
+            git commit -m "cron: dev"
+          fi
+      - name: Push back
+        uses: ad-m/github-push-action@master
+        with:
+          branch: interview
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Copy to server
+        uses: dawidd6/action-ansible-playbook@v2
+        with:
+          playbook: ansible/deploy-dev.yml
+          directory: ./
+          key: ${{secrets.SSH_KEY}}
+          inventory: |
+            [all]
+            ${{secrets.SERVER_IP}}
+          options: |
+            --user root
+            --verbose

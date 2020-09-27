@@ -1,4 +1,4 @@
-baseURL = "http://example.org/"
+baseURL = "/"
 languageCode = "en-us"
 title = "Wiredcraft | Demo"
 theme = "yinyang"
@@ -12,4 +12,4 @@ extraHead = ''
 mainSections = ["posts"]
 favicon = "https://wiredcraft.com/assets/favicons/favicon-32x32.png"
 
-version = "0.0.1"
+version = "0.12.0"

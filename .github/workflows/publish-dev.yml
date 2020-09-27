@@ -1,4 +1,4 @@
-name: Publish dev
+name: publish dev
 on:
   push:
     branches:
@@ -8,13 +8,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - name: Setup Hugo
+      - name: Setup hugo
         uses: peaceiris/actions-hugo@v2
         with:
           hugo-version: '0.75.1'
-      - name: Build
-        run: hugo --minify
-      - uses: dawidd6/action-ansible-playbook@v2
+      - name: Hugo build
+        run: ./cli/hugo_build.sh
+      - name: Copy to server
+        uses: dawidd6/action-ansible-playbook@v2
         with:
           playbook: ansible/deploy-dev.yml
           directory: ./
