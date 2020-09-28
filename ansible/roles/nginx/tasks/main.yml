@@ -2,16 +2,14 @@
   yum:
     name: nginx
     state: present
-- name: Create dev dir
+- name: Create directory
   file:
-    path: '{{ location_dev }}'
+    path: "{{ item }}"
     state: directory
     mode: '0755'
-- name: Create staging dir
-  file:
-    path: '{{ location_staging }}'
-    state: directory
-    mode: '0755'
+  loop:
+    - '{{ location_dev }}'
+    - '{{ location_staging }}'
 - name: Copy nginx configuration
   template:
     src: nginx.conf
