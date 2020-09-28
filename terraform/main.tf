@@ -1,12 +1,15 @@
+resource "digitalocean_ssh_key" "default" {
+  name       = "test-devops-key"
+  public_key = file(var.ssh_public_key)
+}
+
 resource "digitalocean_droplet" "website" {
   image              = var.do_image
   region             = var.do_region
   name               = "website"
   size               = var.do_size
   private_networking = true
-  ssh_keys = [
-    "${var.ssh_fingerprint}"
-  ]
+  ssh_keys           = [digitalocean_ssh_key.default.fingerprint]
 }
 
 resource "null_resource" "website-init" {

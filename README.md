@@ -46,8 +46,6 @@ export DO_TOKEN=bbxxxxxx
 make create-ssh-key
 ```
 
-[How-to Add SSH Keys to DigtalOcean](https://www.digitalocean.com/docs/droplets/how-to/add-ssh-keys/)
-
 #### Init environment(terraform)
 
 ```sh
