@@ -4,3 +4,11 @@
   roles:
     - common
     - nginx
+    - role: nginx-conf
+      vars:
+        env: dev
+        domain: dev.joway.io
+    - role: nginx-conf
+      vars:
+        env: staging
+        domain: staging.joway.io

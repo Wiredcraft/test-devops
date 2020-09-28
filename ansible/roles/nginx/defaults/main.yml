@@ -1,4 +1,0 @@
-location_dev: "/var/www/dev"
-domain_dev: "dev.joway.io"
-location_staging: "/var/www/staging"
-domain_staging: "staging.joway.io"

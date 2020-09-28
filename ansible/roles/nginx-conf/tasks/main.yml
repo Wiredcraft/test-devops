@@ -1,0 +1,10 @@
+- name: Create directory or ensure exists
+  file:
+    path: /var/www/{{ env }}/
+    state: directory
+    mode: '0755'
+- name: Copy nginx configuration
+  template:
+    src: nginx-site.conf
+    dest: /etc/nginx/conf.d/{{ domain }}.conf
+  notify: restart nginx
