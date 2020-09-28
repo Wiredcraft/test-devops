@@ -38,7 +38,7 @@ jobs:
       - name: Copy to server
         uses: dawidd6/action-ansible-playbook@v2
         with:
-          playbook: ansible/deploy-dev.yml
+          playbook: ansible/deploy.yml
           directory: ./
           key: ${{secrets.SSH_KEY}}
           inventory: |
@@ -46,4 +46,5 @@ jobs:
             ${{secrets.SERVER_IP}}
           options: |
             --user root
+            --extra-vars env=dev
             --verbose

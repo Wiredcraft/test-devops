@@ -17,7 +17,7 @@ jobs:
       - name: Copy to server
         uses: dawidd6/action-ansible-playbook@v2
         with:
-          playbook: ansible/deploy-staging.yml
+          playbook: ansible/deploy.yml
           directory: ./
           key: ${{secrets.SSH_KEY}}
           inventory: |

@@ -1,8 +1,0 @@
-- name: Deploy Playbook
-  hosts: all
-  tasks:
-    - name: Deploy html
-      copy:
-        src: ../site/public/
-        dest: /var/www/staging/
-        mode: '0755'

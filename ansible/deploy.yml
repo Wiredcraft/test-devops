@@ -1,8 +1,10 @@
 - name: Deploy Playbook
   hosts: all
+  vars: 
+    env: dev
   tasks:
     - name: Deploy html
       copy:
         src: ../site/public/
-        dest: /var/www/dev/
+        dest: /var/www/{{ env }}/
         mode: '0755'
