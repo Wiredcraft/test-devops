@@ -23,6 +23,7 @@ This is the reason the target of this task is quite broad and may involve techno
 Here is the list of the technologies that we can use in the test:
 
 - [**Ansible**](https://www.ansible.com/)
+- [**Terraform**](https://www.terraform.io/)
 - [**minikube**](https://kubernetes.io/docs/tasks/tools/#minikube)
 - **Git**
 - GitHub actions
@@ -49,7 +50,7 @@ A few suggestions / recommendations:
 ### Operation
 
 You will need to:
-- create a temp server on Aliyun, Qingcloud, Tencent, etc. (use Terraform to earn extra karma points)
+- create a temp server on Aliyun, Qingcloud, Tencent, etc. (use Terraform to earn extra karma points; don't have an account on any cloud provider? can ask our team to create the server for you)
 - write an Ansible playbook to configure a server we provide
 - that server needs to have:
     - docker registry to host your API images,
