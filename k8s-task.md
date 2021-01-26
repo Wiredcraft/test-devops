@@ -28,10 +28,6 @@ Here is the list of the technologies that we can use in the test:
 - GitHub actions
 - Programming Language: **Python** / **Go** / **Shell** or any other language.
 
-## Input from DevOps team before the task
-
-We will provide an a temp cloud server which you will need to use to demonstrate the results for your task submission
-
 ## Task
 
 The test is composed of 2 components:
@@ -53,6 +49,7 @@ A few suggestions / recommendations:
 ### Operation
 
 You will need to:
+- create a temp server on Aliyun, Qingcloud, Tencent, etc. (use Terraform to earn extra karma points)
 - write an Ansible playbook to configure a server we provide
 - that server needs to have:
     - docker registry to host your API images,
@@ -60,7 +57,7 @@ You will need to:
 - use Github Actions to:
     - CI: build new image and push to your registry every time you merge updates to master
     - CD: on every new tag created you need to deploy the API onto minikube
-- your API should be publicly available on the publicly open port provided with the server from our team   
+- your API should be publicly available   
 
 
 # Getting Started
