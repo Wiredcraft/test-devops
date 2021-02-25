@@ -51,7 +51,7 @@ A few suggestions / recommendations:
 
 You will need to:
 - create a temp server on Aliyun, Qingcloud, Tencent, etc. (use Terraform to earn extra karma points; don't have an account on any cloud provider? can ask our team to create the server for you)
-- write an Ansible playbook to configure a server we provide
+- write an Ansible playbook to configure the server
 - that server needs to have:
     - docker registry to host your API images,
     - minikube
