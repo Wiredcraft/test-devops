@@ -24,7 +24,7 @@ Here is the list of the technologies that we can use in the test:
 
 - [**Terraform**](https://www.terraform.io/)
 - [**Ansible**](https://www.ansible.com/)
-- [**Jekyll**](https://jekyllrb.com/) or [**Hugo**](https://gohugo.io/) static site generator
+- [**Hugo**](https://gohugo.io/) static site generator
 - **Git**
 - Programming Language: **Python** / **Go** / **Shell** or any other language.
 
@@ -45,7 +45,6 @@ You will need to create:
 A few suggestions / recommendations:
 
 - Choose whichever static site generator to use and prepare the basic site, plenty of tutorial are available online:
-    - [Jekyll](https://jekyllrb.com)
     - [Hugo](https://gohugo.io)
 - Prepare templates for your site generator:
     - base template for your site to display the `version` in the footer of the pages, and a list of the posts on the landing page,
@@ -66,7 +65,7 @@ A few suggestions / recommendations:
 ### Operation
 
 You will need to:
-- spawn a server with terraform in aliyun/gcp/aws/digital-ocean
+- spawn a server with terraform in aliyun/gcp/aws/digital-ocean or use [Vagrant](https://www.vagrantup.com/) to spawn server locally
 - write an ansible playbook to configure a server
 - that server needs to serve:
     - the dev environment,
@@ -79,12 +78,11 @@ You will need to:
 A few suggestions / recommendations:
 
 - Spawn a box with:
-    - CentOS 7
     - Nginx with configuration supporting two domains: dev & staging
-    - Ruby / Jekyll or Go, this depend on the choice of your dev project above.
+    - Go
 
 - Configure the box to run the compile steps on the box:
-    - Compile and build the code (jekyll or hugo)
+    - Compile and build the code (Hugo)
     - Deploy the dev / staging environments accordingly.
 
 - Prepare automated task to run the created script mentioned in development part.
@@ -117,11 +115,11 @@ Here's what you should aim for:
 
 - Where should I send back the result when I'm done?
 
-Fork this repo and send us a pull request when you think you are done. We don't have deadline for the task.
+Fork [this repo](https://github.com/Wiredcraft/test-devops/) and send us a pull request when you think you are done.
 
 - What if I have question?
 
-Create a new issue in the repo and we will get back to you very quickly. You can also jump on Slack and talk with us.
+Create a new issue in the repo and we will get back to you very quickly.
 
 # Extra
 
