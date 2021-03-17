@@ -34,7 +34,8 @@ Here is the list of the technologies that we use at Wiredcraft and want you you 
 - Shell scripting
 
 #### Task description
-You are working with a website, based on a static site generator ([Hugo](https://gohugo.io/)). Prepare a script that will create a new post in your site with a random post content (use the output of [`fortune`](http://manpages.ubuntu.com/manpages/xenial/man6/fortune.6.html) command for example)
+You are working with a website, based on a static site generator ([Hugo](https://gohugo.io/)). Prepare a script that will create a new post in your site with a random post content (use the output of [`fortune`](http://manpages.ubuntu.com/manpages/xenial/man6/fortune.6.html) command for example).
+
 A few suggestions / recommendations:
 - Prepare the basic site, plenty of tutorial are available online:
     - [Hugo](https://gohugo.io)
@@ -60,7 +61,7 @@ Here is the list of the technologies that we use at Wiredcraft and want you you 
 - Terraform
 
 #### Task description
-You need to spawn an infrastructure for new company service from Task 2. Please create a Terraform project with cloud provider of your choice to create spawn spawn an infrastructure.
+You need to spawn an infrastructure for new company service from Task 2. Please create a Terraform project with cloud provider of your choice.
 
 ### Task 4. Docker and a bit of Dev
 #### Task description
@@ -72,7 +73,7 @@ Choose whichever programming language and framework you like.
 
 ### Task 5. Kubernetes 
 #### Task description
-For the mock API from task 4 your need to write k8s object definition for the following:
+For the mock API from Task 4 your need to write k8s object definition for the following:
 - service
 - deployments
 - hpa
