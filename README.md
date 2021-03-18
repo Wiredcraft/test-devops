@@ -34,13 +34,14 @@ Here is the list of the technologies that we use at Wiredcraft and want you you 
 - Shell scripting
 
 #### Task description
-You are working with a website, based on a static site generator ([Hugo](https://gohugo.io/)). Prepare a script that will create a new post in your site with a random post content (use the output of [`fortune`](http://manpages.ubuntu.com/manpages/xenial/man6/fortune.6.html) command for example).
+You are working with a website, based on a static site generator ([Hugo](https://gohugo.io/)). Prepare a script that will:
+- create a new post in your site with a random post content (use the output of [`fortune`](http://manpages.ubuntu.com/manpages/xenial/man6/fortune.6.html) command for example)
+- generate the static content of the website
+- git commit changes and push it to upstream repo
 
 A few suggestions / recommendations:
-- Prepare the basic site, plenty of tutorial are available online:
-    - [Hugo](https://gohugo.io)
-- Prepare templates for your site generator:
-    - base template for your site to display the `version` in the footer of the pages
+- Prepare the basic site, plenty of tutorials are available online ([Hugo](https://gohugo.io))
+- Prepare templates for your site generator
 
 ### Task 2. Configuration management
 
@@ -49,10 +50,10 @@ Here is the list of the technologies that we use at Wiredcraft and want you you 
 - Ansible
 
 #### Task description
-You need to spawn a new service for your company (private docker registry, wiki pages, monitoring dashboard). For simplicity limit this task to 1 server setup. Create an Ansible projects with sample inventory and playbooks for:
+You need to spawn a new service for your company: private Docker registry. For simplicity limit this setup to 1 server only. Create an Ansible projects with sample inventory and playbooks for:
 - initial setup of the server
-- deployment of the service of your choice
-- any maintenance setups (DB backups)
+- deployment of private Docker registry service
+- any maintenance setups (DB backups, etc.)
 
 ### Task 3. Infrastructure as a code 
 
@@ -84,7 +85,6 @@ For the mock API from Task 4 your need to write k8s object definition for the fo
 Here is the list of the technologies that we use at Wiredcraft and want you you to use in this task:
 - Github Actions
 - Azure DevOps pipelines
-- Bamboo 
 
 #### Task description
 Crate CI pipeline that would run any of:
@@ -92,7 +92,7 @@ Crate CI pipeline that would run any of:
 - Build docker image on Pull Request merge 
 
 Also, Create CD pipeline that would do any of:
-- deploy new version of the API from Task 4 with any trigger of your choice
+- deploy new version of the API from Task 4 with any trigger of your choice (assume that deployment service is a stand alone Docker container running on a host server)
 
 ## What We Care About
 
