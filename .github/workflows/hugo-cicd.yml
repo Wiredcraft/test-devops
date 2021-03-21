@@ -3,7 +3,7 @@ name: hugo
 on:
   push:
     branches:
-      - gh-pages  # Set a branch to deploy
+      - develop  # Set a branch to deploy
     # tags:
     #   - '*.*.*'
 
