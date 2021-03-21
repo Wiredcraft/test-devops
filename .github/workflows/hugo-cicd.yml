@@ -37,8 +37,7 @@ jobs:
       #       ${{ runner.os }}-hugomod-
 
       - name: Build
-        run: hugo --theme=erblog
-        #  --gc --minify --cleanDestinationDir
+        run: hugo --gc --minify --cleanDestinationDir
 
       # - name: Prepare tag
       #   id: prepare_tag
