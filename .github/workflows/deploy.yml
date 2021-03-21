@@ -3,9 +3,9 @@ name: github pages
 on:
   push:
     branches:
-      - staging  # Set a branch to deploy
-    tags:
-      - '*.*.*'
+      - gh-pages  # Set a branch to deploy
+    # tags:
+    #   - '*.*.*'
 
 jobs:
   deploy:
