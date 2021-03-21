@@ -1,0 +1,68 @@
+baseURL = "http://example.org/"
+languageCode = "en-us"
+title = "ChuZhu"
+theme = "erblog"
+paginate = 3
+DefaultContentLanguage = "en"
+enableInlineShortcodes = true
+footnoteReturnLinkContents = "^"
+
+[params]
+    author = "Robert Chu"
+    portrait = "/img/chuchu.jpg"
+    logo = "/img/chuchu.jpg"
+    bio = """
+    <p> This is 朱朱 from Taiwan, or you can call me Robert. </p>
+    <br />
+    <p> My Github is right over <a href="https://github.com/robertchu1205">HERE</a> </p>
+    """
+    copyright = "Copyright © 2008–2019, Steve Francia and the Hugo Authors; all rights reserved."
+
+[[menu.main]]
+    identifier = "post"
+    name = "Post"
+    url = "/post/"
+    weight = 1
+
+# [[menu.main]]
+#    identifier = "zone"
+#    name = "Timeline"
+#    url = "/zone/"
+#    weight = 1
+
+# [[menu.main]]
+#    name = "Gallery"
+#    url = "/gallery/"
+#    weight = 2
+
+[[menu.main]]
+    identifier = "home"
+    name = "Home"
+    url = "/"
+    weight = 10
+
+[[menu.footer]]
+    identifier = "version"
+    name = "Version"
+    url = "/version/"
+    weight = 1
+
+[taxonomies]
+category = "categories"
+tag = "tags"
+series = "series"
+
+[[menu.icon]]
+    url = "mailto:robert010256@gmail.com"
+    name = "envelope-o"
+    weight = 1
+
+[[menu.icon]]
+    url = "https://github.com/robertchu1205"
+    name = "linkedin"
+    weight = 1
+
+[[menu.icon]]
+    url = "https://github.com/robertchu1205"
+    name = "github"
+    weight = 1
