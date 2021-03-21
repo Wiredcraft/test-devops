@@ -7,47 +7,45 @@ on:
     # tags:
     #   - '*.*.*'
 
-env:
-  REMOTE: robertchu1205/robertchu1205.github.io.git
-  DEST: public
-  # TOKEN: ${{ secrets.TOKEN }}
-
 jobs:
   hugo:
-    # runs-on: ubuntu-18.04
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
         with:
           submodules: true  # Fetch Hugo themes (true OR recursive)
-          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+          # fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
           hugo-version: 'latest'
-          # hugo-version: '0.81.0'
           extended: true
 
-      - name: Cache dependencies
-        uses: actions/cache@v2
-        with:
-          path: /tmp/hugo_cache
-          key: ${{ runner.os }}-hugomod-${{ hashFiles('**/go.sum') }}
-          restore-keys: |
-            ${{ runner.os }}-hugomod-
+      # Step 3 - Clean and don't fail
+      - name: Clean public directory
+        run: rm -rf public
+
+      # - name: Cache dependencies
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: /tmp/hugo_cache
+      #     key: ${{ runner.os }}-hugomod-${{ hashFiles('**/go.sum') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-hugomod-
 
       - name: Build
-        run: hugo --gc --minify --cleanDestinationDir
+        run: hugo --theme=erblog
+        #  --gc --minify --cleanDestinationDir
 
-      - name: Prepare tag
-        id: prepare_tag
-        if: startsWith(github.ref, 'refs/tags/')
-        run: |
-          TAG_NAME="${GITHUB_REF##refs/tags/}"
-          echo "::set-output name=tag_name::${TAG_NAME}"
-          echo "::set-output name=deploy_tag_name::deploy-${TAG_NAME}"
+      # - name: Prepare tag
+      #   id: prepare_tag
+      #   if: startsWith(github.ref, 'refs/tags/')
+      #   run: |
+      #     TAG_NAME="${GITHUB_REF##refs/tags/}"
+      #     echo "::set-output name=tag_name::${TAG_NAME}"
+      #     echo "::set-output name=deploy_tag_name::deploy-${TAG_NAME}"
 
       - name: Deploy
         if: success() && github.event_name != 'pull_request'
@@ -56,8 +54,6 @@ jobs:
           user_name: chuzhu
           user_email: robert010256@gmail.com
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          # publish_dir: ./public
-          # publish_branch: gh-pages
           # commit_message: ${{ github.event.head_commit.message }}
           # tag_name: ${{ steps.prepare_tag.outputs.deploy_tag_name }}
           # tag_message: 'Deployment ${{ steps.prepare_tag.outputs.tag_name }}'
