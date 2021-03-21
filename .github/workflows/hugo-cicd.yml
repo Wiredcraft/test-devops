@@ -9,18 +9,19 @@ on:
 
 jobs:
   hugo:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
         with:
           submodules: true  # Fetch Hugo themes (true OR recursive)
-          # fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: 'latest'
+          # hugo-version: 'latest'
+          hugo-version: v0.80.0
           extended: true
 
       # Step 3 - Clean and don't fail
