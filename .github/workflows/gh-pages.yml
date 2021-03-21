@@ -53,10 +53,11 @@ jobs:
       - name: Deploy
         if: success() && github.event_name != 'pull_request'
         # uses: peaceiris/actions-gh-pages@v3
-        uses: robertchu1205/test-devops@gh-pages
+        uses: robertchu1205/test-devops@master
         # env:
         #   githubToken: ${{ secrets.PERSONAL_TOKEN }}
         with:
+          branch: gh-pages
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
           publish_branch: gh-pages
