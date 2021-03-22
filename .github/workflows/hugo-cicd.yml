@@ -50,13 +50,12 @@ jobs:
       - name: Deploy
         if: success() && github.event_name != 'pull_request'
         uses: peaceiris/actions-gh-pages@v3
-        env:
-          PUBLISH_BRANCH: gh-pages
         with:
           user_name: chuzhu
           user_email: robert010256@gmail.com
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
+          publish_branch: main
           # commit_message: ${{ github.event.head_commit.message }}
           # tag_name: ${{ steps.prepare_tag.outputs.deploy_tag_name }}
           # tag_message: 'Deployment ${{ steps.prepare_tag.outputs.tag_name }}'
