@@ -53,13 +53,12 @@ jobs:
         with:
           user_name: chuzhu
           user_email: robert010256@gmail.com
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
           publish_branch: main
-          # external_repository: robertchu1205/robertchu1205.github.io
-          repo: robertchu1205/robertchu1205.github.io
+          external_repository: robertchu1205/robertchu1205.github.io
           # deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          # personal_token: ${{ secrets.PERSONAL_TOKEN }}
+          personal_token: ${{ secrets.PERSONAL_TOKEN }}
           # commit_message: ${{ github.event.head_commit.message }}
           # tag_name: ${{ steps.prepare_tag.outputs.deploy_tag_name }}
           # tag_message: 'Deployment ${{ steps.prepare_tag.outputs.tag_name }}'
