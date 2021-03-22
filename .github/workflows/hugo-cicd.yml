@@ -57,6 +57,7 @@ jobs:
           publish_dir: ./public
           publish_branch: main
           external_repository: robertchu1205/robertchu1205.github.io
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           # commit_message: ${{ github.event.head_commit.message }}
           # tag_name: ${{ steps.prepare_tag.outputs.deploy_tag_name }}
           # tag_message: 'Deployment ${{ steps.prepare_tag.outputs.tag_name }}'
