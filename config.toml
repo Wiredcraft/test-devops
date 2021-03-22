@@ -1,4 +1,7 @@
-baseURL = "https://robertchu1205.github.io/test-devops/"
+baseURL = "/"
+# baseURL = "/robertchu1205.github.io"
+relativeURLs = true
+uglyURLs = true
 languageCode = "en-us"
 title = "ChuZhu"
 theme = "erblog"
