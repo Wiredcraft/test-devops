@@ -37,7 +37,7 @@ jobs:
       #       ${{ runner.os }}-hugomod-
 
       - name: Build
-        run: hugo --gc --minify --cleanDestinationDir
+        run: hugo -t erblog --gc --minify --cleanDestinationDir
 
       # - name: Prepare tag
       #   id: prepare_tag
@@ -50,10 +50,13 @@ jobs:
       - name: Deploy
         if: success() && github.event_name != 'pull_request'
         uses: peaceiris/actions-gh-pages@v3
+        env:
+          PUBLISH_BRANCH: gh-pages
         with:
           user_name: chuzhu
           user_email: robert010256@gmail.com
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
           # commit_message: ${{ github.event.head_commit.message }}
           # tag_name: ${{ steps.prepare_tag.outputs.deploy_tag_name }}
           # tag_message: 'Deployment ${{ steps.prepare_tag.outputs.tag_name }}'

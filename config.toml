@@ -1,7 +1,7 @@
 baseURL = "/"
 # baseURL = "/robertchu1205.github.io"
 relativeURLs = true
-uglyURLs = true
+# uglyURLs = true
 languageCode = "en-us"
 title = "ChuZhu"
 theme = "erblog"
