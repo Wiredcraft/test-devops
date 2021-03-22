@@ -53,7 +53,7 @@ jobs:
         with:
           user_name: chuzhu
           user_email: robert010256@gmail.com
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
           publish_branch: main
           external_repository: robertchu1205/robertchu1205.github.io
