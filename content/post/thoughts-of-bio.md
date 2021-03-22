@@ -1,8 +1,8 @@
 +++
 author = "Robert Chu"
-title = "Thoughts of this bio"
+title = "Thoughts of this site"
 date = "2021-03-19"
-description = "Some thoughts and reasons of this bio"
+description = "Some thoughts and reasons of this site"
 tags = [
     "devops",
     "sre",

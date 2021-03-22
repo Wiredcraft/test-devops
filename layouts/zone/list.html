@@ -6,7 +6,9 @@
     <div class="layui-row"> 
         <div class="layui-col-md7 layui-col-sm6 layui-col-xs12">
             <div class="list-show-title">
-                <h1>This is my zone</h1>
+                <h3>It's me who adept at learning new topics and facing challenges.
+                    When dealing issues, I have abilities of rational problem solving 
+                    and effective negotiating.</h3>
             </div>
         </div>
         <div class="layui-col-md5 layui-col-sm6 layui-col-xs12" style="text-align:center;">
@@ -17,7 +19,7 @@
 
 <div class="layui-container">
     <div class="layui-card single-card">
-        <div class="layui-card-header"><h1> Zone </h1></div>
+        <!-- <div class="layui-card-header"><h1> Timeline </h1></div> -->
 
         <ul class="layui-timeline" style="margin-top:10px; margin-bottom:10px">
             <!-- Page Prev -->
@@ -36,7 +38,8 @@
             <li class="layui-timeline-item">
               <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
               <div class="layui-timeline-content layui-text">
-                <h3 class="layui-timeline-title">{{.Date.Format "2006-01-02 15:04"}}</h3>
+                <h3 class="layui-timeline-title">{{.Date.Format "2006-01-02"}}</h3>
+                <h1 class="layui-title">{{.Title}}</h1>
                 <div class="layui-card-body markdown-body">
                     {{ .Content }}
                 </div>

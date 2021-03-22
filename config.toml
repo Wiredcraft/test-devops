@@ -1,5 +1,4 @@
 baseURL = "/"
-# baseURL = "/robertchu1205.github.io"
 relativeURLs = true
 # uglyURLs = true
 languageCode = "en-us"
@@ -11,6 +10,7 @@ enableInlineShortcodes = true
 footnoteReturnLinkContents = "^"
 
 [params]
+    version = "0.1.0"
     description = "🐷"
     author = "Robert Chu"
     portrait = "/img/chuchu.jpg"
@@ -18,7 +18,6 @@ footnoteReturnLinkContents = "^"
     bio = """
     <p> This is 朱朱 from Taiwan, or you can call me Robert. </p>
     """
-    copyright = "Copyright © 2008–2019, Steve Francia and the Hugo Authors; all rights reserved."
 
 [[menu.main]]
     identifier = "post"
@@ -26,11 +25,11 @@ footnoteReturnLinkContents = "^"
     url = "/post/"
     weight = 1
 
-# [[menu.main]]
-#    identifier = "zone"
-#    name = "Timeline"
-#    url = "/zone/"
-#    weight = 1
+[[menu.main]]
+   identifier = "zone"
+   name = "Timeline"
+   url = "/zone/"
+   weight = 1
 
 # [[menu.main]]
 #    name = "Gallery"
@@ -42,12 +41,6 @@ footnoteReturnLinkContents = "^"
     name = "Home"
     url = "/"
     weight = 10
-
-[[menu.footer]]
-    identifier = "version"
-    name = "Version"
-    url = "/version/"
-    weight = 1
 
 [taxonomies]
 category = "categories"
