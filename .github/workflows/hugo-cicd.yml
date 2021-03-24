@@ -4,13 +4,12 @@ on:
   push:
     branches:
       - staging
-  # schedule:
-    # - cron: '0 * * * *' # every hour
-    # - cron: '0 */3 * * *' # every 3 hours for test
+    tags:
+      - '*.*.*' 
 
 jobs:
   hugo:
-    runs-on: ubuntu-18.04
+    runs-on: macos-latest
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
@@ -21,7 +20,8 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: 'latest'
+          # hugo-version: 'latest'
+          hugo-version: '0.80.0'
           extended: true
 
       # Step 3 - Clean and don't fail
@@ -39,14 +39,12 @@ jobs:
       - name: Build
         run: hugo -t erblog --gc --minify --cleanDestinationDir
 
-      - name: Prepare New Version
-        id: prepare_new_version
+      - name: Prepare tag
+        id: prepare_tag
+        if: startsWith(github.ref, 'refs/tags/')
         run: |
-          LAST_VER=$(eval "git log -1 --pretty=%B | tr -d -c '[0-9 .]'")
-          IFS='.' read -a ARR <<< "$LAST_VER"
-          NEW_VER="${ARR[0]}.${ARR[1]}.$((${ARR[2]} + 1))"
-          echo "$LAST_VER $NEW_VER"
-          echo "::set-output name=new_ver::${NEW_VER}"
+          TAG_NAME="${GITHUB_REF##refs/tags/}"
+          echo "::set-output name=tag_name::${TAG_NAME}"
 
       - name: Deploy
         if: success() && github.event_name != 'pull_request'
@@ -60,6 +58,7 @@ jobs:
           external_repository: robertchu1205/robertchu1205.github.io
           # deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           personal_token: ${{ secrets.PERSONAL_TOKEN }}
-          # commit_message: ${{ github.event.head_commit.message }}
-          # tag_name: ${{ steps.prepare_tag.outputs.deploy_tag_name }}
-          # tag_message: 'Deployment ${{ steps.prepare_tag.outputs.tag_name }}'
+          # commit_message: 'Staging: ${{ github.event.head_commit.message }}'
+          commit_message: 'Staging: ${{ steps.prepare_tag.outputs.tag_name }}'
+          tag_name: ${{ steps.prepare_tag.outputs.tag_name }}
+          tag_message: 'Staging: ${{ steps.prepare_tag.outputs.tag_name }}'

@@ -23,7 +23,7 @@ jobs:
         id: create_md
         run: |
           sudo apt-get install -y fortune fortunes-min
-          NEW_MD="$(eval "sh ./content-auto-update.sh dev ./content/post/")"
+          NEW_MD="$(eval "bash ./content-auto-update.sh dev ./content/post/")"
           ls ./content/post/
           echo $NEW_MD
           cat $NEW_MD
@@ -36,6 +36,7 @@ jobs:
           IFS='.' read -a ARR <<< "$LAST_VER"
           NEW_VER="${ARR[0]}.${ARR[1]}.$((${ARR[2]} + 1))"
           echo "$LAST_VER $NEW_VER"
+          sed -i "s/^DEV_VERSION=.*/DEV_VERSION=${NEW_VER}/" ./.env
           echo "::set-output name=new_ver::${NEW_VER}"
 
       - name: Deploy

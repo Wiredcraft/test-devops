@@ -1,0 +1,54 @@
+name: deploy-latest-dev
+
+on:
+  push:
+    branches:
+      - develop  # Set a branch to deploy
+    tags:
+      - '*.*.*' # from .env of dev
+  # schedule:
+    # - cron: '0 * * * *' # every hour
+    # - cron: '0 */3 * * *' # every 3 hours for test
+
+jobs:
+  to-staging:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout this Repo
+        uses: actions/checkout@v2
+        with:
+          ref: 'dev'
+          submodules: true  # Fetch Hugo themes (true OR recursive)
+          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+
+      - name: Prepare New Version
+        id: prepare_new_version
+        run: |
+          NEW_VER="$(eval "bash ./content-auto-update.sh staging ./.env")"
+          echo "::set-output name=new_ver::${NEW_VER}"
+
+      - name: Deploy-DEV
+        if: success() && github.event_name != 'pull_request'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          user_name: chuzhu
+          user_email: robert010256@gmail.com
+          publish_dir: .
+          publish_branch: dev
+          personal_token: ${{ secrets.PERSONAL_TOKEN }}
+          commit_message: 'Staging: ${{ steps.prepare_new_version.outputs.new_ver }}'
+          # tag_name: ${{ steps.prepare_new_version.outputs.new_ver }}
+          # tag_message: 'New md: ${{ steps.create_md.outputs.new_md }}'
+
+      - name: Deploy-STAGING
+        if: success() && github.event_name != 'pull_request'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          user_name: chuzhu
+          user_email: robert010256@gmail.com
+          publish_dir: .
+          publish_branch: staging
+          personal_token: ${{ secrets.PERSONAL_TOKEN }}
+          commit_message: 'Staging: ${{ steps.prepare_new_version.outputs.new_ver }}'
+          tag_name: ${{ steps.prepare_new_version.outputs.new_ver }}
+          tag_message: 'site update: ${{ steps.prepare_new_version.outputs.new_ver }}'

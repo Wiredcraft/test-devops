@@ -21,7 +21,15 @@ if [ "$1" = "dev" ]; then
     echo "$fortune" >> $filename
     # sed -i "s/^tochange.*/${fortune}/" template.md 
 elif [ "$1" = "staging" ];then 
-    echo "staging"
+    env_staging_ver=$(eval "cat $2 | grep "STAGING_VERSION=*.*.*" | tr -d -c '[0-9 .]'")
+    IFS='.' read -a ARR <<< "$env_staging_ver"
+    if [ $((${ARR[2]} + 1)) -gt 5 ]; then
+	NEW_VER="${ARR[0]}.$((${ARR[1]} + 1)).0"
+    else
+        NEW_VER="${ARR[0]}.${ARR[1]}.$((${ARR[2]} + 1))"
+    fi
+    echo $NEW_VER
+    sed -i "s/^STAGING_VERSION=.*/STAGING_VERSION=${NEW_VER}/" $2
 else
     echo "else"
 fi
