@@ -23,9 +23,10 @@ jobs:
         id: create_md
         run: |
           sudo apt-get install -y fortune fortunes-min
-          NEW_MD=$(eval "sh ./content-auto-update.sh dev ./content/post/")
+          NEW_MD="$(eval "sh ./content-auto-update.sh dev ./content/post/")"
           ls ./content/post/
-          echo$ NEW_MD
+          echo $NEW_MD
+          cat $NEW_MD
           echo "::set-output name=new_md::${NEW_MD}"
 
       - name: Prepare New Version
