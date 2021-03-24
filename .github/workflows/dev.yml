@@ -36,6 +36,9 @@ jobs:
           if ! [[ $LAST_VER =~ ^[0-9].[0-9].[0-9]$ ]]; then
             LAST_VER=$(eval "cat ./.env | grep "DEV_VERSION=*.*.*" | tr -d -c '[0-9 .]'")
           fi
+          if ! [[ $LAST_VER =~ ^[0-9].[0-9].[0-9]$ ]]; then
+            LAST_VER="0.0.0"
+          fi
           IFS='.' read -a ARR <<< "$LAST_VER"
           NEW_VER="${ARR[0]}.${ARR[1]}.$((${ARR[2]} + 1))"
           echo "$LAST_VER $NEW_VER"
