@@ -4,9 +4,9 @@ on:
   push:
     branches:
       - develop  # Set a branch to deploy
-  # schedule:
+  schedule:
     # - cron: '*/10 * * * *' # every 10min
-    # - cron: '0 * * * *' # every hour for test
+    - cron: '0 * * * *' # every hour for test
 
 jobs:
   dev:
@@ -45,15 +45,25 @@ jobs:
           sed -i "s/^DEV_VERSION=.*/DEV_VERSION=${NEW_VER}/" ./.env
           echo "::set-output name=new_ver::${NEW_VER}"
 
-      - name: Deploy
+      - name: Deploy-DEV
         if: success() && github.event_name != 'pull_request'
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          user_name: chuzhu
-          user_email: robert010256@gmail.com
-          publish_dir: .
-          publish_branch: dev
-          personal_token: ${{ secrets.PERSONAL_TOKEN }}
-          commit_message: 'New md: ${{ steps.prepare_new_version.outputs.new_ver }}'
-          # tag_name: ${{ steps.prepare_new_version.outputs.new_ver }}
-          # tag_message: 'New md: ${{ steps.create_md.outputs.new_md }}'
+        run: |
+          git config --global user.email "robert010256@gmail.com"
+          git config --global user.name "chuzhu"
+          git add ./.env
+          git add ./content
+          git commit -m "New md: ${{ steps.prepare_new_version.outputs.new_ver }}"
+          git push origin dev
+
+      # - name: Deploy
+      #   if: success() && github.event_name != 'pull_request'
+      #   uses: peaceiris/actions-gh-pages@v3
+      #   with:
+      #     user_name: chuzhu
+      #     user_email: robert010256@gmail.com
+      #     publish_dir: .
+      #     publish_branch: dev
+      #     personal_token: ${{ secrets.PERSONAL_TOKEN }}
+      #     commit_message: 'New md: ${{ steps.prepare_new_version.outputs.new_ver }}'
+      #     # tag_name: ${{ steps.prepare_new_version.outputs.new_ver }}
+      #     # tag_message: 'New md: ${{ steps.create_md.outputs.new_md }}'
