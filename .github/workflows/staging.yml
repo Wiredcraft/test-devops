@@ -3,7 +3,7 @@ name: deploy-latest-dev
 on:
   push:
     branches:
-      - develop  # Set a branch to deploy
+      - dev  # Set a branch to deploy
     tags:
       - '*.*.*' # from .env of dev
   # schedule:
@@ -17,7 +17,7 @@ jobs:
       - name: Checkout this Repo
         uses: actions/checkout@v2
         with:
-          ref: 'dev'
+          # ref: 'dev'
           submodules: true  # Fetch Hugo themes (true OR recursive)
           fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
 
@@ -36,7 +36,7 @@ jobs:
           publish_dir: .
           publish_branch: dev
           personal_token: ${{ secrets.PERSONAL_TOKEN }}
-          commit_message: 'Staging: ${{ steps.prepare_new_version.outputs.new_ver }}'
+          commit_message: 'To Staging'
           # tag_name: ${{ steps.prepare_new_version.outputs.new_ver }}
           # tag_message: 'New md: ${{ steps.create_md.outputs.new_md }}'
 

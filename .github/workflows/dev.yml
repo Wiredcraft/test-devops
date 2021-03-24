@@ -12,7 +12,7 @@ jobs:
   dev:
     runs-on: ubuntu-18.04
     steps:
-      - name: Checkout this Repo
+      - name: Checkout dev
         uses: actions/checkout@v2
         with:
           ref: 'dev'
@@ -33,6 +33,9 @@ jobs:
         id: prepare_new_version
         run: |
           LAST_VER=$(eval "git log -1 --pretty=%B | tr -d -c '[0-9 .]'")
+          if ! [[ $LAST_VER =~ ^[0-9].[0-9].[0-9]$ ]]; then
+            LAST_VER=$(eval "cat ./.env | grep "DEV_VERSION=*.*.*" | tr -d -c '[0-9 .]'")
+          fi
           IFS='.' read -a ARR <<< "$LAST_VER"
           NEW_VER="${ARR[0]}.${ARR[1]}.$((${ARR[2]} + 1))"
           echo "$LAST_VER $NEW_VER"
@@ -48,6 +51,6 @@ jobs:
           publish_dir: .
           publish_branch: dev
           personal_token: ${{ secrets.PERSONAL_TOKEN }}
-          commit_message: ${{ steps.prepare_new_version.outputs.new_ver }}
+          commit_message: 'New md: ${{ steps.prepare_new_version.outputs.new_ver }}'
           # tag_name: ${{ steps.prepare_new_version.outputs.new_ver }}
           # tag_message: 'New md: ${{ steps.create_md.outputs.new_md }}'
