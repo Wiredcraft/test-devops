@@ -3,13 +3,14 @@ name: hugo
 on:
   push:
     branches:
-      - develop  # Set a branch to deploy
-    # tags:
-    #   - '*.*.*'
+      - staging
+  # schedule:
+    # - cron: '0 * * * *' # every hour
+    # - cron: '0 */3 * * *' # every 3 hours for test
 
 jobs:
   hugo:
-    runs-on: macos-latest
+    runs-on: ubuntu-18.04
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
@@ -20,8 +21,7 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          # hugo-version: 'latest'
-          hugo-version: '0.80.0'
+          hugo-version: 'latest'
           extended: true
 
       # Step 3 - Clean and don't fail
@@ -39,13 +39,14 @@ jobs:
       - name: Build
         run: hugo -t erblog --gc --minify --cleanDestinationDir
 
-      # - name: Prepare tag
-      #   id: prepare_tag
-      #   if: startsWith(github.ref, 'refs/tags/')
-      #   run: |
-      #     TAG_NAME="${GITHUB_REF##refs/tags/}"
-      #     echo "::set-output name=tag_name::${TAG_NAME}"
-      #     echo "::set-output name=deploy_tag_name::deploy-${TAG_NAME}"
+      - name: Prepare New Version
+        id: prepare_new_version
+        run: |
+          LAST_VER=$(eval "git log -1 --pretty=%B | tr -d -c '[0-9 .]'")
+          IFS='.' read -a ARR <<< "$LAST_VER"
+          NEW_VER="${ARR[0]}.${ARR[1]}.$((${ARR[2]} + 1))"
+          echo "$LAST_VER $NEW_VER"
+          echo "::set-output name=new_ver::${NEW_VER}"
 
       - name: Deploy
         if: success() && github.event_name != 'pull_request'

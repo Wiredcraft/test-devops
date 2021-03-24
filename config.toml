@@ -31,6 +31,12 @@ footnoteReturnLinkContents = "^"
    url = "/zone/"
    weight = 1
 
+[[menu.main]]
+   identifier = "test-devops"
+   name = "Target"
+   url = "/test-devops/"
+   weight = 1
+
 # [[menu.main]]
 #    name = "Gallery"
 #    url = "/gallery/"

@@ -1,0 +1,51 @@
+name: dev-create-md
+
+on:
+  push:
+    branches:
+      - develop  # Set a branch to deploy
+  # schedule:
+    # - cron: '*/10 * * * *' # every 10min
+    # - cron: '0 * * * *' # every hour for test
+
+jobs:
+  dev:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout this Repo
+        uses: actions/checkout@v2
+        with:
+          ref: 'dev'
+          submodules: true  # Fetch Hugo themes (true OR recursive)
+          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+
+      - name: Create md
+        id: create_md
+        run: |
+          sudo apt-get install -y fortune fortunes-min
+          NEW_MD=$(eval "sh ./content-auto-update.sh dev ./content/post/")
+          ls ./content/post/
+          cat NEW_MD
+          echo "::set-output name=new_md::${NEW_MD}"
+
+      - name: Prepare New Version
+        id: prepare_new_version
+        run: |
+          LAST_VER=$(eval "git log -1 --pretty=%B | tr -d -c '[0-9 .]'")
+          IFS='.' read -a ARR <<< "$LAST_VER"
+          NEW_VER="${ARR[0]}.${ARR[1]}.$((${ARR[2]} + 1))"
+          echo "$LAST_VER $NEW_VER"
+          echo "::set-output name=new_ver::${NEW_VER}"
+
+      - name: Deploy
+        if: success() && github.event_name != 'pull_request'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          user_name: chuzhu
+          user_email: robert010256@gmail.com
+          publish_dir: .
+          publish_branch: dev
+          personal_token: ${{ secrets.PERSONAL_TOKEN }}
+          commit_message: ${{ steps.prepare_new_version.outputs.new_ver }}
+          # tag_name: ${{ steps.prepare_new_version.outputs.new_ver }}
+          # tag_message: 'New md: ${{ steps.create_md.outputs.new_md }}'

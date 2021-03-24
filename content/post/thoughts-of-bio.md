@@ -28,3 +28,16 @@ categories = [
 #### Why [Erblog](https://themes.gohugo.io/erblog/) as theme
 - mobile responsive
 - posts showed in the landing pages
+
+### branchs working rules
+- develop
+    - any pushed commits here would update to [the site](https://robertchu1205.github.io/) as prd
+- dev (*/10 * * * *)
+    - create new md to /content/post
+    - calculate new version thru **latest pushed commit** or **dev_version in .env** by the rule of dev
+    - push back to dev by new version
+- staging (0 * * * *)
+    - clone from the latest dev
+    - calculate new version thru **latest pushed commit** or **dev_version in .env** by the rule of staging
+    - push back to staging by new version **with tag**
+    - push to develop to update [the site](https://robertchu1205.github.io/)
