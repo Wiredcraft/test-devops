@@ -1,6 +1,10 @@
 # Solution by Robert Chu
 - [The Outcome Site of my solution](https://robertchu1205.github.io/)
 - [My solution detail and concept](https://robertchu1205.github.io/post/thoughts-of-bio/)
+- [branch "develop"](https://github.com/robertchu1205/test-devops/tree/develop)
+- [branch "dev"](https://github.com/robertchu1205/test-devops/tree/dev)
+- [branch "staging"](https://github.com/robertchu1205/test-devops/tree/staging)
+- [tagert site repo](https://github.com/robertchu1205/robertchu1205.github.io)
 ---
 # Test: Wiredcraft DevOps - Static website generator and build flow
 
