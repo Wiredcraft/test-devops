@@ -1,0 +1,17 @@
+- name: download ali yum repo
+  get_url:
+    url: http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+    dest: /etc/yum.repos.d/
+  environment: "{{proxy_env}}"
+
+- name: install docker
+  yum:
+    name: docker-ce-{{docker_version}}
+    state: present
+  environment: "{{proxy_env}}"
+
+- name: ensure docker service running
+  service: name=docker.service state=started enabled=yes
+
+- name: make sure that /data exists
+  file: path=/data state=directory mode=0755

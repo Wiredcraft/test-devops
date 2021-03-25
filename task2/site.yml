@@ -1,0 +1,5 @@
+- hosts: all
+  roles:
+   - applications
+  vars_files:
+   - group_vars/common.yml

@@ -1,0 +1,13 @@
+- name: Include docker task
+  include_tasks:  "{{ playbook_dir }}/roles/applications/tasks/docker.yml"
+
+- name: docker pull docker registry 
+  shell: docker pull hub.c.163.com/library/registry:{{ docker_registry_version}}
+
+- name: make sure that /data/registry exists
+  file: path=/data/registry state=directory mode=0755
+
+- name:  start docker registry
+  command: docker run -d --name=registry -v /data/registry:/var/lib/registry -p 5000:5000 docker.io/registry
+  async: 200
+  poll: 0

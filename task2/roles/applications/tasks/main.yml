@@ -1,0 +1,8 @@
+- include: docker.yml
+  tags:
+    - docker
+
+- include: docker_registry.yml
+  tags:
+    - docker_registry
+

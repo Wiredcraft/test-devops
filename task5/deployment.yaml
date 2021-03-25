@@ -1,0 +1,36 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: wiredcraft-test-mockapi
+  labels:
+    app: wiredcraft-test-mockapi
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: wiredcraft-test-mockapi
+  template:
+    metadata:
+      labels:
+        app: wiredcraft-test-mockapi
+    spec:
+      volumes:
+      containers:
+      - name: mockapi
+        image: wiredcraft/mockapi:v1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        livenessProbe:
+          tcpSocket:
+            port: 8100 
+          initialDelaySeconds: 15
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /wiredcraft/api/v1.0/mock_test
+            port: 8100
+          periodSeconds: 30
+          initialDelaySeconds: 15
+          timeoutSeconds: 10
+
