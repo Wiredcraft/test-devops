@@ -4,7 +4,7 @@ if [ "$1" = "dev" ]; then
     fortune=$(eval "fortune")
     today=$(date '+%Y-%m-%d')
     # uppercase in fortune as title and filename
-    Title=`echo $fortune | tr -d -c '[:upper:]' '[bcdfghjk]'` 
+    Title=`echo $fortune | tr -d -c '[A-Zbcdfghjk]'` 
     filename="${2}${Title}.md"
     echo $filename
     touch $filename
