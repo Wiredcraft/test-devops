@@ -1,4 +1,8 @@
-# Wiredcraft DevOps - Static website generator and build flow
+# Solution by Robert Chu
+- [The Outcome Site of my solution](https://robertchu1205.github.io/)
+- [My solution detail and concept](https://robertchu1205.github.io/post/thoughts-of-bio/)
+---
+# Test: Wiredcraft DevOps - Static website generator and build flow
 
 Make sure you read **all** of this document carefully, and follow the guidelines in it.
 
