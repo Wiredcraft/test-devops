@@ -1,0 +1,3 @@
+[submodule "task1/jerrytest/themes/ananke"]
+	path = task1/jerrytest/themes/ananke
+	url = https://github.com/theNewDynamic/gohugo-theme-ananke.git

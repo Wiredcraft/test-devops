@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-service-deployment
+  labels:
+    app: mock-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mock-api
+  template:
+    metadata:
+      labels:
+        app: mock-api
+    spec:
+      containers:
+      - name: mock-api
+        image: docker-registry.example.com/mock-api:latest
+        ports:
+        - containerPort: 5000
