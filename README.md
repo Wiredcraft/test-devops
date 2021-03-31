@@ -33,3 +33,5 @@ For the service, I assume we are using NodePort for simplicity but in production
 ## Task 6:
 
 The github action config file was created under: .github/workflows
+
+Note: Currently the action failed because the expected registry is not exist: registry.example.com
