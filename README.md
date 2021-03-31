@@ -30,6 +30,12 @@ Below Kubernetes objects are created: Service, Deployment and HPA.
 
 For the service, I assume we are using NodePort for simplicity but in production we should be using ingress.
 
+Recommendation for the production use case:
+
+1. Create Ingress Controller and create corresponding service with type equeals to LoadBalancer.
+2. Update DNS system (for example, Route 53) to point to the Loadbalancer in step 1.
+3. Create Ingress object in the kubernetes, with hostname or endpoint binding.
+
 ## Task 6:
 
 The github action config file was created under: .github/workflows
