@@ -1,40 +1,46 @@
-- name: Install docker registry on Centos 7 
+- name: Configure docker registry on Centos 7 
 hosts: registry
 
 tasks:
-- name: Install pre-requisite packages
-  yum:
-   name: "{{item}}"
-   state: latest
-  loop:
-   - yum-utils
-   - device-mapper-persistent-data
-   - lvm2
+  # Install docker dependencies
+  - name: Install pre-requisite packages
+    yum:
+    name: "{{item}}"
+    state: latest
+    loop:
+    - yum-utils
+    - device-mapper-persistent-data
+    - lvm2
 
-- name: Add Docker CE repo
-  get_url:
-   url: https://download.docker.com/linux/centos/docker-ce.repo
-   dest: /etc/yum.repos.d/docker-ce.repo
+  # Adding Docker yum repository
+  - name: Add Docker CE repo
+    get_url:
+    url: https://download.docker.com/linux/centos/docker-ce.repo
+    dest: /etc/yum.repos.d/docker-ce.repo
 
-- name: Install Docker
-  yum: name=docker state=latest
+  # Install docker yum packages with latest available version
+  - name: Install Docker
+    yum: name=docker state=latest
 
-- name: Start and enable the Docker daemon
-  service: name=docker state=started enabled=yes
+  # Configure to start and enable docker service
+  - name: Start and enable the Docker daemon
+    service: name=docker state=started enabled=yes
 
-- name: Creates registry mount directory
-  file:
-    path: /var/lib/registry
-    state: directory
+  # Create local directory which will be used in the docker registry container
+  - name: Creates registry mount directory
+    file:
+      path: /var/lib/registry
+      state: directory
 
-- name: Start Docker registry container
-  docker:
-    name: docker-registry
-    image: registry:2
-    state: reloaded
-    pull: always
-    restart: always
-    devices:
-    - "/var/lib/registry:/var/lib/registry:rwm"
-    ports:
-    - "5000:5000"
+  # Start the docker registry container by using the official registry image
+  - name: Start Docker registry container
+    docker:
+      name: docker-registry
+      image: registry:2
+      state: reloaded
+      pull: always
+      restart: always
+      devices:
+      - "/var/lib/registry:/var/lib/registry:rwm"
+      ports:
+      - "5000:5000"
