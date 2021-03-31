@@ -15,6 +15,6 @@ jobs:
             image: mock-api
             tag: latest
             registry: registry.example.com
-            dockerfile: Dockerfile
+            dockerfile: task4/Dockerfile
 
         
