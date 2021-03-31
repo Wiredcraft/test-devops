@@ -1,0 +1,20 @@
+name: Build Docker Image & Push
+
+# Run this workflow every time a new commit pushed to your repository
+on: push
+
+jobs:
+  run-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v1
+      - run: yarn
+      - uses: mr-smithers-excellent/docker-build-push@v1.0
+        with:
+            image: mock-api
+            tag: latest
+            registry: registry.example.com
+            dockerfile: Dockerfile
+
+        
