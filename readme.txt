@@ -40,7 +40,7 @@ We also create a Dockerfile to containerize the API.
 
 Task5:
 For this task, we try to deploy the API in a K8S cluster. We assume the Dockerfile is build into a docker image through command 'docker build -t test-API .'
-Then we config the deployment and service, the detail is in the deployment.yaml and service.yaml file. In the deployment file we set the replicas to 2. In the service file we set the clusterIP to None to use DNS instead of VIP.
+Then we config the deployment and service, the detail is in the deployment.yaml and service.yaml file. In the deployment file we set the replicas to 2. In the service file we use the externalName type service.
 
 For the HPA task, as the data is stored in a hashmap instead if in a database. If the hashmap is too big, there will be some problem. So we use the K8S HPA to sutpscall the pod when the data is too big.
 We have a restful API to provide the number of user which is store in the hashmap. we assume we have a Prometheus and it has set to get the user number through the restful API we provide.
