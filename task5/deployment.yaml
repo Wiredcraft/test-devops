@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: Test-API-deployment
+spec:
+  selector:
+    matchLabels:
+      app: test-API
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: test-API
+    spec:
+      containers:
+      - name: test-API
+        image: 
+          path: mirror/test-API
+        ports:
+        - containerPort: 8008

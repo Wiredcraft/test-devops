@@ -1,0 +1,92 @@
+- name: Config Yum Repo And Install Software
+  hosts: test
+  gather_facts: false
+  vars:
+    - exclude_db: "test"
+  tasks: 
+    - name: backup origin yum repos
+      shell: 
+        #create a bak dir and move all repo file to the bak dir if there is already has a yum repo
+        cmd: "mkdir bak; mv *.repo bak"
+        #change the pwd before run the command
+        chdir: /etc/yum.repos.d
+        #if the bak dir is already exist, do not create a dir again
+        creates: /etc/yum.repos.d/bak
+ 
+    - name: add os repo and epel repo
+      yum_repository: 
+        #The name of the repo
+        name: "{{item.name}}"
+        description: "{{item.name}} repo"
+        #The url of the repo
+        baseurl: "{{item.baseurl}}"
+        file: "{{item.name}}"
+        #Enable the file of the repo
+        enabled: 1
+        #Disable the gpgcheck
+        gpgcheck: 0
+        reposdir: /etc/yum.repos.d
+      #Loop to check the 2 repos
+      loop:
+        - name: os
+          baseurl: "https://mirrors.tuna.tsinghua.edu.cn/centos/7/os/$basearch"
+        - name: epel
+          baseurl: "https://mirrors.tuna.tsinghua.edu.cn/epel/7/$basearch"
+ 
+    - name: install pkgs
+      yum: 
+        #Use yum to install the latest version of docker/musql through rpm package
+        name: docker-ce,mysql-server,ntpdate
+        state: latest
+        download_dir: /user/hua/rpm/
+    - name: ntpdate to sync time
+          shell: |
+            ntpdate ntp1.aliyun.com
+            hwclock -w
+            
+    - name: startup docker and mysql
+      shell: 
+        cmd: "systemctl start docker;systemctl start mysqld"
+
+    #Install the pip tool to make some dependences to be installed easier
+    - name: "install python-pip "
+      package:
+        name: "python-pip"
+        state: present
+    #Install the docker-py to enable ansible to run docker
+    - name: pip install docker-py 
+      pip:
+        name:
+          - docker-py>=1.10.6
+          - PyYAML>=5.3.0
+          
+    - name: Install the docker registry and UI
+          #Start up and set the directly /var/lib/registry registry to store the images
+          #As there is only one server in this case, we will not change the /etc/default/docker file right now.
+          #Pull the registry web UI image from aliyun cloud
+          #Tag the pulled image and start it, if everything is ok and we can view the images in the brower http://dockerserviceip:28083
+          #Add a volume through -v
+        shell: |
+          docker run -d -p 5000:5000 -v /usr/local/registry:/var/lib/registry registry
+          docker pull registry.cn-hangzhou.aliyuncs.com/voovan/dockerfly:20170227
+          docker tag registry.cn-hangzhou.aliyuncs.com/voovan/dockerfly:20170227 dockerfly
+          docker run --name dockerfly --restart=always -d -v /var/run/docker.sock:/var/run/docker.sock -p 2735:2735 -p 28083:28083 dockerfly
+          
+    - name: Create a database in mysql
+        #If we need to do more configure for the mysql. we can prepare a mysql role in our ansible categray
+        shell:|
+          mysql -uroot -p123456 -e 'CREATE DATABASE  test CHARACTER SET utf8  COLLATE utf8_general_ci;'
+          mysql -uroot -p123456 -e 'GRANT ALL ON test.* TO \'test\'@\'%\' IDENTIFIED BY \'test\';'
+        #mysqldump -utest -ptest test > test_db.sql
+       
+    - name: get db names
+      shell: 'mysql -u root -p123456 -e "show databases;" '
+      register: dblist
+    - name: backup databases
+      mysql_db:
+        state: dump
+        name: "{{ item }}"
+        target: "/tmp/{{ item }}.sql"
+        login_user: test
+        login_password: "test"
+

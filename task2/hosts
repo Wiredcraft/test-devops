@@ -1,0 +1,2 @@
+[test]
+test1 ansible_ssh_user=root ansible_ssh_pass=admin
