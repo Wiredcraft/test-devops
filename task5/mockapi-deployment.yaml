@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mockapi
+  labels:
+    k8s-app: mockapi
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      k8s-app: mockapi
+  template:
+    metadata:
+      labels:
+        k8s-app: mockapi
+      name: mockapi
+    spec:
+      containers:
+      - image: dockerhub.example.com/devops/mockapi:v0.0.1
+        imagePullPolicy: IfNotPresent
+        name: mockapi
+        ports:
+        - containerPort: 8080
+          name: http8080
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 2
+          httpGet:
+            path: /
+            port: http8080
+          initialDelaySeconds: 10
+          successThreshold: 2
+          timeoutSeconds: 5
+        livenessProbe:
+          failureThreshold: 2
+          httpGet:
+            path: /
+            port: http8080
+          initialDelaySeconds: 5
+          timeoutSeconds: 5
+        resources:
+          requests:
+            cpu: 50m
+            memory: 50Mi
+          limits:
+            cpu: 1000m
+            memory: 512Mi
+

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mockapi
+  labels:
+    k8s-app: mockapi
+spec:
+  ports:
+    - name: http8080
+      port: 80
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    k8s-app: mockapi
