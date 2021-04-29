@@ -2,9 +2,9 @@ name: Go
 
 on:
   push:
-    branches: [ static-site-fortune ]
+    branches: [ modular-test ]
   pull_request:
-    branches: [ static-site-fortune ]
+    branches: [ modular-test ]
 
 jobs:
 
