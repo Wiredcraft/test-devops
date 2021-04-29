@@ -28,4 +28,6 @@ jobs:
     - uses: actions/checkout@v2
     - name: Build the Docker image
       run: docker build ./task4/ --file ./task4/Dockerfile --tag timelordfang/mockapi:$(date +%s)
+    #- name: Push Image
+      #run: docker login ;docker push ...
 
