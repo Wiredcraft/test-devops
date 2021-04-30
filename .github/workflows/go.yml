@@ -50,6 +50,8 @@ jobs:
             UserKnownHostsFile /dev/null
     - name: Deploy via SSH
       run: |
+        ls -al
+        pwd
         scp -r ./task4/ targetserver:/tmp/testproject/ 
         ssh targetserver "cd /tmp/testproject/; docker ps "
 
