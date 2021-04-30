@@ -51,6 +51,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Deploy via SSH
       run: |
+        ssh targetserver "mv /tmp/testproject{,.bak}|| true"
         scp -r ./task4/ targetserver:/tmp/testproject/ 
         ssh targetserver "cd /tmp/testproject/; docker-compose up -d "
 
