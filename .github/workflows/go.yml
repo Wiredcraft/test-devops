@@ -48,6 +48,7 @@ jobs:
             IdentityFile ~/.ssh/id_rsa
             StrictHostKeyChecking no
             UserKnownHostsFile /dev/null
+    - uses: actions/checkout@v2
     - name: Deploy via SSH
       run: |
         ls -al
