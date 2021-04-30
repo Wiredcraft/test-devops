@@ -39,6 +39,7 @@ jobs:
       with:
         key: ${{ secrets.SSH_DEPLOY_KEY }}
         name: id_rsa
+        known_hosts: ""
         config: |                                         # will be appended to existing .ssh/config
           Host targetserver
             HostName fq003.timelord.info
