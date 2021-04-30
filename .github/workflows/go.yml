@@ -31,3 +31,26 @@ jobs:
     #- name: Push Image
       #run: docker login ;docker push ...
 
+  deploy:
+    runs-on: ubnutu-latest
+    needs: [build]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Deploy Docker
+    with:
+      key: ${{ secrets.SSH_DEPLOY_KEY }}
+      name: id_rsa
+      config: |                                         # will be appended to existing .ssh/config
+        Host targetserver
+          HostName fq003.timelord.info
+          User root
+          IdentityFile ~/.ssh/id_rsa
+          Port: 60022
+          StrictHostKeyChecking no
+          UserKnownHostsFile /dev/null
+      run: |
+      #scp ./task4/docker-compose.yml my.server.addr:/path/to/project
+      #ssh my.server.addr "cd /path/to/project/;docker-compose up -d"
+      ssh targetserver "who"
+      ssh targetserver "uptime;free -h"
+
