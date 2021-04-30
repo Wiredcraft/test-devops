@@ -50,8 +50,8 @@ jobs:
             #UserKnownHostsFile /dev/null
     - name: Deploy via SSH
       run: |
-        ssh targetserver "who"
-        ssh targetserver "uptime;free -h"
+        ssh targetserver "w"
+        ssh targetserver "uptime;free -h;date"
         #scp ./task4/docker-compose.yml my.server.addr:/path/to/project
         #ssh my.server.addr "cd /path/to/project/;docker-compose up -d"
 
