@@ -44,8 +44,8 @@ jobs:
           Host targetserver
             HostName fq003.timelord.info
             User root
+            Port 60022
             IdentityFile ~/.ssh/id_rsa
-            Port: 60022
             #StrictHostKeyChecking no
             #UserKnownHostsFile /dev/null
     - name: Deploy via SSH
