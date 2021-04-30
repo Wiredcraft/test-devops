@@ -46,7 +46,7 @@ jobs:
             User root
             Port 60022
             IdentityFile ~/.ssh/id_rsa
-            #StrictHostKeyChecking no
+            StrictHostKeyChecking no
             #UserKnownHostsFile /dev/null
     - name: Deploy via SSH
       run: |
