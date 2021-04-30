@@ -49,8 +49,8 @@ jobs:
           StrictHostKeyChecking no
           UserKnownHostsFile /dev/null
       run: |
-      #scp ./task4/docker-compose.yml my.server.addr:/path/to/project
-      #ssh my.server.addr "cd /path/to/project/;docker-compose up -d"
         ssh targetserver "who"
         ssh targetserver "uptime;free -h"
+        #scp ./task4/docker-compose.yml my.server.addr:/path/to/project
+        #ssh my.server.addr "cd /path/to/project/;docker-compose up -d"
 
