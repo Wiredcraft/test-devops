@@ -39,15 +39,15 @@ jobs:
       with:
         key: ${{ secrets.SSH_DEPLOY_KEY }}
         name: id_rsa
-        known_hosts: ""
+        known_hosts: ${{ secrets.TARGET_KNOWNHOST }}
         config: |                                         # will be appended to existing .ssh/config
           Host targetserver
             HostName fq003.timelord.info
             User root
             IdentityFile ~/.ssh/id_rsa
             Port: 60022
-            StrictHostKeyChecking no
-            UserKnownHostsFile /dev/null
+            #StrictHostKeyChecking no
+            #UserKnownHostsFile /dev/null
     - name: Deploy via SSH
       run: |
         ssh targetserver "who"
