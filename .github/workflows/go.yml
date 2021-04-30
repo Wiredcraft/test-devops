@@ -35,8 +35,8 @@ jobs:
     runs-on: ubnutu-latest
     needs: [build]
     steps:
-    - uses: actions/checkout@v2
-    - name: Deploy Docker
+    - name: Config SSH
+      uses: shimataro/ssh-key-action@v2
       with:
         key: ${{ secrets.SSH_DEPLOY_KEY }}
         name: id_rsa
@@ -48,6 +48,7 @@ jobs:
             Port: 60022
             StrictHostKeyChecking no
             UserKnownHostsFile /dev/null
+    - name: Deploy via SSH
       run: |
         ssh targetserver "who"
         ssh targetserver "uptime;free -h"
