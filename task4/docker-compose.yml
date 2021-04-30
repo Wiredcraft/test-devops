@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  mockapi:
+    image: timelordfang/mockapi:stable
+    network_mode: host
+    #environment:
+    #  AUDIT_LOG_MAXSIZE: 500
+    restart: always
+    container_name: mockapi
