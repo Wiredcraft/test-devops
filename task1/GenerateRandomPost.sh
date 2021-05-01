@@ -15,8 +15,8 @@ post_path=$(echo $new_result |cut -d " " -f 1)
 fortune >>  $post_path
 
 # change draft to false
-#sed -i '' 's/^draft: true/draft: false/g' $post_path # for macOS 
-sed -i  's/^draft: true/draft: false/g' $post_path
+sed -i '' 's/^draft: true/draft: false/g' $post_path # for macOS 
+#sed -i  's/^draft: true/draft: false/g' $post_path
 
 # generate static file
 hugo -D
