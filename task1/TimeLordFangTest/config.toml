@@ -1,0 +1,4 @@
+baseURL = "http://timelord.info/"
+languageCode = "en-us"
+title = "TimeLordFang  Hugo Test Site"
+theme = "ananke"
