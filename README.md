@@ -50,10 +50,12 @@ Here is the list of the technologies that we use at Wiredcraft and want you you 
 - Ansible
 
 #### Task description
-You need to spawn a new service for your company: private Docker registry. For simplicity limit this setup to 1 server only. Create an Ansible projects with sample inventory and playbooks for:
+You need to spawn a fresh server for a new project consisting of: API service, database. For simplicity limit this setup to 1 server only. Create an Ansible projects with sample inventory and playbooks for:
 - initial setup of the server
-- deployment of private Docker registry service
-- any maintenance setups (DB backups, etc.)
+- database of your choince
+- deployment of API (Docker image; assume it's already built and is stored on company private rigestry `https://registry.wiredcraft.cn/wcl/api:latest` )
+- configuration of a web server to point to API service (assume port `3000`is used)
+- any maintenance setups (database backups)
 
 ### Task 3. Infrastructure as a code 
 
@@ -62,7 +64,9 @@ Here is the list of the technologies that we use at Wiredcraft and want you you 
 - Terraform
 
 #### Task description
-You need to spawn an infrastructure for new company service from Task 2. Please create a Terraform project with cloud provider of your choice.
+You need to spawn an infrastructure for new company project from Task 2. Please create a Terraform project with cloud provider of your choice.
+
+NOTE: finishing task 2 is **not** required for this task
 
 ### Task 4. Docker and a bit of Dev
 #### Task description
@@ -116,7 +120,4 @@ Fork [this repo](https://github.com/Wiredcraft/test-devops)  and send us a pull 
 
 - What if I have question?
 
-Create a new issue in the repo and we will get back to you very quickly. You can also send us an email to devops@wiredcraft.com or hr@wiredcraft.com 
-## Extra
-
-If there is a need for servers, let us know, we can provision boxes for the tests.
+Send us an email to devops@wiredcraft.com or hr@wiredcraft.com 
