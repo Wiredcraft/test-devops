@@ -1,0 +1,79 @@
+- name: Setup Docker Engine and Docker Registry on Ubuntu
+  hosts: ubuntu-server
+  become: yes
+  tasks:
+
+    # Install Docker Engine
+    # See https://docs.docker.com/engine/install/ubuntu/
+
+    - name: Uninstall old verison Docker packages
+      apt:
+        pkg:
+        - docker
+        - docker-engine
+        - docker.io
+        - containerd
+        - runc
+        state: absent
+
+    - name: Install helper tools
+      apt:
+        pkg:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - gnupg
+        - lsb-release
+        update_cache: yes
+
+
+    - name: Install Docker GPG Key
+      shell:
+        cmd: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o docker-archive-keyring.gpg
+        chdir: /usr/share/keyrings/
+
+    - name: Get Ubuntu Release Code Name
+      shell: lsb_release -cs
+      register: lsb_release
+    
+    - name: Add Docker source list for APT
+      copy:
+        dest: /etc/apt/sources.list.d/docker.list
+        content: "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu {{lsb_release.stdout}} stable\n"
+
+
+    - name: Install Docker packages
+      apt:
+        pkg:
+        - docker-ce
+        - docker-ce-cli
+        - containerd.io
+        update_cache: yes
+
+    - name: Start Docker Engine
+      service:
+        name: docker
+        state: started
+
+    # Deploy Docker Registry
+    # See https://docs.docker.com/registry/deploying/
+
+    - name: Install Python3 and Python3-pip
+      apt:
+        pkg:
+        - python3
+        - python3-pip
+
+    - name: Install docker Python module
+      pip:
+        name: docker
+
+    - name: Start Docker Registry container
+      docker_container:
+        name: docker-registry
+        image: registry:2
+        state: started
+        ports:
+          - "5000:5000"
+        volumes:
+          - /mnt/registry:/var/lib/registry

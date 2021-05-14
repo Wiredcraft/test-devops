@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mock-api-server
+spec:
+  selector:
+    matchLabels:
+      app: mock-api-server
+  template:
+    metadata:
+      labels:
+        app: mock-api-server
+    spec:
+      containers:
+      - name: mock-api-server
+        image: joekyo/mock-api-server:v1
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3000
