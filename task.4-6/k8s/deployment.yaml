@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: mocker
+  name: mocker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mocker
+  template:
+    metadata:
+      labels:
+        app: mocker
+    spec:
+      containers:
+      - name: mocker
+        image: wiredcraft/mocker:latest
+        ports:
+        - name: http
+          containerPort: 3000
+          protocol: TCP
