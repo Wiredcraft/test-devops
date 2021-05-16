@@ -1,0 +1,31 @@
+pipeline {
+  agent none
+
+  stages {
+    stage('Test') {
+      agent go16
+      steps {
+        sh '''
+          go test -v
+        '''
+      }
+    }
+    stage('Docker') {
+      agent docker
+      steps {
+        sh '''
+          docker build -t wiredcraft/mocker:latest .
+          docker push wiredcraft/mocker:latest
+        '''
+      }
+    }
+    stage('Deploy') {
+      agent k8s
+      steps {
+        sh '''
+          kubectl rollout restart deployment/mocker
+        '''
+      }
+    }
+  }
+}
