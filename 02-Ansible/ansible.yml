@@ -1,0 +1,39 @@
+---
+- hosts: localhost
+  tasks:
+    - name: ensure nginx is at the latest version
+      apt: name=nginx state=latest
+    - name: start nginx
+      service:
+        name: nginx
+        state: started
+    - name: copy the nginx config file and restart nginx
+      copy:
+        src: /tmp/static_site.cfg
+        dest: /etc/nginx/sites-available/static_site.cfg
+      become: yes
+    - name: create symlink
+      file:
+        src: /etc/nginx/sites-available/static_site.cfg
+        dest: /etc/nginx/sites-enabled/default
+        state: link
+      become: yes
+    - name: "Install postgresql"
+      yum:
+        name: postgresql
+        state: present
+        update_cache: true
+    - name: copy the database backup script
+      copy:
+        src: /tmp/dbbackup.sh
+        dest: /usr/local/bin/
+    - name: install the backup job
+      cron:
+        name: "### Daily Database Backup Job"
+        minute: 0
+        hour: 20
+        day: "*"
+        month: "*"
+        weekday: "*"
+        job: /usr/local/bin/dbbackup.sh
+
