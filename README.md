@@ -116,7 +116,7 @@ Here's what you should aim for:
 
 - Where should I send back the result when I'm done?
 
-Create either a public GitHub repo and push the code there, or simply archize the project and send via an e-mail to us.
+Create either a public GitHub repo and push the code there, or simply archive the project and send via an e-mail to us.
 
 - What if I have question?
 
