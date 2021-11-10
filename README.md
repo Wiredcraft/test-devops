@@ -1,6 +1,7 @@
 # Wiredcraft DevOps - Modular Test
 
-## Preamble
+##  Preamble
+
 Working at DevOps team you will need to have a wide range of IT skills, main areas are:
 - infrastructure and networking
 - CI/CD tools
@@ -14,7 +15,7 @@ The mindset and ability to think out of the box is a critical asset for DevOps. 
 
 This is the reason the target of this task is quite broad and may involve technologies you may not (yet) be familiar with.
 
-## Background 
+## Background
 
 The purpose of this test is to:
 - evaluate your technical knowledge
@@ -32,8 +33,11 @@ This modular test consists of few stand alone tasks. We believe that interview t
 Here is the list of the technologies that we use at Wiredcraft and want you you to use in this task:
 - Python
 - Shell scripting
+- (Golang)
+- (NodeJS)
 
 #### Task description
+
 You are working with a website, based on a static site generator ([Hugo](https://gohugo.io/)). Prepare a script that will:
 - create a new post in your site with a random post content (use the output of [`fortune`](http://manpages.ubuntu.com/manpages/xenial/man6/fortune.6.html) command for example)
 - generate the static content of the website
@@ -43,49 +47,114 @@ A few suggestions / recommendations:
 - Prepare the basic site, plenty of tutorials are available online ([Hugo](https://gohugo.io))
 - Prepare templates for your site generator
 
+#### Deliverables
+
+- the website folder
+- the script to generate website content/commit and push  to upstream repo
+
 ### Task 2. Configuration management
 
 #### Technical stack
+
 Here is the list of the technologies that we use at Wiredcraft and want you you to use in this task:
 - Ansible
 
 #### Task description
 You need to spawn a fresh server for a new project consisting of: API service, database. For simplicity limit this setup to 1 server only. Create an Ansible projects with sample inventory and playbooks for:
-- initial setup of the server
+- initial setup of the server(good linux user/sshd config)
 - database of your choince
-- deployment of API (Docker image; assume it's already built and is stored on company private rigestry `https://registry.wiredcraft.cn/wcl/api:latest` )
-- configuration of a web server to point to API service (assume port `3000`is used)
+- deployment of API (you don't need to build a real API service,  **imaging** it's already built and is stored on company private rigestry `registry.wcl.com/wcl/api:latest` with fake registry credential username: `demo` passwrod: `demo` ), and this API service needs some env vars:
+  -  `DB_URL` :  database url, e.g. http://localhost:8091
+  - `DB_USERNAME` : database user
+  - `DB_PASSWORD` : database password
+- configuration of a web server(e.g. Nginx or any other web server) to point to API service (assume port `3000`is used)
 - any maintenance setups (database backups)
 
-### Task 3. Infrastructure as a code 
+#### Deliverables
+
+- ansible playbook which includes:
+  - init server
+  - setup API service/database/web server
+
+### Task 3. Infrastructure as a code
 
 #### Technical stack
+
 Here is the list of the technologies that we use at Wiredcraft and want you you to use in this task:
 - Terraform
 
 #### Task description
-You need to spawn an infrastructure for new company project from Task 2. Please create a Terraform project with cloud provider of your choice.
+You need to spawn an infrastructure for new company project from Task 2. Please create a Terraform project with cloud provider of your choice.  It should includes at latest :
+
+- Netowrk (VPC)
+- Servers
 
 NOTE: finishing task 2 is **not** required for this task
 
+
+
+#### Deliverables
+
+- Terraform script which includes:
+  - init setup
+  - setup for VPC
+  - setup for server
+
 ### Task 4. Docker and a bit of Dev
+
 #### Task description
-Your need to create and conternize a mock API service. Deliverables:
-- an API codebase with one endpoint returning mock response,
+Your need to create and conternize a simple API service. The API has two endpoints for welcome message:
+- `GET /welcome` returns `Hello, <name>!`, if not exist name then returns  `Hello, Wiredcraft!`
+- `PUT /welcome` with body `{"name": "<name>"}`, which changes the name string
+
+Obvs it should connect to a database,  You can use any database you want(Redis/Mongo/Mysql/Postgres/SQLite). And it should also use cache:
+
+- if the name exist , then don't query from database 
+
+#### Deliverables
+
+- an API codebase includes those two endpoints
+- an API Spec (Swagger or OpenAPI) for it
+
 - Dockerfile to containerize your API
 
-Choose whichever programming language and framework you like.
+You can use Python/Golang/NodeJS and whatever framework you like.
 
 ### Task 5. Kubernetes 
 #### Task description
 For the mock API from Task 4 your need to write k8s object definition for the following:
-- service
-- deployments
-- hpa
+- service for API service
+- deployments for API service and the database
+- hpa for API service
+
+You may also need the pv/pvc for database and configMap/sercret for the API service.
+
+
+
+#### Deliverables
+
+- Kubernetes config file for:
+
+  - service
+
+  - deployments
+
+  - hpa
+
+  - pv/pvc
+
+  - configMap
+
+  - sercret
+
+  - ingress(optional)
+
+    
 
 ### Task 6. CI/CD
 
 #### Technical stack
+
 Here is the list of the technologies that we use at Wiredcraft and want you you to use in this task:
 - Github Actions
 - Azure DevOps pipelines
@@ -97,6 +166,12 @@ Crate CI pipeline that would run any of:
 
 Also, Create CD pipeline that would do any of:
 - deploy new version of the API from Task 4 with any trigger of your choice (assume that deployment service is a stand alone Docker container running on a host server)
+
+#### Deliverables
+
+- CI configration file
+
+  
 
 ## What We Care About
 
