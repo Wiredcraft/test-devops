@@ -216,12 +216,12 @@ Here's what you should aim for:
 - Clean README file that explains how things work
 - Extensible work / code (use variables, limit hardcoded values, etc.)
 
-## Q&A
+## FAQ
 
-- Where should I send back the result when I'm done?
+> Where should I send back the result when I'm done?
 
-Create either a public GitHub repo and push the code there, or simply archive the project and send via an e-mail to us.
+Fork this repo and send us a pull request when you think it's ready for review. You don't have to finish everything prior and you can continue to work on it. We don't have a deadline for the task.
 
-- What if I have question?
+> What if I have a question?
 
-Send us an email to devops@wiredcraft.com or hr@wiredcraft.com 
+Create a new issue in the repo and we will get back to you shortly.
