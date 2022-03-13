@@ -1,0 +1,10 @@
+- include: install.yml
+- include: group.yml
+- include: user.yml
+- include: unarchive.yml
+- include: link.yml
+- include: data.yml
+- include: config.yml
+- include: service.yml
+- include: path.yml
+- include: secure.yml

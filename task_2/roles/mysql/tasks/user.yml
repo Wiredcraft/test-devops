@@ -1,0 +1,3 @@
+- name: create mysql user
+  user: name=mysql uid=306 group=mysql shell=/sbin/nologin system=yes create_home=no home=/data/mysql
+

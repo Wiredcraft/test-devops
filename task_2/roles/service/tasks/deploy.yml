@@ -1,0 +1,9 @@
+- name: docker login
+  shell: docker login -u demo -p demo
+
+- name: docker pull
+  shell: docker pull {{DOCKER_RIGESTRY}}
+
+- name: docker run
+  shell: docker run -p 3000:3000 --env DB_URL={{DB_URL}} --env DB_USERNAME={{DB_USERNAME}} --env DB_PASSWORD={{DB_PASSWORD}} api:latest
+

@@ -1,0 +1,2 @@
+- name: install packages                                            
+  yum: name=libaio,perl-Data-Dumper,perl-Getopt-Long

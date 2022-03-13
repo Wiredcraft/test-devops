@@ -1,0 +1,63 @@
+- name: add group docker
+  group:
+    name: docker
+    gid: 2099
+    state: present
+
+- name: add www user to group docker
+  user:
+    name: www
+    uid: 2000
+    groups: [docker]
+
+- name: install docker prepare
+  yum:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - yum-utils
+    - device-mapper-persistent-data
+    - lvm2
+    - python2-pip
+
+- name: judge zytech
+  stat:
+    path: /etc/yum.repos.d/zytech.repo
+  register: yum_repo_result
+
+- name: yum-clean-metadata
+  command: yum clean metadata
+  args:
+    warn: no
+
+- name: install docker-ce
+  yum:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - containerd
+    - docker-ce
+
+- name: create docker config directory
+  file: 
+    path: "/etc/docker" 
+    owner: www 
+    group: www 
+    mode: 0755 
+    state: directory
+
+- name: copy docker mirrors file
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  loop:
+    - { src: daemon.json, dest: /etc/docker/daemon.json }
+
+- name: restart docker
+  systemd:
+    name: "{{ item }}"
+    state: restarted
+    enabled: yes
+  loop:
+    - docker
+

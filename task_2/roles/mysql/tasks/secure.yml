@@ -1,0 +1,2 @@
+- name: secure script
+  script: secure_mysql.sh

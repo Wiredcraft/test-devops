@@ -1,0 +1,5 @@
+USER: daemon
+LISTEN_PORT: "80"
+SERVER_NAME: "www.wiredcraft.com"
+BACKEND_PORT: "3000"
+

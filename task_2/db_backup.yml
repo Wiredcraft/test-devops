@@ -1,0 +1,13 @@
+---
+- hosts: dbservers
+  remote_user: root
+  
+  tasks:
+    - name: create directory
+      file: path={{ item }} owner=mysql group=mysql mode=0755 state=directory
+      with_items:
+        - /data/backup/
+   
+    - name: db backup
+      shell: mysqldump -u{{DB_USERNAME}} -p{{DB_PASSWORD}} --all-databases > /data/backup/all-timestamp.db
+

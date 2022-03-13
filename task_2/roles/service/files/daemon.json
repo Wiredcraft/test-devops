@@ -1,0 +1,16 @@
+{
+    "log-driver": "json-file",
+    "log-opts": {
+        "max-size": "100m",
+        "max-file": "3"
+   },
+    "max-concurrent-downloads": 10,
+    "max-concurrent-uploads": 10,
+    "registry-mirrors": ["https://registry.wcl.com"],
+    "bip": "172.19.10.1/24",
+    "storage-driver": "overlay2",
+    "storage-opts": [
+        "overlay2.override_kernel_check=true"
+   ]
+}
+

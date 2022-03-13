@@ -1,0 +1,2 @@
+- name: index.html
+  copy: src=roles/httpd/files/index.html dest=/usr/share/nginx/html/
