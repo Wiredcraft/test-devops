@@ -92,6 +92,7 @@ Now you need to prepare a script that will:
 #### Deliverables
 
 - the script to output the actionIds for those wrong replaced lines
+- doc to explain your script
 
 ### Task 2. Configuration management
 
