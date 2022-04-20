@@ -67,7 +67,7 @@ Here is the list of the technologies that we use at Wiredcraft and want you you 
 
 #### Task description
 
-You got a log file from production which is related to the user id. It includes two parts:
+You got a log file from production which is related to the action id. It includes two parts:
 
 - first line `replaced` which is an array of user object.
 - second line `actionId` which is an int action id for the `replaced` users.
