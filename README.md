@@ -79,7 +79,7 @@ replaced = [{"id":"f4043b03-fc59-4d5a-afc7-df79af45dbdf","status":"finished","ac
 actionId = "795571"
 ```
 
-Coz a bug on prod, some lines got the wrong data in `replaced`: the last object becomes a string `ongoing`, e.g.
+Because a bug on prod, some lines got the wrong data in `replaced`: the last object becomes a string `ongoing`, e.g.
 ```
 replaced = [{"id":"2de9f3f5-79d3-4ce6-9a27-e1b74d1c87af","status":"finished","accexp":10},"ongoing"]
 actionId = "1798537"
