@@ -67,19 +67,33 @@ Here is the list of the technologies that we use at Wiredcraft and want you you 
 
 #### Task description
 
-You are working with a website, based on a static site generator ([Hugo](https://gohugo.io/)). Prepare a script that will:
-- create a new post in your site with a random post content (use the output of [`fortune`](http://manpages.ubuntu.com/manpages/xenial/man6/fortune.6.html) command for example)
-- generate the static content of the website
-- git commit changes and push it to upstream repo
+You got a log file from production which is related to the action id. It includes two parts:
 
-A few suggestions / recommendations:
-- Prepare the basic site, plenty of tutorials are available online ([Hugo](https://gohugo.io))
-- Prepare templates for your site generator
+- first line `replaced` which is an array of user object.
+- second line `actionId` which is an int action id for the `replaced` users.
+
+e.g.
+
+```
+replaced = [{"id":"f4043b03-fc59-4d5a-afc7-df79af45dbdf","status":"finished","accexp":20},{"id":"f4043b03-fc59-4d5a-afc7-df79af45dbdf","status":"finished","accexp":10}]
+actionId = "795571"
+```
+
+Because a bug on prod, some lines got the wrong data in `replaced`: the last object becomes a string `ongoing`, e.g.
+```
+replaced = [{"id":"2de9f3f5-79d3-4ce6-9a27-e1b74d1c87af","status":"finished","accexp":10},"ongoing"]
+actionId = "1798537"
+```
+
+Now you need to prepare a script that will:
+
+- output all actionIds for those wrong `replaced` lines in log file [test-1-action-ids.log](./data/test-1-action-ids.log)
+- the output is supposed to be a sorted plain text, one actionId per line. means your script output should be the same as [test-1-action-ids-output.txt](./data/test-1-action-ids-output.txt)
 
 #### Deliverables
 
-- the website folder
-- the script to generate website content/commit and push  to upstream repo
+- the script to output the actionIds for those wrong replaced lines
+- doc to explain your script
 
 ### Task 2. Configuration management
 
