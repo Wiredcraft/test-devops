@@ -1,0 +1,14 @@
+---
+# file: time.yml
+
+- name: Time Zone | Set time zone.
+  shell: "cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime"
+  ignore_errors: true
+
+- name: Time Zone | Set time zone1.
+  shell: "timedatectl set-timezone Asia/Shanghai"
+  ignore_errors: true
+
+- name: Rsyslog | restart rsyslog.
+  systemd: name=rsyslog state=restarted enabled=yes
+  ignore_errors: true

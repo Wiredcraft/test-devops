@@ -1,0 +1,20 @@
+---
+# file: alias.yml
+#
+- name: Alias | Prepare trash directory.
+  file: path=/tmp/.trash state=directory owner=root group=root mode=0777
+
+- name: Alias | Add cron to clean /tmp/.trash peroidly for system.
+  cron:
+    name: "clean /tmp/.trash peroidly"
+    minute: "15"
+    hour: "2"
+    job: "/bin/find /tmp/.trash/* -mtime +1|xargs rm -rf; &> /dev/null"
+
+- name: Alias | Set aliases to forbidden some dangerous commands.
+  copy:
+    src: alias.sh
+    dest: /etc/profile.d/alias.sh
+    owner: root
+    group: root
+    mode: 0644

@@ -1,0 +1,9 @@
+---
+# file: motd.yml
+#
+- name: Welcome Msg | Ensure cowsay installed.
+  yum: name=cowsay state=present
+
+- name: Weclome Msg | add to preofile
+  shell: "echo 'cowsay Welcome to IT servers, Please be careful with it. Now is:  `hostname`' >> /etc/profile"
+

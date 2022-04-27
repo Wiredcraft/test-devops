@@ -1,0 +1,10 @@
+---
+# file: history.yml
+
+- name: History | Add time to histpry.
+  copy:
+    src: history.sh
+    dest: /etc/profile.d/history.sh
+    owner: root
+    group: root
+    mode: 0644

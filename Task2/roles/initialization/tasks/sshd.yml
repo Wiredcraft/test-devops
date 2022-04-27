@@ -1,0 +1,27 @@
+---
+# sshd.yml
+#
+
+- name: SSH | Disable Password Auth
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^PasswordAuthentication "
+    line: "PasswordAuthentication no"
+    state: present
+
+- name: SSH | Ensure Pubkey Auth
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "PubkeyAuthentication yes"
+    line: "PubkeyAuthentication yes"
+    state: present
+
+- name: SSH | Disable UseDNS
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^UseDNS"
+    line: "UseDNS no"
+    state: present
+
+- name: SSH | Restart sshd service
+  systemd: name=sshd state=reloaded enabled=yes

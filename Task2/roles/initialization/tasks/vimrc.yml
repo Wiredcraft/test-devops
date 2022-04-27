@@ -1,0 +1,18 @@
+---
+# file: vimrc.yml
+#
+- name: Vim | set vim encoding for it
+  copy:
+    src: vimrc
+    dest: /home/it/.vimrc
+    owner: it
+    group: it
+    mode: 0664
+
+- name: Vim | set vim encoding for root
+  copy:
+    src: vimrc
+    dest: /root/.vimrc
+    owner: root
+    group: root
+    mode: 0664

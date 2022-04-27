@@ -1,0 +1,12 @@
+---
+# file: directory
+#
+- name: Pre_Directory | Ensure common directory.
+  file: path={{ item }} owner=it group=it mode=0755 state=directory
+  with_items:
+    - "{{ soft }}"
+    - "{{ app }}"
+    - "{{ data }}"
+    - "{{ logs }}"
+    - "{{ publish }}"
+    - "{{ unarchive }}"

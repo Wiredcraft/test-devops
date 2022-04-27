@@ -1,0 +1,20 @@
+---
+# file: common_software.yml
+#
+- name: Yum | enable epel
+  yum:
+    name: epel-release
+    state: present
+
+- name: Yum | Update software.
+  shell: yum update -y
+  #yum:
+  #  update_only: true
+  ignore_errors: true
+
+- name: Yum | Install common software.
+  yum: 
+    name: [ 'net-tools','bash-completion', 'bind-utils', 'iftop', 'htop', 'iotop', 'libselinux-python', 'zip', 'unzip', 'gzip', 'bzip2', 'bzip2-devel', 'bzip2-libs', 'strace', 'lsof', 'nc',
+'git', 'telnet', 'vim', 'wget', 'ftp', 'dstat', 'tree', 'nss', 'iptraf', 'glances', 'supervisor', 'openssl', 'openssl-devel', 'ca-certificates', 'lrzsz']
+    state: present
+  ignore_errors: true

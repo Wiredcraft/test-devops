@@ -1,0 +1,14 @@
+---
+###
+
+- name: Disk | Partition new disk.
+  shell: /bin/echo -e "g\nn\np\n1\n\n\nw" | sudo fdisk /dev/vdb
+
+- name: Disk | Make filesystem on new disk.
+  filesystem: dev=/dev/vdb1 fstype=ext4 force=no resizefs=yes
+
+- name: Disk | Pre dir for disk.
+  file: path=/data owner=it group=it mode=0755 state=directory
+
+- name: Mount | Mount disk to /data.
+  mount: name=/data src=/dev/vdb1 fstype=ext4 opts=defaults state=mounted

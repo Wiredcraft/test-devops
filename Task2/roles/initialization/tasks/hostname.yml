@@ -1,0 +1,7 @@
+---
+# file: hostname.yml
+#
+
+- name: hostname | Change hostname for Host
+  shell: hostnamectl set-hostname {{ inventory_hostname }}
+  ignore_errors: true

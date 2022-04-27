@@ -1,0 +1,10 @@
+---
+# file: selinux.yml
+
+- name: selinux | setenforce 0
+  shell: "setenforce 0"
+  ignore_errors: true
+
+- name: selinux | Disable selinux
+  selinux: state=disabled
+  ignore_errors: true

@@ -1,0 +1,36 @@
+---
+## file: main.yml
+- name: User | add group
+  group:
+    name: it
+    state: present
+  ignore_errors: yes
+
+- name: User | yum install selinux-python
+  yum:
+    name: libselinux-python
+    state: present
+
+- name: User | add user
+  user:
+    name: it
+    group: it
+    groups: wheel
+    shell: /bin/bash
+    comment: "deploy user"
+    generate_ssh_key: yes
+    ssh_key_comment: "it@{{ inventory_hostname }}"
+    state: present
+
+- name: User | sudo nopass
+  copy:
+    src: it-users
+    dest: /etc/sudoers.d/it-users
+
+- name: SSH-key | add some public keys to user it
+  authorized_key:
+    user: it
+    key: "{{ item }}"
+    state: present
+  with_file:
+    - root_ctrl

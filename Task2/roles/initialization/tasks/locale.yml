@@ -1,0 +1,11 @@
+---
+# file: locale.yml
+#
+- name: charset | initial the charset to en_US.UTF-8
+  lineinfile:
+    dest: /etc/profile
+    regexp: '^export {{ item }}'
+    line: 'export {{ item }}=en_US.UTF-8'
+    state: present
+  with_items:
+    - LANG

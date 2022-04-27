@@ -1,0 +1,12 @@
+---
+
+# core set
+core_dump: "yes"
+
+# directory set
+soft: /data/soft
+app: /data/app
+data: /data/data
+logs: /data/logs
+publish: /data/publish
+unarchive: /data/unarchive

@@ -1,0 +1,15 @@
+---
+###
+
+- import_tasks: locale.yml
+- import_tasks: alias.yml
+- import_tasks: common_software.yml
+- import_tasks: directory.yml
+- import_tasks: kernel.yml
+- import_tasks: history.yml
+- import_tasks: hostname.yml
+- import_tasks: motd.yml
+- import_tasks: selinux.yml
+- import_tasks: vimrc.yml
+- import_tasks: time.yml
+- import_tasks: sshd.yml
