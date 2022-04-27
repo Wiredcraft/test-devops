@@ -1,0 +1,15 @@
+---
+# A unified entry point for all playbook scheduling.
+- hosts: api-server
+  become: false
+  become_method: sudo
+  become_user: root
+  roles:
+     - init_user
+     - init_disk
+     - initialization
+     - install_docker
+     - install_mysql
+     - deploy_server
+     - install_nginx
+     - backup_mysql
