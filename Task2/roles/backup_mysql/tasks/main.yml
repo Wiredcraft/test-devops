@@ -1,0 +1,23 @@
+---
+# tasks file for mysql-backup
+
+- name: mysql backup | install mariadb client
+  become: true
+  yum:
+    pkg: mariadb
+    state: present
+
+- name: mysql backup | create backup directory
+  become: true
+  file:
+    path: "{{ mysql_backup_dir }}"
+    recurse: true
+    state: directory
+    mode: 0755
+
+- name: mysql backup | create cron job
+  become: true
+  template:
+    src: etc-crond-mysql-backup.j2
+    dest: /etc/cron.{{ mysql_backup_frequency }}/mysql-backup
+    mode: 0755
