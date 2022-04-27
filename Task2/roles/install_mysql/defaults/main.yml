@@ -1,0 +1,23 @@
+---
+
+mysql_port: 3306
+mysql_bind_address: "0.0.0.0"
+mysql_root_db_pass: foobar
+
+
+mysql_db_id: 1
+mysql_repl_role: master
+
+mysql_repo_url: https://dev.mysql.com/get/mysql80-community-release-el7-6.noarch.rpm
+mysql_yum_gpg_key: 
+
+mysql_pkgs:
+  - libselinux-python
+  - mysql-server
+  - MySQL-python
+
+mysql_service: mysqld
+
+mysql_conf_dir: "/etc/"
+
+mysql_sql_mode: STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
