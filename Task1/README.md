@@ -1,6 +1,11 @@
 # Description
 > A shell script that finds and sorts wrong data in the log
 
+In this task, I find the wrong data in the following steps:
+1. Find the line number where the wrong data is located
+2. Find the data of the next line through the line number in step 1 and intercept the id and output it to the file
+3. Sort the data obtained in step 2
+
 ## Variables
 ```bash
 #  logFile ：The path to the log file that needs to be processed

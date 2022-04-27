@@ -44,7 +44,7 @@ do
   echo "">> $outputPath$outputFile
 done <  $tempFile
 
-# Clear temporary files
+# Clear temporary file
 rm $tempFile
 
 # Sort output file
