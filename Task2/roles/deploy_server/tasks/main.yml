@@ -1,0 +1,15 @@
+---
+
+- include_tasks: configure.yml
+  when: ansible_os_family == 'RedHat'
+
+- name: API | run container
+  community.docker.docker_container:
+    name: 'apiserver'
+    image: '{{ docker_image }}'
+    ports:
+      - 3000:3000
+    env:
+      MYSQL_ROOT_PASSWORD: '{{ db_url }}'
+      DB_USERNAME: '{{ db_username }}'
+      DB_PASSWORD: '{{ db_password }}'

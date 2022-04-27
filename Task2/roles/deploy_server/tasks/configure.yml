@@ -1,0 +1,14 @@
+- name: API | install pip
+  yum: 
+    name: python-pip
+    state: present
+
+- name: API | docker python module
+  pip:
+    name: docker
+- name: 'login to registry'
+  ansible.builtin.docker_login:
+    registry: '{{ docker_registry }}'
+    username: '{{ docker_registry_username }}'
+    password: '{{ docker_registry_password }}'
+    reauthorize: yes
