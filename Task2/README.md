@@ -1,7 +1,9 @@
 # Description
 > Ansible playbook initializes the server and installs some runtime environments
 
-# Roles
+In this task, I split the task into the following roles：
+
+## Roles
 ### initialization
 * Modify time zone and time
 * Upgrade and install basic software
