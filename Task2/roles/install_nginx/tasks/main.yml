@@ -1,0 +1,14 @@
+---
+# nginx: main.yml
+
+- name: Nginx | Installed nginx
+  yum:
+    name: nginx
+    state: present
+
+- name: Nginx | Copy configuration file api_server.conf
+  template: src=api_server.conf.j2 dest=/etc/nginx/conf.d/api_server.conf
+
+- name: Nginx | Start nginx
+  systemd: name=nginx.service enabled=yes daemon_reload=yes state=started
+  ignore_errors: true
