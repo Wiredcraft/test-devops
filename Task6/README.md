@@ -14,7 +14,7 @@ cd.yaml；
 ## Prerequisites
 
 1. Create an Alibaba Cloud Container Registry: [Container Registry](https://cr.console.aliyun.com/cn-shanghai/instances)
-2.Creating encrypted secrets for a repository :[encrypted secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets)
+2. Creating encrypted secrets for a repository :[encrypted secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets)
 Secrets should contain the following values：
 ```
 DOCKER_REPOSITORY: // The public address of the Alibaba Cloud Container Registry repository.
