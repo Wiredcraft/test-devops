@@ -1,0 +1,70 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "description": "The purpose of this service is to provide an application\nthat is using plain go code to define an API",
+    "version": "1.0.0",
+    "title": "Task Api",
+    "contact": {
+      "email": "swq1227@gmail.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:9090"
+    }
+  ],
+  "paths": {
+    "/welcome": {
+      "get": {
+        "summary": "get a welcome message",
+        "operationId": "get",
+        "responses": {
+          "200": {
+            "description": "operation ok",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "Hello, <Name>"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "set name",
+        "operationId": "update",
+        "requestBody": {
+          "description": "Name object that needs to be added to the store",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "msg": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "No return value",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": null
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
