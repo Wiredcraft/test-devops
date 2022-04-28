@@ -28,6 +28,7 @@ HOST_PASSWORD： // Host password
 ## Quickstart
 1. Create a `.github/workflows` directory in your repository on GitHub if this directory does not already exist.
 
+
 2. Creating your [workflow](https://docs.github.com/en/actions/quickstart)
 Copy the ci.yaml and cd.yaml to `.github/workflows/`.
 
