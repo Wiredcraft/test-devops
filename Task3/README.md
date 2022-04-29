@@ -7,15 +7,7 @@ Create an Elastic Compute Service (ECS) instance by using Terraform on Alibaba C
 
 # Prerequisites
 
-Before you begin, ensure that you have completed the following operations:
-- Prepare an Alibaba Cloud account and an AccessKey pair (AccessKey ID and AccessKey secret) to use Terraform. You can go to the [Security Management](https://usercenter.console.aliyun.com/?spm=a2c63.p38356.0.0.402519dbawMNu3#/manage/ak) page of the Alibaba Cloud console to create or view your AccessKey pair.
-- Install and configure Terraform.
-- Create an environment variable to store authentication information
-```bash
-export ALICLOUD_ACCESS_KEY="LTAIUrZCw3********"
-export ALICLOUD_SECRET_KEY="zfwwWAMWIAiooj14GQ2*************"
-export ALICLOUD_REGION="cn-hangzhou"
-```
+Install and configure Terraform : [AliCloud doc](https://www.alibabacloud.com/help/en/elastic-compute-service/latest/install-and-configure-terraform-on-your-computer)
 
 
 # Get Started
