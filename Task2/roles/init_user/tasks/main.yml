@@ -2,7 +2,7 @@
 ## file: main.yml
 - name: User | add group
   group:
-    name: it
+    name: {{ user }}
     state: present
   ignore_errors: yes
 
@@ -13,8 +13,8 @@
 
 - name: User | add user
   user:
-    name: it
-    group: it
+    name: {{ user }}
+    group: {{ group }}
     groups: wheel
     shell: /bin/bash
     comment: "deploy user"
@@ -29,7 +29,7 @@
 
 - name: SSH-key | add some public keys to user it
   authorized_key:
-    user: it
+    user: {{ user }}
     key: "{{ item }}"
     state: present
   with_file:

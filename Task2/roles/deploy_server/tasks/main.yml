@@ -1,7 +1,6 @@
 ---
 
 - include_tasks: configure.yml
-  when: ansible_os_family == 'RedHat'
 
 - name: API | run container
   community.docker.docker_container:

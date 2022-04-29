@@ -5,8 +5,8 @@
   copy:
     src: vimrc
     dest: /home/it/.vimrc
-    owner: it
-    group: it
+    owner: {{ user }}
+    group: {{ group }}
     mode: 0664
 
 - name: Vim | set vim encoding for root

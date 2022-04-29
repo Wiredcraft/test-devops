@@ -1,5 +1,5 @@
 # Ansible Role: deploy api
-> An ansible role to deploy a api server.
+> An ansible role to deploy a api server to RedHat.
 
 # Installation
 ```bash
