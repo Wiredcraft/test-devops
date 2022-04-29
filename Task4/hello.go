@@ -21,8 +21,12 @@ const DEFAULT_MSG string = "Hello, Wiredcraft!"
 // GetMethod: get name from cache or db(cache does not exit)
 func GetMethod(w http.ResponseWriter) {
 	if nameCache == "" {
-		nameFromDB = redisGet("name")
 		log.Println("Cache does not exist")
+		nameFromDB, err := redisGet("name")
+		if err != nil {
+			log.Panicf("Get value failed,err:%v", err)
+			log.Printf("Return DEFAULT_MSG.")
+		}
 		if nameFromDB == "" {
 			log.Println("DB is null")
 			fmt.Fprint(w, DEFAULT_MSG)
@@ -40,13 +44,17 @@ func GetMethod(w http.ResponseWriter) {
 func PutMethod(w http.ResponseWriter, r *http.Request) {
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
-		fmt.Printf("read body err, %v\n", err)
+		log.Panicf("read body err, %v\n", err)
 		return
 	}
 	json.Unmarshal([]byte(string(body)), &name)
 	nameCache = name.Name
-	redisSet("name", nameCache)
-	log.Println("set db successful")
+	err = redisSet("name", nameCache)
+	if err != nil {
+		log.Panicf("set db failed,err:%v", err)
+	} else {
+		log.Println("set db successful")
+	}
 }
 
 func SayHelloName(w http.ResponseWriter, r *http.Request) {

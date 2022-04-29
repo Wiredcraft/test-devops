@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"time"
 
@@ -15,7 +14,7 @@ var rdb *redis.Client
 func initClient() (err error) {
 	config, err := getRedisConfig()
 	if err != nil {
-		log.Printf("Get config file error: %v", err)
+		log.Fatalf("Get config file error: %v", err)
 	}
 	rdb = redis.NewClient(&redis.Options{
 		Addr:     config.Redis.Addr,
@@ -31,27 +30,28 @@ func initClient() (err error) {
 }
 
 // get key from redis
-func redisGet(key string) string {
-	if err := initClient(); err != nil {
-		return ""
+func redisGet(key string) (val string, err error) {
+	if err = initClient(); err != nil {
+		return
 	}
-	val, err := rdb.Get(key).Result()
+	val, err = rdb.Get(key).Result()
 	if err == redis.Nil {
-		fmt.Println("name does not exist")
-		return ""
+		log.Println("name does not exist")
+		return
 	} else if err != nil {
-		fmt.Printf("get name failed, err:%v\n", err)
-		return ""
+		log.Println("get name failed, err:%v\n", err)
+		return
 	} else {
-		return val
+		return
 	}
 }
 
 // set key
-func redisSet(key string, value string) {
-	err := rdb.Set(key, value, 0).Err()
+func redisSet(key string, value string) (err error) {
+	err = rdb.Set(key, value, 0).Err()
 	if err != nil {
-		fmt.Printf("set failed, err:%v\n", err)
+		log.Panicf("Set failed, err:%v\n", err)
 		return
 	}
+	return
 }
