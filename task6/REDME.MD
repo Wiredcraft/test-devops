@@ -1,0 +1,1 @@
+The CI/CD I understand with pipline, I copy the jenkins create the pipline's script. The workflow is about: first, pull the code from gitlab, secondly, build docker image, thirdly, push the image to the Harbor, the last, deploy the service,

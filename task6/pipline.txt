@@ -1,0 +1,42 @@
+pipeline {
+    agent  any{
+        
+		environment {
+		        harbroUser = 'admin'
+				harborPassword = '123456'
+				harborAddress = '192.168.1.1:80'
+				harborRepo = repo
+        }
+    
+    }
+    stages{
+        stage('Pull the code from gitlab') {
+            steps {
+                checkout([$class:'GitSCM'branches:[[name:'{$version}']], extensioins:[],userRemoteConfigs:[[url:'http://192.168.1.1:8929/
+	root/demo.git']]])
+            }
+        }
+        stage("Build docker image") {
+            steps { 
+			       sh '''mv ./target/*.py ./docker/
+	    docker build -t ${JOB_NAME}:${version} ./docker/'''
+                
+                    }
+        }
+        stage("Push the image to the Harbor") {
+            steps { 
+			      sh '''docker login -u ${$harbroUser} -p ${harborPassword} ${harborAddress}
+		docker tag ${JOB_NAME}:${tag} ${harborAddress}/${harborRepo}/${JOB_NAME}:${tag}
+		docker push ${harborAddress}/${harborRepo}/${JOB_NAME}:${tag} '''
+                    }
+        }
+        stage("Deploy the service") { 
+            steps { 
+			      sshPublisher(publishers: [sshPublisherDesc(configName: 'demo',transfers: [sshTransfer(cleanRemot: false, excludes: '',
+		execCommond: "deploy.sh $harborAddress $harborRepo $JOB_NAME $tag $container_port $host_port", execTimeout: 120000, flatten: false, makeEmptyDirs:
+		false, noDefaultExculdudes: false, patternSeparator: '[, ]+' remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '',sourceFiles: '')],
+		usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)]}
+                    }
+       
+        }
+    }

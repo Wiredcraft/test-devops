@@ -1,0 +1,14 @@
+---
+- name: Start api services
+  docker: 
+    name: demo-api
+    image: registry.wcl.com/wcl/api:latest
+    state: started
+    env:
+      username: demo
+      passwrod: demo
+    ports:
+    - "3000:3000"
+
+- name: Wait for api services to be up
+  wait_for: delay=60 port=3000
