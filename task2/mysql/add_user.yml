@@ -1,0 +1,7 @@
+---
+- name: add_mysql_usr
+  user:
+    name: "{{ user }}"
+    shell: /bin/bash
+  tags:
+    - add_mysql_usr

@@ -1,0 +1,13 @@
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: pc-hpa
+  namespace: dev
+spec:
+  minReplicas: 1 
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 3
+  scaleTargetRef:
+    apiVersion:  /v1
+    kind: Deployment
+    name: demo

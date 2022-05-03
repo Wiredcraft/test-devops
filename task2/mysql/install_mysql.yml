@@ -1,0 +1,99 @@
+---
+- name: create work_directory
+  file:
+    path: "{{ mysql_install_path }}"
+    state: directory
+    owner: "{{ user }}"
+    group: "{{ group }}"
+    recurse: yes
+   
+- name: copy_mysql_tar
+  copy:
+    src: "{{ mysql_version }}.tar.gz"
+    dest: "{{ mysql_install_path }}"
+    owner: "{{ user }}"
+    group: "{{ group }}"
+  tags:
+    - copy_mysql_tar
+
+- name: unarchive_mysql_tar
+  unarchive:
+    src: "{{ mysql_install_path }}/{{ mysql_version }}.tar.gz"
+    dest: "{{ mysql_install_path }}"
+    copy: no
+    owner: "{{ user }}"
+    group: "{{ group }}" 
+  tags:
+    - unarchive_mysql_tar
+    
+- name: link_mysql
+  file:
+    src: "{{ mysql_install_path }}/{{ mysql_version }}"
+    dest: "{{ mysql_install_path }}"
+    owner: "{{ user }}"
+    group: "{{ group }}"
+    state: link
+  tags:
+    - link_mysql
+
+- name: create data_directory
+  file:
+    path: "{{ mysql_install_path }}/{{ mysql_link }}/data"
+    state: directory
+    owner: "{{ user }}"
+    group: "{{ group }}"
+
+- name: copy_my.cnf
+  template:
+    src: my.cnf.j2
+    dest: /etc/my.cnf
+  tags:
+    - copy_my.cnf
+
+- name: init_mysql
+  shell: ./bin/mysqld --initialize  --user=mysql
+  args:
+    chdir: "{{ mysql_install_path }}/{{ mysql_link }}"
+  tags: 
+    - init_mysql
+    
+- name: get_mysql_passwd
+  shell: cat ./error.log |grep localhost|grep "temporary password"|awk '{print $NF}'
+  register: mysql_init_passwd
+  args:  
+    chdir: "{{ mysql_install_path }}/{{ mysql_link }}"
+  tags: 
+    - get_mysql_passwd
+
+- name: dispaly_passwd
+  debug: 
+    msg: "{{ mysql_init_passwd.stdout }}"
+  tags:
+    - dispaly_passwd
+
+- name: copy_mysql.server
+  template: 
+    src: mysql.service.j2
+    dest: "/etc/init.d/mysql.server"
+    mode: 0755
+  tags:
+     - copy_mysql.server
+
+- name: add_mysql_systemd
+  template:
+    src: mysql.service.j2
+    dest: /etc/systemd/system/mysql-{{ mysql_port }}.service
+  tags:
+    - add_mysql_systemd
+
+- name: start_mysql_service
+  command: /etc/init.d/mysql.server start
+  tags:
+    - start_mysql_service
+
+- name: alter_passwd
+  shell: ./bin/mysqladmin -u root -p'{{mysql_init_passwd.stdout}}' password '{{ mysql_root_passwd }}'
+  args:
+    chdir: "{{ mysql_install_path }}/{{ mysql_link }}"
+  tags:
+    - alter_passwd

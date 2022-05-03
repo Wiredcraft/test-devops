@@ -1,0 +1,62 @@
+---
+- name: 01_configure_base_repos
+  get_url: url=http://mirrors.aliyun.com/repo/Centos-7.repo dest=/etc/yum.repos.d/CentOS-Base.repo
+
+- name: 02_configure_epel_repos
+  get_url: url=http://mirrors.aliyun.com/repo/epel-7.repo dest=/etc/yum.repos.d/epel.repo
+
+- name: 03_install_server
+  yum: name={{ item }} state=installed
+  loop:
+    - wget
+    - lrzsz
+    - lsof
+    - nmap
+    - telnet
+    - tree
+    - vim
+    - ntsysv
+    - unzip
+    - sysstat
+    - ntpdate
+    - iotop
+    - iftop
+  ignore_errors: yes
+  tags: t3
+
+- name: 05_close firewalld
+  systemd: name=firewalld state=stopped enabled=no
+
+- name: 06_set_timezone
+  shell: timedatectl set-timezone Asia/Shanghai
+
+- name: 07_time_update
+  cron: name="ntpdate" minute="*/5" job="/usr/sbin/ntpdate time1.aliyun.com >/dev/null 2>&1"
+  ignore_errors: yes
+
+- name: 08_set_sshd
+  become: true
+  block:
+
+    - name: Ensure SSHD server is installed
+      package:
+        name: openssh-server
+        state: present
+
+    - name: Ensure SSHD server service is running
+      systemd:
+        daemon_reload: true
+        enabled: true
+        name: sshd.service
+        state: started
+
+    - name: Configure sshd_config
+      template:
+        src: templates/sshd_config.j2
+        dest: /etc/ssh/sshd_config
+        owner: root
+        group: root
+        mode: '0600'
+        backup: true
+        validate: /sbin/sshd -t -f %s
+      notify: restart sshd
