@@ -87,8 +87,8 @@ actionId = "1798537"
 
 Now you need to prepare a script that will:
 
-- output all actionIds for those wrong `replaced` lines in log file [test-1-action-ids.log](./data/test-1-action-ids.log)
-- the output is supposed to be a sorted plain text, one actionId per line. means your script output should be the same as [test-1-action-ids-output.txt](./data/test-1-action-ids-output.txt)
+- output all actionIds for those wrong `replaced` lines in log file [test-1-action-ids.log](data/test-1-action-ids.log)
+- the output is supposed to be a sorted plain text, one actionId per line. means your script output should be the same as [test-1-action-ids-output.txt](data/test-1-action-ids-output.txt)
 
 #### Deliverables
 

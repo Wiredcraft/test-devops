@@ -1,0 +1,59 @@
+- name: disable swap
+  shell: "swapoff -a && sysctl -w vm.swappiness=0"
+  ignore_errors: true
+
+- name: delete fstab swap configuration
+  lineinfile:
+    path: /etc/fstab
+    regexp: 'swap'
+    state: absent
+    backup: 'yes'
+  ignore_errors: true
+
+- name: install yum-utils
+  yum: name=yum-utils state=installed
+
+- name: add docker repo
+  shell: "yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo "
+
+# Install docker and mosh
+# Mosh is used to ensure that maintainer can login the server without sshd
+- name: install app
+  yum: name={{ item }} state=installed
+  with_items:
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io
+    - docker-compose-plugin
+    - mosh
+
+# docker-py is needed by ansible docker module
+# docker-compose is used to run containers using docker-compose.yml
+#- name: install docker-py and docker-compose with pip
+#  pip: name={{ item }}
+#  with_items:
+#    - docker-py
+#    - docker-compose
+
+- name: ensure mosh is running
+  systemd:
+    deamon_reload: true
+    enable: true
+    name: mosh.service
+    state: started
+
+- name: create a tmp iptables rule for mosh
+  shell: "iptables -I INPUT -p udp --dport 60001 -j ACCEPT"
+
+- name: ensure docker is running
+  systemd:
+    daemon_reload: true
+    enable: true
+    name: docker.service
+    state: started
+
+- name: create user
+  shell: "useradd {{ api_user }}"
+
+- name: add user to docker group
+  shell: "usermod -aG docker {{ api_user }}"

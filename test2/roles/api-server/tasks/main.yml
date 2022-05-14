@@ -1,0 +1,13 @@
+- name: run an API service
+  docker_container:
+    name: api-server
+    image: registry.wcl.com/wcl/api:latest
+    env:
+      DB_URL: database:3306
+      DB_USERNAME: {{ db_user }}
+      DB_PASSWORD: {{ db_password }}
+    state: started
+    links:
+      - "percona57:database"
+    ports:
+      - "3000:3000"

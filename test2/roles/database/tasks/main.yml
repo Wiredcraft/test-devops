@@ -1,0 +1,21 @@
+- name: run a percona-server-57 container
+  docker_container:
+    name: percona57
+    image: percona/percona-server:5.7
+    env:
+      MYSQL_USER: {{ db_user }}
+      MYSQL_PASSWORD: {{ db_password }}
+      MYSQL_DATABASE: {{ db_database }}
+      MYSQL_ROOT_PASSWORD: {{ db_root_password }}
+    state: started
+    ports:
+      - "8091:3306"
+
+# Create a cronjob to fully backup percona-server everyday
+# Percona Xtrabackup is a open-source, free MySQL hot backup software
+- name: configure backup for percona-server with Xtrabackup
+  cron:
+    name: full backup percona-server
+    minute: 59
+    hour: 23
+    job: /usr/bin/docker run -v /data:/target --link percona57:database -e BACKUP_MODE=FULL -e MYSQL_HOST=database -e MYSQL_PORT=3306 -e MYSQL_USER=root -e MYSQL_PASSWORD={{ db_root_password }} ipunktbs/xtrabackup

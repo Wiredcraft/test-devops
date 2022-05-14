@@ -1,0 +1,10 @@
+[test2]
+192.168.1.1
+
+[test2:vars]
+ansible_ssh_pass = daryl@ssh@password
+api_user = daryl
+db_user = daryl
+db_database = daryl
+db_password = daryl@db@password
+db_root_password = root@db@password
