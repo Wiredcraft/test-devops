@@ -1,0 +1,8 @@
+- hosts:
+    - test2
+  roles:
+    - node-init
+    - database
+    - api-server
+    - web-server
+    - reload-sshd

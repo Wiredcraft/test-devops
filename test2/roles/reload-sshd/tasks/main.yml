@@ -1,0 +1,18 @@
+# Reload sshd.service is a very dangerous operation
+# We must start a mosh service before reloading sshd in case sshd server reload fails
+# This sshd_config is just a demo file, it was copied from somewhere
+- name: copy sshd_config
+  copy:
+    src: sshd_config
+    dest: /etc/ssh/sshd_config
+    owner: root
+    group: root
+    mode: '0600'
+
+# dangerous!
+- name: reload sshd
+  systemd:
+    name: sshd.service
+    state: reloaded
+
+

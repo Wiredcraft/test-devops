@@ -2,6 +2,15 @@
   shell: "swapoff -a && sysctl -w vm.swappiness=0"
   ignore_errors: true
 
+#- name: open nginx and mosh firewall port
+#  shell: "firewall-cmd --add-port=80/tcp --permanent"
+
+- name: stop firewall
+  systemd:
+    name: firewalld.service
+    state: stopped
+    enable: no
+
 - name: delete fstab swap configuration
   lineinfile:
     path: /etc/fstab
@@ -42,8 +51,8 @@
     name: mosh.service
     state: started
 
-- name: create a tmp iptables rule for mosh
-  shell: "iptables -I INPUT -p udp --dport 60001 -j ACCEPT"
+#- name: create a tmp iptables rule for mosh
+#  shell: "iptables -I INPUT -p udp --dport 60001 -j ACCEPT"
 
 - name: ensure docker is running
   systemd:

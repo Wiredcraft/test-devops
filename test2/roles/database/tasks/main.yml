@@ -9,7 +9,8 @@
       MYSQL_ROOT_PASSWORD: {{ db_root_password }}
     state: started
     ports:
-      - "8091:3306"
+      - "3306:3306"
+#      - "8091:3306"
 
 # Create a cronjob to fully backup percona-server everyday
 # Percona Xtrabackup is a open-source, free MySQL hot backup software
