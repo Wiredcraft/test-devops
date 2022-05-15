@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    k8s-app:  daryl-name-api
+  name: daryl-name-api
+  namespace: daryl-test
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      k8s-app:  daryl-name-api
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        k8s-app:  daryl-name-api
+    spec:
+      containers:
+      - env:
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: redis-password
+              key: password
+        - name: FLASK_RUN_HOST
+          value: 0.0.0.0
+        - name: REDIS_HOST
+          value: redis
+        - name: PORT
+          value: 5000
+        image: daryl-api:1.0
+        imagePullPolicy: Always
+        name: daryl-name-api
+        ports:
+        - containerPort: 5000
+          name: api
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 300m
+            memory: 300Mi
+          requests:
+            cpu: 150m
+            memory: 100Mi
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always

@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: traefik-v1
+    traefik.ingress.kubernetes.io/affinity: "true"
+    traefik.ingress.kubernetes.io/session-cookie-name: "api"
+  labels:
+    app: daryl-name-api
+  name: daryl-name-api
+  namespace: daryl-test
+spec:
+  rules:
+  - host: daryl-api.hijhome.fun
+    http:
+      paths:
+      - backend:
+          service:
+            name: daryl-name-api
+            port:
+              number: 5000
+        path: /
+        pathType: ImplementationSpecific

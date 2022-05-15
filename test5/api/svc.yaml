@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: daryl-name-api
+  namespace: daryl-test
+spec:
+  ports:
+  - name: api
+    port: 5000
+    protocol: TCP
+    targetPort: api
+  selector:
+    k8s-app: daryl-name-api
+  sessionAffinity: ClientIP
+  type: ClusterIP
