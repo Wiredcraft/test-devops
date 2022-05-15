@@ -10,6 +10,8 @@ docker run -p 5000:5000 -d daryl-api:1.0
 | -------------- | ------------- | -------- |
 | FLASK_RUN_HOST | 0.0.0.0       | true     |
 | REDIS_HOST     | 192.168.1.137 | true     |
+| PORT           | 5000          | true     |
+| REDIS_PASSWORD | null          | true     |
 
 ### API Spec
 

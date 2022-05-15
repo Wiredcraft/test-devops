@@ -8,12 +8,13 @@ from pydantic import BaseModel, Field
 
 # Use redis to store data
 # Use flask-caching for local cache
+redis_password = os.getenv('REDIS_PASSWORD')
 port = os.getenv('PORT', default='5000')
 redis_host = os.getenv('REDIS_HOST', default='192.168.1.137')
 info = Info(title='Test4 API', version='1.0.0')
 app = OpenAPI(__name__, info=info)
 tag = Tag(name='Name API', description="The API about Name")
-database = redis.StrictRedis(host=redis_host, port=6379, db=0)
+database = redis.StrictRedis(host=redis_host, port=6379, db=0, password=redis_password)
 config = {
     "CACHE_TYPE": "SimpleCache",  # Flask-Caching related configs
     "CACHE_DEFAULT_TIMEOUT": 300
