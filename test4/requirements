@@ -1,0 +1,5 @@
+flask-caching==1.10.1
+flask==2.1.1
+flask-openapi3==1.1.4
+pydantic==1.9.0
+redis==4.0.1

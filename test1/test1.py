@@ -3,6 +3,7 @@ file_path = '../data/test-1-action-ids.log'
 b = open('test-1-action-ids-output.txt', 'w')
 
 with open(file_path, 'r') as a:
+
     # loop with iterator
     for i in a:
         # split line:
