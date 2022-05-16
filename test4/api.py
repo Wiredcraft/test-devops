@@ -10,7 +10,7 @@ from pydantic import BaseModel, Field
 # Use flask-caching for local cache
 redis_password = os.getenv('REDIS_PASSWORD')
 port = os.getenv('PORT', default='5000')
-redis_host = os.getenv('REDIS_HOST', default='192.168.1.137')
+redis_host = os.getenv('REDIS_HOST', default='redis')
 info = Info(title='Test4 API', version='1.0.0')
 app = OpenAPI(__name__, info=info)
 tag = Tag(name='Name API', description="The API about Name")
