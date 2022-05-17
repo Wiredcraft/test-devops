@@ -1,0 +1,65 @@
+name: Test4 image build action
+
+on:
+  pull_request:
+    branches:
+      - main
+    type:
+      - closed
+
+jobs:
+  build_image:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Login harbor
+        env:
+          HARBOR_HOST: ${{ secrets.HARBOT_HOST }}
+          DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
+          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+        run: |
+          echo "${DOCKER_PASSWORD}" | docker login ${HARBOR_HOST} --username ${DOCKER_USERNAME} --password-stdin
+
+      - name: Build and Push Image
+        env:
+          HARBOR_HOST: ${{ secrets.HARBOT_HOST }}
+        run: |
+          commit="${{ github.event.commits[0].id }}" \
+          && docker build . -t ${HARBOR_HOST}/daryl-api:${commit:0:7} \
+          && docker push ${HARBOR_HOST}/daryl-api:${commit:0:7}
+
+  deploy_app:
+    needs: build_image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Scp files
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          password: ${{ secrets.REMOTE_PASS }}
+          source: "redis.conf"
+          taget: "/etc/redis/redis.conf"
+
+      - name: Deploy app
+        uses: cross-the-world/ssh-pipeline@master
+        env:
+          HARBOR_HOST: ${{ secrets.HARBOT_HOST }}
+          REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
+          COMMIT: ${{ github.event.commits[0].id }}
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          user: ${{ secrets.REMOTE_USER }}
+          pass: ${{ secrets.REMOTE_PASS }}
+          connect_timeout: 10s
+          script: |
+            docker run -d -v /etc/redis/redis.conf:/etc/redis/redis.conf --name redis redis:7.0.0 redis-server /etc/redis/redis.conf
+            docker run -d -e REDIS_PASSWORD=$REDIS_PASSWORD --link redis:redis --name test4-api ${HARBOR_HOST}/daryl-api:${COMMIT:0:7}
